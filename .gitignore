@@ -13,3 +13,10 @@
 .externalNativeBuild
 .cxx
 local.properties
+/.idea
+**/.idea
+*/.idea
+.idea/
+.idea\**
+.idea/**.xml
+google-services.json
