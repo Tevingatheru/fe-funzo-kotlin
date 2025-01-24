@@ -13,6 +13,13 @@
         android:theme="@style/Theme.Fe_funzo"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.Signup"
+            android:exported="false"
+            android:theme="@style/Theme.Fe_funzo" />
+        <activity
+            android:name=".ui.activity.SignupActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
