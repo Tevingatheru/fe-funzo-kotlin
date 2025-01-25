@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
 
         firebaseViewModel.validateCurrentUser(this)
 
-
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {

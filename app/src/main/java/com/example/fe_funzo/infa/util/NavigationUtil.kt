@@ -13,5 +13,9 @@ class NavigationUtil {
             val intent = Intent(context, Signup::class.java)
             context.startActivity(intent)
         }
+
+        fun navigateToLandingPage() {
+            TODO("Not yet implemented")
+        }
     }
 }
