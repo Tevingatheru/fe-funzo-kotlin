@@ -28,7 +28,12 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FirebaseAuthUtil.isUserLoggedIn()
+
+
+        if (!FirebaseAuthUtil.isUserLoggedIn()) {
+            NavigationUtil.navigateToSignUpActivity(this)
+
+        }
 
         enableEdgeToEdge()
         setContent {
