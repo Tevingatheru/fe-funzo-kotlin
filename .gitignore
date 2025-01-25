@@ -17,6 +17,9 @@ local.properties
 **/.idea
 */.idea
 .idea/
+.idea\
 .idea\**
 .idea/**.xml
 google-services.json
+app\google-services.json
+.idea/.name

@@ -1,4 +1,4 @@
-package com.example.fe_funzo.ui.activity
+package com.example.fe_funzo
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,17 +11,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.ui.activity.ui.theme.Fe_funzoTheme
+import com.example.fe_funzo.ui.theme.Fe_funzoTheme
 
+const val name = "Signup"
 class Signup : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting2(
-                        name = "Android",
+                    SignupView(
+                        name = name,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -31,7 +33,7 @@ class Signup : ComponentActivity() {
 }
 
 @Composable
-fun Greeting2(name: String, modifier: Modifier = Modifier) {
+fun SignupView(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
         modifier = modifier
@@ -42,6 +44,6 @@ fun Greeting2(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview2() {
     Fe_funzoTheme {
-        Greeting2("Android")
+        SignupView(name)
     }
 }

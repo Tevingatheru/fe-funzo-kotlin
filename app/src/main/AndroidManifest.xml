@@ -13,12 +13,10 @@
         android:theme="@style/Theme.Fe_funzo"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activity.Signup"
+            android:name=".Signup"
             android:exported="false"
+            android:label="@string/title_activity_signup"
             android:theme="@style/Theme.Fe_funzo" />
-        <activity
-            android:name=".ui.activity.SignupActivity"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

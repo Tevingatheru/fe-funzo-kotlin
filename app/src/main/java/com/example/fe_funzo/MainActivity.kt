@@ -1,6 +1,8 @@
 package com.example.fe_funzo
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,10 +14,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.ui.theme.Fe_funzoTheme
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : ComponentActivity() {
+    private var password: String = ""
+    private var email: String = ""
+
+    companion object {
+        private val TAG = "MainActivity"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseAuthUtil.isUserLoggedIn()
+
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
@@ -27,6 +41,12 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        Log.i(TAG, "onStart")
+
     }
 }
 
