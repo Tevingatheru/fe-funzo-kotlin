@@ -1,4 +1,4 @@
-package com.example.fe_funzo
+package com.example.fe_funzo.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

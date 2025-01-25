@@ -1,8 +1,9 @@
-package com.example.fe_funzo
+package com.example.fe_funzo.infa.util
 
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.example.fe_funzo.view.Signup
 
 class NavigationUtil {
     companion object {

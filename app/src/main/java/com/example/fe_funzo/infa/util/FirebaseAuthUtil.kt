@@ -1,7 +1,5 @@
-package com.example.fe_funzo
+package com.example.fe_funzo.infa.util
 
-import android.content.Context
-import android.content.Intent
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
