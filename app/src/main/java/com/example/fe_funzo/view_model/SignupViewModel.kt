@@ -1,4 +1,6 @@
 package com.example.fe_funzo.view_model
 
-class SignupViewModel {
+import androidx.lifecycle.ViewModel
+
+class SignupViewModel: ViewModel() {
 }

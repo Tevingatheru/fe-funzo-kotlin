@@ -42,7 +42,7 @@ fun SignupView(name: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview2() {
+fun SignupPreview() {
     Fe_funzoTheme {
         SignupView(name)
     }
