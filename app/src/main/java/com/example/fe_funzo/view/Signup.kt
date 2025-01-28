@@ -1,6 +1,7 @@
 package com.example.fe_funzo.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -13,17 +14,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.ui.theme.Fe_funzoTheme
-import androidx.compose.runtime.*
 import androidx.compose.ui.unit.dp
+import com.example.fe_funzo.view_model.SignupViewModel
 
-const val name = "Signup"
 class Signup : ComponentActivity() {
+    companion object {
+        private const val TAG = "ComponentActivity"
+    }
+    private val signupVM = SignupViewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,8 +34,7 @@ class Signup : ComponentActivity() {
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    var email by remember { mutableStateOf("") }
-                    var password by remember { mutableStateOf("") }
+
                     Column(
                         modifier = Modifier
                             .padding(innerPadding)
@@ -40,13 +42,16 @@ class Signup : ComponentActivity() {
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        SignupView(email, password)
+                        SignupView(signupVM.email, signupVM.password)
                     }
                 }
             }
         }
     }
 }
+
+private const val name = "Signup"
+private const val TAG = "ComponentActivityClass"
 
 @Composable
 private fun SignupView(email: String, password: String) {
@@ -66,8 +71,7 @@ private fun SignupView(email: String, password: String) {
     )
     Spacer(modifier = Modifier.height(16.dp))
     Button(onClick = {
-        // Call your signup function here with email and password
-        println("Signing up with email: $email1, password: $password1")
+        Log.i(TAG,"Signing up with email: $email1, password: $password1")
     }) {
         Text("Sign Up")
     }
