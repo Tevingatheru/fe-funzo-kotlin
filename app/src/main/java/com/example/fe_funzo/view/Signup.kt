@@ -16,10 +16,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.ui.theme.Fe_funzoTheme
 import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.view_model.SignupViewModel
+
+var context: Signup = Signup()
 
 class Signup : ComponentActivity() {
     companion object {
@@ -31,6 +34,7 @@ class Signup : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        context = this
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -42,7 +46,7 @@ class Signup : ComponentActivity() {
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        SignupView(signupVM.email, signupVM.password)
+                        SignupView(signupVM.email, signupVM.password, signupVM)
                     }
                 }
             }
@@ -54,7 +58,7 @@ private const val name = "Signup"
 private const val TAG = "ComponentActivityClass"
 
 @Composable
-private fun SignupView(email: String, password: String) {
+private fun SignupView(email: String, password: String, signupVM: SignupViewModel) {
     var email1 = email
     var password1 = password
     Text(text = "Hello $name!", modifier = Modifier.padding(bottom = 16.dp))
@@ -72,6 +76,7 @@ private fun SignupView(email: String, password: String) {
     Spacer(modifier = Modifier.height(16.dp))
     Button(onClick = {
         Log.i(TAG,"Signing up with email: $email1, password: $password1")
+        signupVM.signUp(email=email1, password=password1, context)
     }) {
         Text("Sign Up")
     }
@@ -81,6 +86,6 @@ private fun SignupView(email: String, password: String) {
 @Composable
 fun SignupPreview() {
     Fe_funzoTheme {
-        SignupView(email= "email", password= "password")
+        SignupView(email= "email", password= "password", signupVM=SignupViewModel())
     }
 }

@@ -1,10 +1,7 @@
 package com.example.fe_funzo.infa.util
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.example.fe_funzo.view.Signup
-import com.example.fe_funzo.view_model.FirebaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -21,7 +18,7 @@ class FirebaseAuthUtil private constructor(
                 Log.i(TAG, "currentUser: ${currentUser}")
                 return true
             } else {
-                Log.i(TAG, "No currentUser")
+                Log.w(TAG, "No currentUser")
                 return false
             }
         }
@@ -30,17 +27,16 @@ class FirebaseAuthUtil private constructor(
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(context) { task ->
                     if (task.isSuccessful) {
-                        Log.d(TAG, "createUserWithEmail:success")
+                        Log.i(TAG, "createUserWithEmail:success")
                         val user = auth.currentUser
+                        Log.i(TAG, "user: ${user}")
                         EventAlertUtil.signupIsSuccessful(context)
                     } else {
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
                         EventAlertUtil.signupIsFailed(context)
                     }
                 }
-
             return true
         }
     }
-
 }

@@ -18,11 +18,5 @@ class FirebaseViewModel: ViewModel() {
         }
     }
 
-    fun signUp(email: String, password: String, context: Signup) {
-        if(FirebaseAuthUtil.signUp(email=email, password=password, context=context)) {
-            NavigationUtil.navigateToLandingPage()
-        } else {
-            Log.i(TAG, "signUp failed")
-        }
-    }
+
 }
