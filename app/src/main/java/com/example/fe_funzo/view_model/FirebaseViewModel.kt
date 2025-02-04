@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.infa.util.FirebaseAuthUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.view.Signup
 
 class FirebaseViewModel: ViewModel() {
     companion object {
@@ -13,10 +12,10 @@ class FirebaseViewModel: ViewModel() {
     }
 
     fun validateCurrentUser(context: Context) {
+        Log.i(TAG, "validateCurrentUser")
         if (!FirebaseAuthUtil.isUserLoggedIn()) {
+            Log.i(TAG, "validateCurrentUser: true")
             NavigationUtil.navigateToSignUpActivity(context)
         }
     }
-
-
 }

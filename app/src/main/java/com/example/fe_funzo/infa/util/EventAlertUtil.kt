@@ -1,15 +1,16 @@
 package com.example.fe_funzo.infa.util
 
-import android.content.Context
+import android.util.Log
 import android.widget.Toast
-
+import com.example.fe_funzo.view.SignIn
+import com.example.fe_funzo.view.Signup
 
 class EventAlertUtil {
     companion object {
         private const val TAG = "EventAlertUtil"
 
-
-        fun signupIsSuccessful(context: Context) {
+        fun signupIsSuccessful(context: Signup) {
+            Log.i(TAG, "signupIsSuccessful")
             Toast.makeText(
                 context,
                 "Authentication success.",
@@ -17,7 +18,8 @@ class EventAlertUtil {
             ).show()
         }
 
-        fun signupIsFailed(context: Context) {
+        fun signupIsFailed(context: Signup) {
+            Log.i(TAG, "signupIsFailed")
             Toast.makeText(
                 context,
                 "Authentication failed.",
@@ -25,5 +27,12 @@ class EventAlertUtil {
             ).show()
         }
 
+        fun authenticationFailure(context: SignIn) {
+            Toast.makeText(
+                context,
+                "Authentication failed.",
+                Toast.LENGTH_SHORT,
+            ).show()
+        }
     }
 }

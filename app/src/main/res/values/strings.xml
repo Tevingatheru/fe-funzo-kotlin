@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">fe_funzo</string>
     <string name="title_activity_signup">Signup</string>
+    <string name="title_activity_admin_landing_page">AdminLandingPage</string>
+    <string name="title_activity_sign_in">SignIn</string>
+    <string name="title_activity_admin_profile_page">AdminProfilePage</string>
+    <string name="title_activity_user_profile">UserProfile</string>
 </resources>

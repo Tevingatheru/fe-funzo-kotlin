@@ -1,8 +1,6 @@
-package com.example.fe_funzo
+package com.example.fe_funzo.view
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -14,74 +12,55 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.fe_funzo.NavigateToSignUpPage
 import com.example.fe_funzo.infa.util.FirebaseAuthUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.ui.theme.Fe_funzoTheme
+import com.example.fe_funzo.view.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.view_model.FirebaseViewModel
 
-class MainActivity : ComponentActivity() {
-
+class AdminLandingPage : ComponentActivity() {
     companion object {
-        private val TAG = "MainActivity"
+        private const val TAG: String = "AdminLandingPage"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i(TAG, "onCreate")
         val firebaseViewModel = FirebaseViewModel()
-
         firebaseViewModel.validateCurrentUser(this)
-
+        val username: String = FirebaseAuthUtil.getUsername()
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(
-                        name = "Test",
+                    LandingScreen(
+                        name = username,
                         modifier = Modifier.padding(innerPadding)
                     )
-
-                    NavigateToSignUpPage(this)
                 }
             }
         }
     }
-
-    public override fun onStart() {
-        super.onStart()
-        Log.i(TAG, "onStart")
-        if(FirebaseAuthUtil.isUserLoggedIn()) {
-            openLandingPageStrategy()
-        }
-    }
-
-    private fun openLandingPageStrategy() {
-        NavigationUtil.navigateToLandingPage(this)
-    }
 }
 
 @Composable
-fun MainScreen(name: String, modifier: Modifier = Modifier) {
+fun LandingScreen(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
         modifier = modifier
     )
+    Button(onClick = {
+        navigateToProfileScreen()
+    }) { Text("Profile") }
 }
 
-@Composable
-fun NavigateToSignUpPage(context : Context) {
-    Log.i("MainActivity", "NavigateToSignUpPage")
-    Button(onClick = {
-        NavigationUtil.navigateToSignUpActivity(context = context)
-    }) {
-        Text("Go Sign Up")
-    }
+private fun navigateToProfileScreen() {
+    NavigationUtil.navigateToUserProfile()
 }
 
 @Preview(showBackground = true)
 @Composable
-fun MainPreview() {
+fun GreetingPreview() {
     Fe_funzoTheme {
-        MainScreen("Android")
+        LandingScreen("Android")
     }
 }

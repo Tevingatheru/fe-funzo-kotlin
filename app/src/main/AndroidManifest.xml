@@ -13,6 +13,32 @@
         android:theme="@style/Theme.Fe_funzo"
         tools:targetApi="31">
         <activity
+            android:name=".view.UserProfile"
+            android:exported="false"
+            android:label="@string/title_activity_user_profile"
+            android:theme="@style/Theme.Fe_funzo" />
+        <activity
+            android:name=".view.AdminProfilePage"
+            android:exported="false"
+            android:label="@string/title_activity_admin_profile_page"
+            android:theme="@style/Theme.Fe_funzo" />
+        <activity
+            android:name=".view.SignIn"
+            android:exported="false"
+            android:label="@string/title_activity_sign_in"
+            android:theme="@style/Theme.Fe_funzo" />
+        <activity
+            android:name=".view.AdminLandingPage"
+            android:exported="true"
+            android:label="@string/title_activity_admin_landing_page"
+            android:theme="@style/Theme.Fe_funzo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".view.Signup"
             android:exported="false"
             android:label="@string/title_activity_signup"

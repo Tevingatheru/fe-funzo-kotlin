@@ -3,15 +3,15 @@ package com.example.fe_funzo.view_model
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.infa.util.FirebaseAuthUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.view.Signup
+import kotlinx.coroutines.runBlocking
 
 class SignupViewModel(
-    var email: String  ="",
-    var password : String  ="",
+    var email: MutableState<String>  = mutableStateOf(""),
+    var password : MutableState<String>  = mutableStateOf(""),
     var showErrorMessage: MutableState<Boolean> = mutableStateOf(false),
     var name:String  ="",
     var message: MutableState<String> = mutableStateOf(""),
@@ -27,11 +27,16 @@ class SignupViewModel(
         Log.i(TAG, "Message: ${message.value}, show: ${showErrorMessage}")
     }
 
-    fun signUp(email: String, password: String, context: Signup) {
-        if(FirebaseAuthUtil.signUp(email=email, password=password, context=context)) {
-            NavigationUtil.navigateToLandingPage()
-        } else {
-            Log.i(TAG, "signUp failed")
+    fun signUp(email: String, password: String, signup: Signup) {
+        Log.i(TAG, "signUp")
+        runBlocking {
+            FirebaseAuthUtil.signUp(email=email, password=password, signup=signup) { isSuccessful ->
+                if (isSuccessful) {
+                    NavigationUtil.navigateToLandingPage(context = signup)
+                } else {
+                    Log.i(TAG, "Sign up failed")
+                }
+            }
         }
     }
 }
