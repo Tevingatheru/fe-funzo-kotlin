@@ -68,5 +68,9 @@ class FirebaseAuthUtil private constructor(
                     }
                 }
         }
+
+        fun logout() {
+            auth.signOut()
+        }
     }
 }

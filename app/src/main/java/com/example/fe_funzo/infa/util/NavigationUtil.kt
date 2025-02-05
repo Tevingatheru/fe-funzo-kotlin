@@ -6,6 +6,8 @@ import android.util.Log
 import com.example.fe_funzo.view.AdminLandingPage
 import com.example.fe_funzo.view.SignIn
 import com.example.fe_funzo.view.Signup
+import com.example.fe_funzo.view.UserProfile
+import com.example.fe_funzo.view.UserProfileSettings
 
 class NavigationUtil {
     companion object {
@@ -31,6 +33,13 @@ class NavigationUtil {
         fun navigateToUserProfile(context: Context) {
             Log.i(TAG, "navigateToUserProfile")
             val intent: Intent = Intent(context, UserProfile::class.java)
+            context.startActivity(intent)
+        }
+
+        fun navigateToUserProfileSettings(context: Context) {
+            Log.i(TAG, "navigateToUserProfileSettings")
+            val intent: Intent = Intent(context, UserProfileSettings::class.java)
+            context.startActivity(intent)
         }
     }
 }

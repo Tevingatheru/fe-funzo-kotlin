@@ -1,9 +1,11 @@
 package com.example.fe_funzo.view
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -11,6 +13,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.NavigateToSignUpPage
 import com.example.fe_funzo.infa.util.FirebaseAuthUtil
@@ -28,14 +31,14 @@ class AdminLandingPage : ComponentActivity() {
         val firebaseViewModel = FirebaseViewModel()
         firebaseViewModel.validateCurrentUser(this)
         val username: String = FirebaseAuthUtil.getUsername()
+        val context: AdminLandingPage = this
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LandingScreen(
-                        name = username,
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    Column (Modifier.padding(innerPadding)) {
+                        LandingScreen(context = context, username = username)
+                    }
                 }
             }
         }
@@ -43,24 +46,24 @@ class AdminLandingPage : ComponentActivity() {
 }
 
 @Composable
-fun LandingScreen(name: String, modifier: Modifier = Modifier) {
+fun LandingScreen(context: Context, username: String) {
     Text(
-        text = "Hello $name!",
-        modifier = modifier
+        text = "Welcome ${username}!",
+
     )
     Button(onClick = {
-        navigateToProfileScreen()
+        navigateToProfileScreen(context)
     }) { Text("Profile") }
 }
 
-private fun navigateToProfileScreen() {
-    NavigationUtil.navigateToUserProfile()
+private fun navigateToProfileScreen(context: Context) {
+    NavigationUtil.navigateToUserProfile(context = context)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     Fe_funzoTheme {
-        LandingScreen("Android")
+        LandingScreen(context = LocalContext.current, username = "Android")
     }
 }
