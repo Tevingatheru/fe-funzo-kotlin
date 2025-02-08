@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.infa.client.FirebaseAuthClient
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.ui.theme.Fe_funzoTheme
-import com.example.fe_funzo.view_model.FirebaseViewModel
+import com.example.fe_funzo.logic.view_model.FirebaseViewModel
 
 class MainActivity : ComponentActivity() {
 

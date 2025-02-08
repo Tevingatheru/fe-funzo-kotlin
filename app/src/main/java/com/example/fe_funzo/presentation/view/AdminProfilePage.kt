@@ -1,4 +1,4 @@
-package com.example.fe_funzo.view
+package com.example.fe_funzo.presentation.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.view.ui.theme.Fe_funzoTheme
+import com.example.fe_funzo.presentation.view.ui.theme.Fe_funzoTheme
 
 class AdminProfilePage : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class AdminProfilePage : ComponentActivity() {
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting2(
+                    AdminProfileScreen(
                         name = "AdminProfilePage",
                         modifier = Modifier.padding(innerPadding)
                     )
@@ -31,7 +31,7 @@ class AdminProfilePage : ComponentActivity() {
 }
 
 @Composable
-fun Greeting2(name: String, modifier: Modifier = Modifier) {
+fun AdminProfileScreen(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
         modifier = modifier
@@ -42,6 +42,6 @@ fun Greeting2(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview2() {
     Fe_funzoTheme {
-        Greeting2("Android")
+        AdminProfileScreen("Android")
     }
 }

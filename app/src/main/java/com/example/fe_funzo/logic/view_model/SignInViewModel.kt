@@ -1,11 +1,11 @@
-package com.example.fe_funzo.view_model
+package com.example.fe_funzo.logic.view_model
 
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.example.fe_funzo.infa.client.FirebaseAuthClient
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.view.SignIn
+import com.example.fe_funzo.presentation.view.SignIn
 
 class SignInViewModel (var showErrorMessage: MutableState<Boolean> = mutableStateOf(false),
                        var errorMessage: MutableState<String> = mutableStateOf(""),

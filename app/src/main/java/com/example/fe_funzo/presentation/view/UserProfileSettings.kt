@@ -1,4 +1,4 @@
-package com.example.fe_funzo.view
+package com.example.fe_funzo.presentation.view
 
 import android.content.Context
 import android.os.Bundle
@@ -15,10 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.view.ui.theme.Fe_funzoTheme
+import com.example.fe_funzo.presentation.view.ui.theme.Fe_funzoTheme
+import com.example.fe_funzo.logic.view_model.FirebaseViewModel
 
-class UserProfile : ComponentActivity() {
+class UserProfileSettings : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,8 +26,8 @@ class UserProfile : ComponentActivity() {
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column (Modifier.padding(innerPadding)) {
-                        UserProfileScreen(context)
+                    Column (modifier = Modifier.padding(innerPadding)){
+                        UserProfileSettingsScreen(context)
                     }
                 }
             }
@@ -36,21 +36,28 @@ class UserProfile : ComponentActivity() {
 }
 
 @Composable
-fun UserProfileScreen(context: Context) {
+fun UserProfileSettingsScreen(context: Context) {
     Text(
-        text = "Profile",
+        text = "Settings",
     )
+
     Button(onClick = {
-        NavigationUtil.navigateToUserProfileSettings(context)
+        logout(context)
     }) {
-        Text("Settings")
+        Text("Logout")
     }
+}
+
+private fun logout(context: Context) {
+    val firebaseViewModel: FirebaseViewModel = FirebaseViewModel()
+    firebaseViewModel.logout(context = context)
+
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview3() {
+fun GreetingPreview4() {
     Fe_funzoTheme {
-        UserProfileScreen(context = LocalContext.current)
+        UserProfileSettingsScreen(context = LocalContext.current)
     }
 }

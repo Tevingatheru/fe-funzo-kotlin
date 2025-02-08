@@ -1,4 +1,4 @@
-package com.example.fe_funzo.view
+package com.example.fe_funzo.presentation.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,11 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.dto.SignInRequest
-import com.example.fe_funzo.view.ui.theme.Fe_funzoTheme
-import com.example.fe_funzo.view_model.AuthFormDisplayContext
-import com.example.fe_funzo.view_model.AuthFormSignInStrategy
-import com.example.fe_funzo.view_model.SignInViewModel
+import com.example.fe_funzo.data.dto.SignInRequest
+import com.example.fe_funzo.presentation.view.ui.theme.Fe_funzoTheme
+import com.example.fe_funzo.logic.view_model.AuthFormDisplayContext
+import com.example.fe_funzo.logic.view_model.AuthFormSignInStrategy
+import com.example.fe_funzo.logic.view_model.SignInViewModel
 
 class SignIn : ComponentActivity() {
     companion object {
@@ -42,7 +42,7 @@ class SignIn : ComponentActivity() {
 
                         ) {
                         SignInScreen(
-context = context
+                            context = context
                         )
                     }
                 }

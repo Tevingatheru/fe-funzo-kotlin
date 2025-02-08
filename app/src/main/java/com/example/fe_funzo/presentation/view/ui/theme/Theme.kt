@@ -1,4 +1,4 @@
-package com.example.fe_funzo.view.ui.theme
+package com.example.fe_funzo.presentation.view.ui.theme
 
 import android.app.Activity
 import android.os.Build

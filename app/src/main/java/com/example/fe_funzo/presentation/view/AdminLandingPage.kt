@@ -1,4 +1,4 @@
-package com.example.fe_funzo.view
+package com.example.fe_funzo.presentation.view
 
 import android.content.Context
 import android.os.Bundle
@@ -17,8 +17,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.infa.client.FirebaseAuthClient
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.view.ui.theme.Fe_funzoTheme
-import com.example.fe_funzo.view_model.FirebaseViewModel
+import com.example.fe_funzo.presentation.view.ui.theme.Fe_funzoTheme
+import com.example.fe_funzo.logic.view_model.FirebaseViewModel
 
 class AdminLandingPage : ComponentActivity() {
     companion object {
@@ -61,7 +61,7 @@ private fun navigateToProfileScreen(context: Context) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun Preview1() {
     Fe_funzoTheme {
         LandingScreen(context = LocalContext.current, username = "Android")
     }

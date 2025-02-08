@@ -1,6 +1,5 @@
-package com.example.fe_funzo.view
+package com.example.fe_funzo.presentation.view
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -15,13 +14,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.dto.SignupRequest
+import com.example.fe_funzo.data.dto.SignupRequest
 import com.example.fe_funzo.ui.theme.Fe_funzoTheme
-import com.example.fe_funzo.view_model.AuthFormDisplayContext
-import com.example.fe_funzo.view_model.AuthFormSignUpStrategy
-import com.example.fe_funzo.view_model.SignupViewModel
+import com.example.fe_funzo.logic.view_model.AuthFormDisplayContext
+import com.example.fe_funzo.logic.view_model.AuthFormSignUpStrategy
+import com.example.fe_funzo.logic.view_model.SignupViewModel
 
 private const val TAG = "Signup"
 
@@ -46,7 +44,7 @@ class Signup : ComponentActivity() {
                         verticalArrangement = Arrangement.Center,
 
                     ) {
-                        SignupView( signupContext, context = signupContext)
+                        SignupView( signupContext)
                     }
                 }
             }
@@ -85,7 +83,7 @@ class Signup : ComponentActivity() {
 }
 
 @Composable
-private fun SignupView( signup: Signup, context : Context) {
+private fun SignupView(signup: Signup) {
     val authStrategyContext: AuthFormDisplayContext<SignupRequest> = AuthFormDisplayContext<SignupRequest>()
     authStrategyContext.setStrategy(AuthFormSignUpStrategy())
     authStrategyContext.Display(SignupRequest(signupVM = SignupViewModel(), signupContext = signup))
@@ -95,6 +93,6 @@ private fun SignupView( signup: Signup, context : Context) {
 @Composable
 fun SignupPreview() {
     Fe_funzoTheme {
-        SignupView( signup = Signup(), context = LocalContext.current)
+        SignupView( signup = Signup())
     }
 }

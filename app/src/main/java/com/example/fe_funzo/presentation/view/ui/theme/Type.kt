@@ -1,4 +1,4 @@
-package com.example.fe_funzo.view.ui.theme
+package com.example.fe_funzo.presentation.view.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -2,8 +2,8 @@ package com.example.fe_funzo.infa.client
 
 import android.util.Log
 import com.example.fe_funzo.infa.util.EventAlertUtil
-import com.example.fe_funzo.view.SignIn
-import com.example.fe_funzo.view.Signup
+import com.example.fe_funzo.presentation.view.SignIn
+import com.example.fe_funzo.presentation.view.Signup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -41,7 +41,6 @@ class FirebaseAuthClient private constructor(
                         isSuccessful(true)
                     } else {
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
-
                         EventAlertUtil.signupIsFailed(signup)
                         isSuccessful(false)
                     }
@@ -51,7 +50,7 @@ class FirebaseAuthClient private constructor(
         fun getUsername(): String {
             val firebaseUser : FirebaseUser? = auth.currentUser
             Log.i(TAG, "get username of : ${firebaseUser}")
-            return "Tevin"
+            return firebaseUser!!.email!!
         }
 
         fun signIn(email: String, password: String, context: SignIn, callback: (Boolean) -> Unit) {
