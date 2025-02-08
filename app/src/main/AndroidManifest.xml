@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Fe_funzo"
         tools:targetApi="31">
         <activity
-            android:name="presentation.view.AdminDashboards"
+            android:name=".presentation.view.AdminDashboards"
             android:exported="false"
             android:label="@string/title_activity_admin_dashboards"
             android:theme="@style/Theme.Fe_funzo" />
