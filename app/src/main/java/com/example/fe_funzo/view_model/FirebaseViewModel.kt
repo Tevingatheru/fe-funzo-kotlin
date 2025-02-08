@@ -18,4 +18,9 @@ class FirebaseViewModel: ViewModel() {
             NavigationUtil.navigateToSignUpActivity(context)
         }
     }
+
+    fun logout(context: Context) {
+        FirebaseAuthUtil.logout()
+        NavigationUtil.navigateToSignUpActivity(context = context)
+    }
 }

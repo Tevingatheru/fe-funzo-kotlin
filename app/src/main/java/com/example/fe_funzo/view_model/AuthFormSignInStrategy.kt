@@ -28,7 +28,7 @@ class AuthFormSignInStrategy : AuthFormStrategy<SignInRequest> {
 
     @Composable
     override fun Display(request: SignInRequest) {
-        val email1 = request.signInVM.email.value
+        val email1 = request.signInVM.email.value.trim()
         val password1 = request.signInVM.password.value
 
         Text(text = "Sign in page", modifier = Modifier.padding(bottom = 16.dp))
@@ -69,19 +69,29 @@ class AuthFormSignInStrategy : AuthFormStrategy<SignInRequest> {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            Log.i(TAG, "Sign in button clicked")
-            request.signInVM.showErrorMessage.value = false
-            val authServiceImpl = AuthServiceImpl()
-            authServiceImpl.validateAuthFormFields(request.signInVM.email.value, request.signInVM.password.value, request.signInVM)
-            if (StringUtil.validEmail(email = email1)) {
-                val signInViewModel = SignInViewModel()
-                signInViewModel.signIn(request.signInVM.email.value, request.signInVM.password.value, request.signInContext)
-            } else {
-                request.signInVM.errorMessage.value = "Enter a valid email"
-                request.signInVM.showErrorMessage.value = true
-            }
+            signIn(request, email1, password1)
         }) {
             Text("Sign In")
+        }
+    }
+
+    private fun signIn(request: SignInRequest, email1: String, password1: String) {
+        Log.i(TAG, "Sign in button clicked")
+        request.signInVM.showErrorMessage.value = false
+        val authServiceImpl = AuthServiceImpl()
+
+        authServiceImpl.validateAuthFormFields(
+            email1,
+            password1,
+            request.signInVM
+        )
+
+        if (StringUtil.validEmail(email = email1)) {
+            val signInViewModel = SignInViewModel()
+            signInViewModel.signIn(email1, password1, request.signInContext)
+        } else {
+            request.signInVM.errorMessage.value = "Enter a valid email"
+            request.signInVM.showErrorMessage.value = true
         }
     }
 

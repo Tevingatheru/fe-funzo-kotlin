@@ -53,7 +53,7 @@ class FirebaseAuthUtil private constructor(
             return "Tevin"
         }
 
-        fun signIn(email: String, password: String, context: SignIn, callback: () -> Unit) {
+        fun signIn(email: String, password: String, context: SignIn, callback: (Boolean) -> Unit) {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(context) { task ->
                     if (task.isSuccessful) {
@@ -61,10 +61,12 @@ class FirebaseAuthUtil private constructor(
                         Log.i(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
                         Log.i(TAG, "user : ${user}")
+                        callback(true)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         EventAlertUtil.authenticationFailure(context)
+                        callback(false)
                     }
                 }
         }
