@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,32 +15,32 @@
         android:theme="@style/Theme.Fe_funzo"
         tools:targetApi="31">
         <activity
-            android:name=".view.AdminDashboards"
+            android:name="presentation.view.AdminDashboards"
             android:exported="false"
             android:label="@string/title_activity_admin_dashboards"
             android:theme="@style/Theme.Fe_funzo" />
         <activity
-            android:name=".view.UserProfileSettings"
+            android:name=".presentation.view.UserProfileSettings"
             android:exported="false"
             android:label="@string/title_activity_user_profile_settings"
             android:theme="@style/Theme.Fe_funzo" />
         <activity
-            android:name=".view.UserProfile"
+            android:name=".presentation.view.UserProfile"
             android:exported="false"
             android:label="@string/title_activity_user_profile"
             android:theme="@style/Theme.Fe_funzo" />
         <activity
-            android:name=".view.AdminProfilePage"
+            android:name=".presentation.view.AdminProfilePage"
             android:exported="false"
             android:label="@string/title_activity_admin_profile_page"
             android:theme="@style/Theme.Fe_funzo" />
         <activity
-            android:name=".view.SignIn"
+            android:name=".presentation.view.SignIn"
             android:exported="false"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/Theme.Fe_funzo" />
         <activity
-            android:name=".view.AdminLandingPage"
+            android:name=".presentation.view.AdminLandingPage"
             android:exported="true"
             android:label="@string/title_activity_admin_landing_page"
             android:theme="@style/Theme.Fe_funzo">
@@ -49,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.Signup"
+            android:name=".presentation.view.Signup"
             android:exported="false"
             android:label="@string/title_activity_signup"
             android:theme="@style/Theme.Fe_funzo" />

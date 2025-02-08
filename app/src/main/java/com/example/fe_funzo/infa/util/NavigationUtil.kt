@@ -3,12 +3,12 @@ package com.example.fe_funzo.infa.util
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.example.fe_funzo.view.AdminDashboards
-import com.example.fe_funzo.view.AdminLandingPage
-import com.example.fe_funzo.view.SignIn
-import com.example.fe_funzo.view.Signup
-import com.example.fe_funzo.view.UserProfile
-import com.example.fe_funzo.view.UserProfileSettings
+import com.example.fe_funzo.presentation.view.AdminDashboards
+import com.example.fe_funzo.presentation.view.AdminLandingPage
+import com.example.fe_funzo.presentation.view.SignIn
+import com.example.fe_funzo.presentation.view.Signup
+import com.example.fe_funzo.presentation.view.UserProfile
+import com.example.fe_funzo.presentation.view.UserProfileSettings
 
 class NavigationUtil {
     companion object {
