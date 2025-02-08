@@ -1,6 +1,7 @@
-package com.example.fe_funzo.infa.util
+package com.example.fe_funzo.infa.client
 
 import android.util.Log
+import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.view.SignIn
 import com.example.fe_funzo.view.Signup
 import com.google.firebase.auth.FirebaseAuth
@@ -8,7 +9,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class FirebaseAuthUtil private constructor(
+class FirebaseAuthClient private constructor(
 ){
     companion object {
         private const val TAG = "FirebaseAuthUtil"

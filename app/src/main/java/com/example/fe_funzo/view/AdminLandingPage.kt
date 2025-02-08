@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.infa.util.FirebaseAuthUtil
+import com.example.fe_funzo.infa.client.FirebaseAuthClient
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.view.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.view_model.FirebaseViewModel
@@ -29,7 +29,7 @@ class AdminLandingPage : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val firebaseViewModel = FirebaseViewModel()
         firebaseViewModel.validateCurrentUser(this)
-        val username: String = FirebaseAuthUtil.getUsername()
+        val username: String = FirebaseAuthClient.getUsername()
         val context: AdminLandingPage = this
         enableEdgeToEdge()
         setContent {

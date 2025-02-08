@@ -14,7 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.infa.util.FirebaseAuthUtil
+import com.example.fe_funzo.infa.client.FirebaseAuthClient
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.view_model.FirebaseViewModel
@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
     public override fun onStart() {
         super.onStart()
         Log.i(TAG, "onStart")
-        if(FirebaseAuthUtil.isUserLoggedIn()) {
+        if(FirebaseAuthClient.isUserLoggedIn()) {
             openLandingPageStrategy()
         }
     }

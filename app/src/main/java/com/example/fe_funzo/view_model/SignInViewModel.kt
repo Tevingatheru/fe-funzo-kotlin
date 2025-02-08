@@ -3,7 +3,7 @@ package com.example.fe_funzo.view_model
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.example.fe_funzo.infa.util.FirebaseAuthUtil
+import com.example.fe_funzo.infa.client.FirebaseAuthClient
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.view.SignIn
 
@@ -17,7 +17,7 @@ class SignInViewModel (var showErrorMessage: MutableState<Boolean> = mutableStat
     }
 
     fun signIn(email: String, password: String, signInContext: SignIn) {
-        FirebaseAuthUtil.signIn(email, password, context = signInContext) {
+        FirebaseAuthClient.signIn(email, password, context = signInContext) {
             Log.i(TAG, "sign in callback")
             if(it) {
                 Log.i(TAG, "sign in callback success")
