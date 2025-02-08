@@ -3,6 +3,7 @@ package com.example.fe_funzo.infa.util
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.example.fe_funzo.view.AdminDashboards
 import com.example.fe_funzo.view.AdminLandingPage
 import com.example.fe_funzo.view.SignIn
 import com.example.fe_funzo.view.Signup
@@ -39,6 +40,12 @@ class NavigationUtil {
         fun navigateToUserProfileSettings(context: Context) {
             Log.i(TAG, "navigateToUserProfileSettings")
             val intent: Intent = Intent(context, UserProfileSettings::class.java)
+            context.startActivity(intent)
+        }
+
+        fun navigateToDashboard(context: Context) {
+            Log.i(TAG, "navigateToDashboard")
+            val intent: Intent = Intent(context, AdminDashboards::class.java)
             context.startActivity(intent)
         }
     }

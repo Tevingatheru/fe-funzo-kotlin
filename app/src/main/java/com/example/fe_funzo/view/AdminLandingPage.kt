@@ -28,9 +28,11 @@ class AdminLandingPage : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val firebaseViewModel = FirebaseViewModel()
-        firebaseViewModel.validateCurrentUser(this)
         val username: String = FirebaseAuthUtil.getUsername()
         val context: AdminLandingPage = this
+
+        firebaseViewModel.validateCurrentUser(context = this)
+
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
@@ -48,11 +50,22 @@ class AdminLandingPage : ComponentActivity() {
 fun LandingScreen(context: Context, username: String) {
     Text(
         text = "Welcome ${username}!",
-
     )
+    NavigationOptions(context)
+}
+
+@Composable
+private fun NavigationOptions(context: Context) {
+    Button(onClick = {
+        navigateToDashboardScreen(context)
+    }) { Text(text = "Dashboards") }
     Button(onClick = {
         navigateToProfileScreen(context)
-    }) { Text("Profile") }
+    }) { Text(text = "Profile") }
+}
+
+fun navigateToDashboardScreen(context: Context) {
+    NavigationUtil.navigateToDashboard(context=context)
 }
 
 private fun navigateToProfileScreen(context: Context) {
