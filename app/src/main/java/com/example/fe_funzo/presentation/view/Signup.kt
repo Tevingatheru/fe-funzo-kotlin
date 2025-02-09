@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.data.dto.SignupRequest
+import com.example.fe_funzo.data.dto.SignupDto
 import com.example.fe_funzo.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.logic.view_model.AuthFormDisplayContext
 import com.example.fe_funzo.logic.view_model.AuthFormSignUpStrategy
@@ -84,9 +84,9 @@ class Signup : ComponentActivity() {
 
 @Composable
 private fun SignupView(signup: Signup) {
-    val authStrategyContext: AuthFormDisplayContext<SignupRequest> = AuthFormDisplayContext<SignupRequest>()
+    val authStrategyContext: AuthFormDisplayContext<SignupDto> = AuthFormDisplayContext<SignupDto>()
     authStrategyContext.setStrategy(AuthFormSignUpStrategy())
-    authStrategyContext.Display(SignupRequest(signupVM = SignupViewModel(), signupContext = signup))
+    authStrategyContext.Display(SignupDto(signupVM = SignupViewModel(), signupContext = signup))
 }
 
 @Preview(showBackground = true)

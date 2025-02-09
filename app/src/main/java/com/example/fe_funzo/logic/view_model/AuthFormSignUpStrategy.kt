@@ -22,19 +22,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.example.fe_funzo.data.dto.SignupRequest
+import com.example.fe_funzo.data.dto.SignupDto
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
 import com.funzo.funzoProxy.domain.user.UserType
 
-class AuthFormSignUpStrategy : AuthFormStrategy<SignupRequest> {
+class AuthFormSignUpStrategy : AuthFormStrategy<SignupDto> {
     companion object {
         private const val TAG = "AuthenticationFormView"
     }
 
     @Composable
-    override fun Display(request: SignupRequest) {
+    override fun Display(request: SignupDto) {
         val email1 = request.signupVM.email.value
         val password1 = request.signupVM.password.value
         val (selectedRole, setSelectedRole) = remember { mutableStateOf<UserType?>(null) }

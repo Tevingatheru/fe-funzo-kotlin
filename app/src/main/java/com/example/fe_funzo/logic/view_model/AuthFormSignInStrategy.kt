@@ -15,18 +15,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fe_funzo.data.dto.SignInRequest
+import com.example.fe_funzo.data.dto.SignInDto
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
 import com.example.fe_funzo.presentation.view.SignIn
 
-class AuthFormSignInStrategy : AuthFormStrategy<SignInRequest> {
+class AuthFormSignInStrategy : AuthFormStrategy<SignInDto> {
     companion object {
         const val TAG: String = "AuthFormSignInStrategy"
     }
 
     @Composable
-    override fun Display(request: SignInRequest) {
+    override fun Display(request: SignInDto) {
         val email1 = request.signInVM.email.value.trim()
         val password1 = request.signInVM.password.value
 
@@ -74,7 +74,7 @@ class AuthFormSignInStrategy : AuthFormStrategy<SignInRequest> {
         }
     }
 
-    private fun signIn(request: SignInRequest, email1: String, password1: String) {
+    private fun signIn(request: SignInDto, email1: String, password1: String) {
         Log.i(TAG, "Sign in button clicked")
         request.signInVM.showErrorMessage.value = false
         val authServiceImpl = AuthServiceImpl()
@@ -97,6 +97,6 @@ class AuthFormSignInStrategy : AuthFormStrategy<SignInRequest> {
     @Preview(showBackground = true)
     @Composable
     fun Preview() {
-        Display(SignInRequest(signInContext = SignIn()))
+        Display(SignInDto(signInContext = SignIn()))
     }
 }

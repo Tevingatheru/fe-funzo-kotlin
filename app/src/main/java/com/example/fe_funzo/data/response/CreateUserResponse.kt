@@ -1,4 +1,4 @@
-package com.example.fe_funzo.infa.client.retrofit.response
+package com.example.fe_funzo.data.response
 
 data class CreateUserResponse (
     val userCode: String,

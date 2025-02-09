@@ -5,15 +5,13 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.infa.client.FirebaseAuthClient
-import com.example.fe_funzo.infa.client.RetrofitClient
-import com.example.fe_funzo.infa.client.UserClient
-import com.example.fe_funzo.infa.client.retrofit.request.CreateUserRequest
+import com.example.fe_funzo.infa.client.retrofit.RetrofitClient
+import com.example.fe_funzo.infa.client.retrofit.UserClient
+import com.example.fe_funzo.data.request.CreateUserRequest
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
-import com.example.fe_funzo.logic.UserClientService
-import com.example.fe_funzo.logic.UserClientServiceImpl
-import com.example.fe_funzo.logic.view_model.AuthFormSignUpStrategy.Companion
+import com.example.fe_funzo.logic.service.UserClientServiceImpl
 import com.example.fe_funzo.presentation.view.Signup
 import com.funzo.funzoProxy.domain.user.UserType
 import kotlinx.coroutines.runBlocking
@@ -47,7 +45,8 @@ class SignupViewModel(
                     runBlocking {
                         try {
                             val response = userService.createUser(
-                                request = CreateUserRequest(selectedRole.type!!, email))
+                                request = CreateUserRequest(selectedRole.type!!, email)
+                            )
                         } catch (e:Exception) {
                             Log.i(TAG, "Error: ${e.message}")
                         }

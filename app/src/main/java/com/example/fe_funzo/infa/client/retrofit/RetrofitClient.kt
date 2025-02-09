@@ -1,4 +1,4 @@
-package com.example.fe_funzo.infa.client
+package com.example.fe_funzo.infa.client.retrofit
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

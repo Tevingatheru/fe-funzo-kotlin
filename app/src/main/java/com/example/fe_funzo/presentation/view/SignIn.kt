@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.data.dto.SignInRequest
+import com.example.fe_funzo.data.dto.SignInDto
 import com.example.fe_funzo.presentation.view.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.logic.view_model.AuthFormDisplayContext
 import com.example.fe_funzo.logic.view_model.AuthFormSignInStrategy
@@ -53,9 +53,9 @@ class SignIn : ComponentActivity() {
 
 @Composable
 fun SignInScreen(context: SignIn) {
-    val authFormStrategyContext = AuthFormDisplayContext<SignInRequest>()
+    val authFormStrategyContext = AuthFormDisplayContext<SignInDto>()
     authFormStrategyContext.setStrategy(AuthFormSignInStrategy())
-    authFormStrategyContext.Display(SignInRequest(SignInViewModel(), signInContext = context))
+    authFormStrategyContext.Display(SignInDto(SignInViewModel(), signInContext = context))
 }
 
 @Preview(showBackground = true)
