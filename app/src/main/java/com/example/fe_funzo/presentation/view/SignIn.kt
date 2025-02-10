@@ -39,7 +39,6 @@ class SignIn : ComponentActivity() {
                             .clickable {  },
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
-
                         ) {
                         SignInScreen(
                             context = context

@@ -39,7 +39,9 @@ class SignupViewModel(
         runBlocking {
             FirebaseAuthClient.signUp(email=email, password=password, signup=signup) { isSuccessful ->
                 if (isSuccessful) {
-                    NavigationUtil.navigateToLandingPage(context = signup)
+
+                        NavigationUtil.navigateToLandingPage(context = signup, userType= selectedRole)
+
                     val userClient: UserClient = RetrofitClient.createClient(UserClient::class.java)
                     val userService: UserClientServiceImpl = UserClientServiceImpl(userClient = userClient)
                     runBlocking {

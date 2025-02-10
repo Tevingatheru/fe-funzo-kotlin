@@ -7,8 +7,10 @@ import com.example.fe_funzo.presentation.view.AdminDashboards
 import com.example.fe_funzo.presentation.view.AdminLandingPage
 import com.example.fe_funzo.presentation.view.SignIn
 import com.example.fe_funzo.presentation.view.Signup
+import com.example.fe_funzo.presentation.view.TeacherLandingPage
 import com.example.fe_funzo.presentation.view.UserProfile
 import com.example.fe_funzo.presentation.view.UserProfileSettings
+import com.funzo.funzoProxy.domain.user.UserType
 
 class NavigationUtil {
     companion object {
@@ -19,9 +21,16 @@ class NavigationUtil {
             context.startActivity(intent)
         }
 
-        fun navigateToLandingPage(context: Context) {
+        fun navigateToLandingPage(context: Context, userType: UserType) {
             Log.i(TAG, "Navigate to admin landing page.")
-            val intent = Intent(context, AdminLandingPage::class.java)
+            val intent: Intent
+            if (userType == UserType.ADMINISTRATOR) {
+                intent = Intent(context, AdminLandingPage::class.java)
+            } else if (userType == UserType.TEACHER) {
+                intent = Intent(context, TeacherLandingPage::class.java)
+            } else {
+                throw IllegalArgumentException("UserType does not exist: $userType")
+            }
             context.startActivity(intent)
         }
 

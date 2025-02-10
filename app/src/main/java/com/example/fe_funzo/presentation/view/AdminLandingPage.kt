@@ -29,7 +29,7 @@ class AdminLandingPage : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val firebaseViewModel = FirebaseViewModel()
         firebaseViewModel.validateCurrentUser(this)
-        val username: String = FirebaseAuthClient.getUsername()
+        val username: String = FirebaseAuthClient.getUserEmail()
 
         val context: AdminLandingPage = this
 

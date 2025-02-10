@@ -47,7 +47,7 @@ class FirebaseAuthClient private constructor(
                 }
         }
 
-        fun getUsername(): String {
+        fun getUserEmail(): String {
             val firebaseUser : FirebaseUser? = auth.currentUser
             Log.i(TAG, "get username of : ${firebaseUser}")
             return firebaseUser!!.email!!
