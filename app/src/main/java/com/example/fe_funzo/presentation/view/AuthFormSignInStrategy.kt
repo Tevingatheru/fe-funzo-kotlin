@@ -1,4 +1,4 @@
-package com.example.fe_funzo.logic.view_model
+package com.example.fe_funzo.presentation.view
 
 import android.util.Log
 import androidx.compose.foundation.clickable
@@ -18,7 +18,8 @@ import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.dto.SignInDto
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
-import com.example.fe_funzo.presentation.view.SignIn
+import com.example.fe_funzo.logic.service.AuthServiceImpl
+import com.example.fe_funzo.logic.view_model.SignInViewModel
 
 class AuthFormSignInStrategy : AuthFormStrategy<SignInDto> {
     companion object {
@@ -34,7 +35,7 @@ class AuthFormSignInStrategy : AuthFormStrategy<SignInDto> {
         if (request.signInVM.showErrorMessage.value) {
             Log.i(TAG, "showing error message")
             Text(
-                text = "Message: ${ request.signInVM.errorMessage.value }",
+                text = "Message: ${request.signInVM.errorMessage.value}",
                 modifier = Modifier.padding(bottom = 16.dp),
                 color = Color.Red,
             )

@@ -1,4 +1,4 @@
-package com.example.fe_funzo.logic.view_model
+package com.example.fe_funzo.presentation.view
 
 import androidx.compose.runtime.Composable
 

@@ -1,4 +1,6 @@
-package com.example.fe_funzo.logic.view_model
+package com.example.fe_funzo.logic.service
+
+import com.example.fe_funzo.logic.view_model.SignInViewModel
 
 class AuthServiceImpl : AuthService<SignInViewModel> {
     override fun validateAuthFormFields(

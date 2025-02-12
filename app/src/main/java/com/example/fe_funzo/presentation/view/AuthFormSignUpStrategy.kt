@@ -1,4 +1,4 @@
-package com.example.fe_funzo.logic.view_model
+package com.example.fe_funzo.presentation.view
 
 import android.util.Log
 import androidx.compose.foundation.clickable
@@ -14,7 +14,6 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -23,9 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.dto.SignupDto
-import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.infa.util.StringUtil
+//import com.example.fe_funzo.logic.view_model.RoleOption
 import com.funzo.funzoProxy.domain.user.UserType
 
 class AuthFormSignUpStrategy : AuthFormStrategy<SignupDto> {
@@ -44,7 +42,7 @@ class AuthFormSignUpStrategy : AuthFormStrategy<SignupDto> {
         if (request.signupVM.showErrorMessage.value) {
             Log.i(TAG, "showing error message")
             Text(
-                text = "Error Message: ${ request.signupVM.message.value }",
+                text = "Error Message: ${request.signupVM.message.value}",
                 modifier = Modifier.padding(bottom = 16.dp),
                 color = Color.Red
             )
@@ -101,7 +99,12 @@ class AuthFormSignUpStrategy : AuthFormStrategy<SignupDto> {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            request.signupVM.authenticateUser(selectedRole, email1, password1, request.signupContext)
+            request.signupVM.authenticateUser(
+                selectedRole,
+                email1,
+                password1,
+                request.signupContext
+            )
         }) {
             Text("Sign Up")
         }
