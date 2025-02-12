@@ -5,6 +5,10 @@ plugins {
 
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
+//    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
+//    id ("kotlin-kapt")
+//    kotlin("kapt") version "2.1.0"
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -43,6 +47,19 @@ android {
 }
 
 dependencies {
+    val room_version = "2.6.1"
+
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-runtime:$room_version")
+//    annotationProcessor("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-rxjava2:$room_version")
+    implementation("androidx.room:room-rxjava3:$room_version")
+    implementation("androidx.room:room-guava:$room_version")
+    testImplementation("androidx.room:room-testing:$room_version")
+    implementation("androidx.room:room-paging:$room_version")
+    implementation("androidx.core:core-ktx:1.15.0")
+
     implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx:23.1.0")
