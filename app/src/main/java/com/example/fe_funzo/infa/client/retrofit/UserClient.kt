@@ -13,4 +13,7 @@ interface UserClient {
 
     @GET("/users/count")
     suspend fun getUserCount(): UserCountResponse
+
+    @GET("/users/email")
+    suspend fun getUserByEmail(email:String): CreateUserResponse
 }

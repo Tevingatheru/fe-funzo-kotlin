@@ -1,5 +1,6 @@
 package com.example.fe_funzo.logic.view_model
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -17,7 +18,7 @@ import com.example.fe_funzo.infa.client.room.UserRepository
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
-import com.example.fe_funzo.logic.service.UserClientServiceImpl
+import com.example.fe_funzo.logic.service.UserRepoServiceImpl
 import com.example.fe_funzo.presentation.view.Signup
 import com.funzo.funzoProxy.domain.user.UserType
 import kotlinx.coroutines.Dispatchers
@@ -48,22 +49,12 @@ class SignupViewModel(
             FirebaseAuthClient.signUp(email=email, password=password, signup=signup) { isSuccessful ->
                 if (isSuccessful) {
 
-                        NavigationUtil.navigateToLandingPage(context = signup, userType= selectedRole)
-
-                    val userClient: UserClient = RetrofitClient.createClient(UserClient::class.java)
-                    val userService: UserClientServiceImpl = UserClientServiceImpl(userClient = userClient)
-                    runBlocking {
-                        try {
-                            val response: CreateUserResponse = userService.createUser(
-                                request = CreateUserRequest(selectedRole.type!!, email)
-                            )
-                            Log.i(TAG, "CreateUserResponse: ${response}")
-                            saveUser(response, signup)
-
-                        } catch (e:Exception) {
-                            Log.e(TAG, "Error: ${e.message}")
-                        }
-
+                    NavigationUtil.navigateToLandingPage(context = signup, userType= selectedRole)
+                    try {
+                        val userRepoServiceImpl = UserRepoServiceImpl()
+                        userRepoServiceImpl.save(selectedRole, signup, email)
+                    } catch (e:Exception) {
+                        Log.e(TAG, "Error: ${e.message}")
                     }
                 } else {
                     Log.i(TAG, "Sign up failed")
@@ -72,27 +63,7 @@ class SignupViewModel(
         }
     }
 
-    private fun saveUser(
-        response: CreateUserResponse,
-        signup: Signup
-    ){
-        val user: User = mapUserResponse(createUserResponse = response)
-        val db: FunzoDatabase =
-            FunzoDatabase.getInstance(context = signup, dao = UserDao::class.java)
-        val userDao: UserDao = db.userDao()
 
-        runBlocking {
-            val userRepo = UserRepository(userDao)
-            val persistUserResponse = userRepo.insertUser(user)
-            Log.i(TAG, "persistUserResponse: ${persistUserResponse}")
-        }
-    }
-
-    private fun mapUserResponse(createUserResponse: CreateUserResponse): User {
-        val user: User
-        user = User(uid = null,email= createUserResponse.email, userType =createUserResponse.userType , userCode =createUserResponse.userCode )
-        return user
-    }
 
     fun authenticateUser(selectedRole: UserType?, email: String, password: String, signupContext: Signup) {
         Log.i(TAG, "selectedRole: $selectedRole")

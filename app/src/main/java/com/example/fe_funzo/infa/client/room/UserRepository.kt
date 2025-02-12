@@ -11,10 +11,10 @@ class UserRepository (private val userDao: UserDao) {
 
     suspend fun insertUser(user: User) {
         return withContext(Dispatchers.IO) {
-            val persistUserResponse = userDao.insertUser(user)
-            Log.i(TAG, "persistUserResponse: ${persistUserResponse}")
+            userDao.insertUser(user)
         }
     }
+
 
     fun deleteUser(user: User) {
         TODO("Not yet implemented")
