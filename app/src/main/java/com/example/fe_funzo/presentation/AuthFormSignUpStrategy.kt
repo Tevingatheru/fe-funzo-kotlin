@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.dto.SignupDto
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.strategy.AuthFormStrategy
-import com.example.fe_funzo.presentation.view.RoleOption
+import com.example.fe_funzo.presentation.view.RoleOptionView
 import com.funzo.funzoProxy.domain.user.UserType
 
 class AuthFormSignUpStrategy : AuthFormStrategy<SignupDto> {
@@ -32,7 +32,7 @@ class AuthFormSignUpStrategy : AuthFormStrategy<SignupDto> {
         val email1 = request.signupVM.email.value
         val password1 = request.signupVM.password.value
         val (selectedRole, setSelectedRole) = remember { mutableStateOf<UserType?>(null) }
-
+        val roleOptionView: RoleOptionView = RoleOptionView()
         Text(text = "Hello ${request.signupVM.name}!", modifier = Modifier.padding(bottom = 16.dp))
 
         if (request.signupVM.showErrorMessage.value) {
@@ -66,7 +66,7 @@ class AuthFormSignUpStrategy : AuthFormStrategy<SignupDto> {
         )
 
         UserType.entries.forEach { role ->
-            RoleOption(
+            roleOptionView.RoleOption(
                 role = role,
                 isSelected = selectedRole == role,
                 onSelected = { isSelected ->

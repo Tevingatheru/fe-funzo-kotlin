@@ -51,7 +51,7 @@ class SignIn : ComponentActivity() {
 
 @Composable
 fun SignInScreen(context: SignIn) {
-    val authFormStrategyContext = AuthFormDisplayContext<SignInDto>()
+    val authFormStrategyContext: AuthFormDisplayContext<SignInDto> = AuthFormDisplayContext<SignInDto>()
     authFormStrategyContext.setStrategy(AuthFormSignInStrategy())
     authFormStrategyContext.Display(SignInDto(SignInViewModel(), signInContext = context))
 }

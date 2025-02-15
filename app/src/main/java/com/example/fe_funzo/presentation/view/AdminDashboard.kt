@@ -5,33 +5,23 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateMapOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.response.UserCountResponse
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClient
 import com.example.fe_funzo.infa.client.retrofit.UserClient
 import com.example.fe_funzo.presentation.view.ui.theme.Fe_funzoTheme
+import com.example.fe_funzo.ui.theme.DashboardView
 import kotlinx.coroutines.runBlocking
 
-class AdminDashboards : ComponentActivity() {
+class AdminDashboard : ComponentActivity() {
 
     companion object {
         internal const val TAG = "AdminDashboards"
@@ -39,25 +29,24 @@ class AdminDashboards : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        val userClient: UserClient = RetrofitClient.createClient(UserClient::class.java)
 
-        val userCount: MutableState<Int> = mutableStateOf(0)
+        val userClient: UserClient = RetrofitClient.createClient(UserClient::class.java)
+        val userCount: MutableState<Int> = mutableIntStateOf(0)
+        val dashboardView: DashboardView = DashboardView()
+
         runBlocking {
             val response: UserCountResponse = userClient.getUserCount()
             userCount.value = response.totalCount
         }
 
+        enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-                        DashboardCard(
-                            title = "Users",
+                        dashboardView.DashboardCard(
+                            label = "Users",
                             value = userCount.value.toString(),
-                            onClick = {
-                                Log.i(TAG,"")
-                            }
                         )
                     }
                 }
@@ -66,41 +55,15 @@ class AdminDashboards : ComponentActivity() {
     }
 }
 
-@Composable
-fun DashboardCard(
-    title: String,
-    value: String,
-    onClick: () -> Unit
-) {
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(120.dp)
-            .clickable(onClick = onClick),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-    ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.Start,
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(title, style = MaterialTheme.typography.titleSmall)
-            Text(value, style = MaterialTheme.typography.headlineMedium)
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
 fun Preview5() {
+    val dashboardView: DashboardView = DashboardView()
     Fe_funzoTheme {
-        DashboardCard(
-            title = "Users",
+        dashboardView.DashboardCard(
+            label = "Users",
             value = "5",
-            onClick = {
-                Log.i(AdminDashboards.TAG,"")
-            }
         )
     }
 }
