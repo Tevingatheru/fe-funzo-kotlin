@@ -1,9 +1,10 @@
-package com.example.fe_funzo.logic.service
+package com.example.fe_funzo.logic
 
 import com.example.fe_funzo.infa.client.retrofit.UserClient
 import com.example.fe_funzo.data.request.CreateUserRequest
 import com.example.fe_funzo.data.response.CreateUserResponse
 import com.example.fe_funzo.data.response.UserCountResponse
+import com.example.fe_funzo.logic.service.UserClientService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

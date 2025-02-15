@@ -1,29 +1,17 @@
 package com.example.fe_funzo.logic.view_model
 
-import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.infa.client.FirebaseAuthClient
-import com.example.fe_funzo.infa.client.retrofit.RetrofitClient
-import com.example.fe_funzo.infa.client.retrofit.UserClient
-import com.example.fe_funzo.data.request.CreateUserRequest
-import com.example.fe_funzo.data.response.CreateUserResponse
-import com.example.fe_funzo.infa.client.room.FunzoDatabase
-//import com.example.fe_funzo.infa.client.room.FunzoDatabaseService
-import com.example.fe_funzo.infa.client.room.User
-import com.example.fe_funzo.infa.client.room.UserDao
-import com.example.fe_funzo.infa.client.room.UserRepository
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
-import com.example.fe_funzo.logic.service.UserRepoServiceImpl
+import com.example.fe_funzo.logic.UserRepoServiceImpl
 import com.example.fe_funzo.presentation.view.Signup
 import com.funzo.funzoProxy.domain.user.UserType
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
 class SignupViewModel(
     var email: MutableState<String>  = mutableStateOf(""),

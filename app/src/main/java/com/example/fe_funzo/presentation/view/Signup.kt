@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.data.dto.SignupDto
 import com.example.fe_funzo.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.logic.view_model.SignupViewModel
+import com.example.fe_funzo.presentation.AuthFormSignUpStrategy
 
 private const val TAG = "Signup"
 

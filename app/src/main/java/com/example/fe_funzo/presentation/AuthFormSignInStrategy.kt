@@ -1,4 +1,4 @@
-package com.example.fe_funzo.presentation.view
+package com.example.fe_funzo.presentation
 
 import android.util.Log
 import androidx.compose.foundation.clickable
@@ -18,8 +18,10 @@ import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.dto.SignInDto
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
-import com.example.fe_funzo.logic.service.AuthServiceImpl
+import com.example.fe_funzo.logic.AuthServiceImpl
+import com.example.fe_funzo.logic.strategy.AuthFormStrategy
 import com.example.fe_funzo.logic.view_model.SignInViewModel
+import com.example.fe_funzo.presentation.view.SignIn
 
 class AuthFormSignInStrategy : AuthFormStrategy<SignInDto> {
     companion object {

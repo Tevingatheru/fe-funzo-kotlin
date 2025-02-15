@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import com.example.fe_funzo.infa.client.FirebaseAuthClient
 import com.example.fe_funzo.infa.client.room.User
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.logic.service.UserRepoServiceImpl
+import com.example.fe_funzo.logic.UserRepoServiceImpl
 import com.example.fe_funzo.presentation.view.SignIn
 import com.funzo.funzoProxy.domain.user.UserType
 
@@ -37,7 +37,6 @@ class SignInViewModel (var showErrorMessage: MutableState<Boolean> = mutableStat
     private fun getUserTypeByEmail(email: String): UserType {
         val userRepoServiceImpl: UserRepoServiceImpl = UserRepoServiceImpl()
         val user: User = userRepoServiceImpl.getUserByEmail(email)
-        TODO("Not yet implemented")
         return UserType.find(user.userType)
     }
 }

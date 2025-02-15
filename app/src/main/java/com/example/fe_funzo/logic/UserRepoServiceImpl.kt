@@ -1,4 +1,4 @@
-package com.example.fe_funzo.logic.service
+package com.example.fe_funzo.logic
 
 import android.content.Context
 import android.util.Log
@@ -10,6 +10,7 @@ import com.example.fe_funzo.infa.client.room.FunzoDatabase
 import com.example.fe_funzo.infa.client.room.User
 import com.example.fe_funzo.infa.client.room.UserDao
 import com.example.fe_funzo.infa.client.room.UserRepository
+import com.example.fe_funzo.logic.service.UserRepoService
 import com.funzo.funzoProxy.domain.user.UserType
 import kotlinx.coroutines.runBlocking
 
@@ -24,13 +25,13 @@ class UserRepoServiceImpl : UserRepoService {
         val db: FunzoDatabase =
             FunzoDatabase.getInstance(context = context, dao = UserDao::class.java)
         val userDao: UserDao = db.userDao()
+        val userRepo = UserRepository(userDao)
 
         runBlocking {
             val response: CreateUserResponse = userService.createUser(
                 request = CreateUserRequest(userType.type!!, email)
             )
             val user: User = mapUserResponse(createUserResponse = response)
-            val userRepo = UserRepository(userDao)
             val persistUserResponse = userRepo.insertUser(user)
             Log.i(TAG, "persistUserResponse: ${persistUserResponse}")
         }

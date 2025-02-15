@@ -1,5 +1,6 @@
-package com.example.fe_funzo.logic.service
+package com.example.fe_funzo.logic
 
+import com.example.fe_funzo.logic.service.AuthService
 import com.example.fe_funzo.logic.view_model.SignInViewModel
 
 class AuthServiceImpl : AuthService<SignInViewModel> {

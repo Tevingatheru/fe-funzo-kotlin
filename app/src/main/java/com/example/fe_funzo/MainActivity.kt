@@ -23,7 +23,7 @@ import com.funzo.funzoProxy.domain.user.UserType
 class MainActivity : ComponentActivity() {
 
     companion object {
-        private val TAG = "MainActivity"
+        private const val TAG = "MainActivity"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
