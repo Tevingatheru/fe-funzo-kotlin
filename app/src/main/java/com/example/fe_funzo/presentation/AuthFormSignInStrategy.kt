@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.dto.SignInDto
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
-import com.example.fe_funzo.logic.AuthServiceImpl
+import com.example.fe_funzo.logic.service.impl.AuthServiceImpl
 import com.example.fe_funzo.logic.strategy.AuthFormStrategy
 import com.example.fe_funzo.logic.view_model.SignInViewModel
 import com.example.fe_funzo.presentation.view.SignIn

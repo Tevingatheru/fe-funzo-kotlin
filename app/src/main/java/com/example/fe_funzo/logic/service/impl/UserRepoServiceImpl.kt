@@ -1,4 +1,4 @@
-package com.example.fe_funzo.logic
+package com.example.fe_funzo.logic.service.impl
 
 import android.content.Context
 import android.util.Log
@@ -14,16 +14,19 @@ import com.example.fe_funzo.logic.service.UserRepoService
 import com.funzo.funzoProxy.domain.user.UserType
 import kotlinx.coroutines.runBlocking
 
-class UserRepoServiceImpl : UserRepoService {
+class UserRepoServiceImpl (
+    val context: Context,
+    private val db: FunzoDatabase =
+        FunzoDatabase.getInstance(context = context, dao = UserDao::class.java)
+): UserRepoService {
     companion object {
-        const val TAG = "UserRepoServiceImpl"
+        private const val TAG = "UserRepoServiceImpl"
     }
 
-    override fun save(userType: UserType, context: Context, email: String) {
-        val userClient: UserClient = RetrofitClient.createClient(UserClient::class.java)
+    override fun save(userType: UserType,  email: String) {
+        val userClient: UserClient =
+            RetrofitClient.createClient(serviceClass = UserClient::class.java)
         val userService: UserClientServiceImpl = UserClientServiceImpl(userClient = userClient)
-        val db: FunzoDatabase =
-            FunzoDatabase.getInstance(context = context, dao = UserDao::class.java)
         val userDao: UserDao = db.userDao()
         val userRepo = UserRepository(userDao)
 
@@ -42,6 +45,23 @@ class UserRepoServiceImpl : UserRepoService {
         val userService: UserClientServiceImpl = UserClientServiceImpl(userClient = userClient)
         return runBlocking {
             mapUserResponse(userService.getUserByEmail(email=email))
+        }
+    }
+
+    override fun delete(user: User) {
+        val userDao: UserDao = db.userDao()
+        val userRepo = UserRepository(userDao)
+        return runBlocking {
+            userRepo.deleteUser(user)
+        }
+    }
+
+    override fun getFirstUser(): User {
+        val userDao: UserDao = db.userDao()
+        val userRepo = UserRepository(userDao)
+
+        return runBlocking {
+            userRepo.getFirstUser()
         }
     }
 

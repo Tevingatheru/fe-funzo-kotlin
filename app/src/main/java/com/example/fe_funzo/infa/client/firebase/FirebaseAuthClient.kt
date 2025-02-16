@@ -1,4 +1,4 @@
-package com.example.fe_funzo.infa.client
+package com.example.fe_funzo.infa.client.firebase
 
 import android.util.Log
 import com.example.fe_funzo.infa.util.EventAlertUtil
@@ -57,13 +57,11 @@ class FirebaseAuthClient private constructor(
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(context) { task ->
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
                         Log.i(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
                         Log.i(TAG, "user : ${user}")
                         callback(true)
                     } else {
-                        // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         EventAlertUtil.authenticationFailure(context)
                         callback(false)

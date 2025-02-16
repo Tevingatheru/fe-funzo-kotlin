@@ -14,11 +14,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.infa.client.FirebaseAuthClient
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.logic.view_model.FirebaseViewModel
-import com.funzo.funzoProxy.domain.user.UserType
 
 class MainActivity : ComponentActivity() {
 
@@ -51,18 +49,6 @@ class MainActivity : ComponentActivity() {
     public override fun onStart() {
         super.onStart()
         Log.i(TAG, "onStart")
-        if (FirebaseAuthClient.isUserLoggedIn()) {
-            val userType: UserType = getUserType(email = FirebaseAuthClient.getUserEmail())
-            openLandingPageStrategy(userType)
-        }
-    }
-
-    private fun getUserType(email: String): UserType {
-        TODO("Not yet implemented")
-    }
-
-    private fun openLandingPageStrategy(userType: UserType) {
-        NavigationUtil.navigateToLandingPage(this, userType)
     }
 }
 

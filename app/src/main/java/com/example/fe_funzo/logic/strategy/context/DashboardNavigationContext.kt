@@ -1,4 +1,6 @@
-package com.example.fe_funzo.logic.strategy
+package com.example.fe_funzo.logic.strategy.context
+
+import com.example.fe_funzo.logic.strategy.DashboardNavigationStrategy
 
 class DashboardNavigationContext<T> {
     private lateinit var dashboardNavigationStrategy: DashboardNavigationStrategy<T>

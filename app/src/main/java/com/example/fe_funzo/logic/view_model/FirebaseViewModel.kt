@@ -3,8 +3,11 @@ package com.example.fe_funzo.logic.view_model
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.fe_funzo.infa.client.FirebaseAuthClient
+import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
+import com.example.fe_funzo.infa.client.room.User
 import com.example.fe_funzo.infa.util.NavigationUtil
+import com.example.fe_funzo.logic.service.UserRepoService
+import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 
 class FirebaseViewModel: ViewModel() {
     companion object {
@@ -12,15 +15,17 @@ class FirebaseViewModel: ViewModel() {
     }
 
     fun validateCurrentUser(context: Context) {
-        Log.i(TAG, "validateCurrentUser")
         if (!FirebaseAuthClient.isUserLoggedIn()) {
-            Log.i(TAG, "validateCurrentUser: true")
             NavigationUtil.navigateToSignUpActivity(context)
         }
     }
 
     fun logout(context: Context) {
+        val userRepoServiceImpl: UserRepoServiceImpl = UserRepoServiceImpl(context= context)
+        val user:User = userRepoServiceImpl.getFirstUser()
+
         FirebaseAuthClient.logout()
+        userRepoServiceImpl.delete(user = user)
         NavigationUtil.navigateToSignUpActivity(context = context)
     }
 }

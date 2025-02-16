@@ -1,4 +1,4 @@
-package com.example.fe_funzo.logic
+package com.example.fe_funzo.logic.service.impl
 
 import com.example.fe_funzo.infa.client.retrofit.UserClient
 import com.example.fe_funzo.data.request.CreateUserRequest

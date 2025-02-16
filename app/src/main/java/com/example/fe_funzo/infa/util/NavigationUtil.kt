@@ -11,10 +11,13 @@ import com.example.fe_funzo.presentation.view.Signup
 import com.example.fe_funzo.presentation.view.TeacherLandingPage
 import com.example.fe_funzo.presentation.view.UserProfile
 import com.example.fe_funzo.presentation.view.UserProfileSettings
+import com.funzo.funzoProxy.domain.user.UserType
 
 class NavigationUtil {
     companion object {
+
         private const val TAG = "NavigationUtil"
+
         fun navigateToSignUpActivity(context: Context) {
             Log.i(TAG, "navigateToSignUpActivity")
             val intent = Intent(context, Signup::class.java)
@@ -33,6 +36,19 @@ class NavigationUtil {
 //            }
 //            context.startActivity(intent)
 //        }
+
+        fun navigateToLandingPage(
+            selectedRole: UserType,
+            context: Context
+        ) {
+            if (selectedRole == UserType.ADMINISTRATOR) {
+                navigateToAdminLandingPage(context = context)
+            } else if (selectedRole == UserType.TEACHER) {
+                navigateToTeacherLandingPage(context = context)
+            } else {
+                throw IllegalArgumentException("Invalid user type")
+            }
+        }
 
         fun navigateToAdminLandingPage(context: Context) {
             val intent: Intent

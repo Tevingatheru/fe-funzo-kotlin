@@ -8,12 +8,14 @@ import kotlin.reflect.KClass
 
 @Database(entities = [User::class], version = 1, exportSchema = false)
 abstract class FunzoDatabase: RoomDatabase() {
+
     abstract fun userDao(): UserDao
+
     companion object {
         @Volatile
         private var INSTANCE: FunzoDatabase? = null
 
-        fun  getInstance(context: Context, dao: Any): FunzoDatabase {
+        fun getInstance(context: Context, dao: Any): FunzoDatabase {
             synchronized(dao) {
                 return INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,

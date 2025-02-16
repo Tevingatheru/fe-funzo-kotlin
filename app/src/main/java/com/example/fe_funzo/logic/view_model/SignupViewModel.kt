@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.fe_funzo.infa.client.FirebaseAuthClient
+import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
-import com.example.fe_funzo.logic.UserRepoServiceImpl
+import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 import com.example.fe_funzo.presentation.view.Signup
 import com.funzo.funzoProxy.domain.user.UserType
 import kotlinx.coroutines.runBlocking
@@ -36,11 +36,11 @@ class SignupViewModel(
         runBlocking {
             FirebaseAuthClient.signUp(email=email, password=password, signup=signup) { isSuccessful ->
                 if (isSuccessful) {
+                    NavigationUtil.navigateToLandingPage(selectedRole, signup)
 
-                    NavigationUtil.navigateToLandingPage(context = signup, userType= selectedRole)
                     try {
-                        val userRepoServiceImpl = UserRepoServiceImpl()
-                        userRepoServiceImpl.save(selectedRole, signup, email)
+                        val userRepoServiceImpl = UserRepoServiceImpl(context = signup)
+                        userRepoServiceImpl.save(selectedRole, email=  email)
                     } catch (e:Exception) {
                         Log.e(TAG, "Error: ${e.message}")
                     }
@@ -50,8 +50,6 @@ class SignupViewModel(
             }
         }
     }
-
-
 
     fun authenticateUser(selectedRole: UserType?, email: String, password: String, signupContext: Signup) {
         Log.i(TAG, "selectedRole: $selectedRole")
