@@ -4,10 +4,15 @@ import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.fe_funzo.data.request.CreateUserRequest
+import com.example.fe_funzo.data.response.CreateUserResponse
 import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
+import com.example.fe_funzo.infa.client.retrofit.RetrofitClient
+import com.example.fe_funzo.infa.client.retrofit.UserClient
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
+import com.example.fe_funzo.logic.service.impl.UserClientServiceImpl
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 import com.example.fe_funzo.presentation.view.Signup
 import com.funzo.funzoProxy.domain.user.UserType
@@ -33,23 +38,52 @@ class SignupViewModel(
 
     private fun signUp(email: String, password: String, signup: Signup, selectedRole:UserType) {
         Log.i(TAG, "signUp")
-        runBlocking {
-            FirebaseAuthClient.signUp(email=email, password=password, signup=signup) { isSuccessful ->
-                if (isSuccessful) {
-                    NavigationUtil.navigateToLandingPage(selectedRole, signup)
+        val userClient: UserClient =
+            RetrofitClient.createClient(serviceClass = UserClient::class.java)
+        val userService: UserClientServiceImpl = UserClientServiceImpl(userClient = userClient)
 
-                    try {
-                        val userRepoServiceImpl = UserRepoServiceImpl(context = signup)
-                        userRepoServiceImpl.save(selectedRole, email=  email)
-                    } catch (e:Exception) {
-                        Log.e(TAG, "Error: ${e.message}")
-                    }
-                } else {
-                    Log.i(TAG, "Sign up failed")
+        runBlocking {
+            val response: CreateUserResponse = cacheUserDetails(userService, selectedRole, email)
+            signupViaFirebase(email = email, password = password, signup = signup,
+                selectedRole =  selectedRole, userRepoServiceImpl = UserRepoServiceImpl(context = signup),
+                response= response)
+        }
+    }
+
+    private fun signupViaFirebase(
+        email: String,
+        password: String,
+        signup: Signup,
+        selectedRole: UserType,
+        userRepoServiceImpl: UserRepoServiceImpl,
+        response: CreateUserResponse
+    ) {
+        FirebaseAuthClient.signUp(
+            email = email,
+            password = password,
+            signup = signup
+        ) { isSuccessful ->
+            if (isSuccessful) {
+                NavigationUtil.navigateToLandingPage(userType = selectedRole, context = signup)
+
+                try {
+                    userRepoServiceImpl.save(selectedRole, email = email, response = response)
+                } catch (e: Exception) {
+                    Log.e(TAG, "Failed to save user. Error: $e")
                 }
+            } else {
+                Log.e(TAG, "Sign up failed")
             }
         }
     }
+
+    private suspend fun cacheUserDetails(
+        userService: UserClientServiceImpl,
+        selectedRole: UserType,
+        email: String
+    ) = userService.createUser(
+        request = CreateUserRequest(selectedRole.type!!, email)
+    )
 
     fun authenticateUser(selectedRole: UserType?, email: String, password: String, signupContext: Signup) {
         Log.i(TAG, "selectedRole: $selectedRole")
@@ -83,16 +117,13 @@ class SignupViewModel(
         Log.i(TAG, "Signing up with email: $email1, password: $password1")
 
         if (email1.isBlank() && password1.isBlank()) {
-            Log.i(TAG, "Enter all required fields.")
             signupVM.setErrorMessage()
             return false
         } else if (email1.isBlank()) {
-            Log.i(TAG, "Email field required.")
             signupVM.message.value = "Email is required."
             signupVM.showErrorMessage = mutableStateOf(true)
             return false
         } else if (password1.isBlank()) {
-            Log.i(TAG, "Password field required")
             signupVM.message = mutableStateOf("Password is required.")
             signupVM.showErrorMessage = mutableStateOf(true)
             return false

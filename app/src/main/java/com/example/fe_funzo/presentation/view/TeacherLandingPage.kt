@@ -2,6 +2,7 @@ package com.example.fe_funzo.presentation.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -13,11 +14,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.fe_funzo.logic.view_model.FirebaseViewModel
 import com.example.fe_funzo.presentation.view.ui.theme.Fe_funzoTheme
 
 class TeacherLandingPage : ComponentActivity() {
+    companion object {
+        private const val TAG = "TeacherLandingPage"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val firebaseViewModel = FirebaseViewModel()
+        firebaseViewModel.validateCurrentUser(this)
         val landingView: LandingView = LandingView()
         val context: Context = this
 
@@ -31,6 +39,11 @@ class TeacherLandingPage : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i(TAG, "onStart")
     }
 }
 

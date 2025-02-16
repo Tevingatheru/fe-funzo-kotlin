@@ -24,30 +24,17 @@ class NavigationUtil {
             context.startActivity(intent)
         }
 
-//        fun navigateToLandingPage(context: Context, userType: UserType) {
-//            Log.i(TAG, "Navigate to admin landing page.")
-//            val intent: Intent
-//            if (userType == UserType.ADMINISTRATOR) {
-//                intent = Intent(context, AdminLandingPage::class.java)
-//            } else if (userType == UserType.TEACHER) {
-//                intent = Intent(context, TeacherLandingPage::class.java)
-//            } else {
-//                throw IllegalArgumentException("UserType does not exist: $userType")
-//            }
-//            context.startActivity(intent)
-//        }
-
-        fun navigateToLandingPage(
-            selectedRole: UserType,
-            context: Context
-        ) {
-            if (selectedRole == UserType.ADMINISTRATOR) {
-                navigateToAdminLandingPage(context = context)
-            } else if (selectedRole == UserType.TEACHER) {
-                navigateToTeacherLandingPage(context = context)
+        fun navigateToLandingPage(context: Context, userType: UserType) {
+            Log.i(TAG, "Navigate to landing page.")
+            val intent: Intent
+            if (userType == UserType.ADMINISTRATOR) {
+                intent = Intent(context, AdminLandingPage::class.java)
+            } else if (userType == UserType.TEACHER) {
+                intent = Intent(context, TeacherLandingPage::class.java)
             } else {
-                throw IllegalArgumentException("Invalid user type")
+                throw IllegalArgumentException("UserType does not exist: $userType")
             }
+            context.startActivity(intent)
         }
 
         fun navigateToAdminLandingPage(context: Context) {

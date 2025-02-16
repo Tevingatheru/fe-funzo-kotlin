@@ -22,10 +22,16 @@ class FirebaseViewModel: ViewModel() {
 
     fun logout(context: Context) {
         val userRepoServiceImpl: UserRepoServiceImpl = UserRepoServiceImpl(context= context)
-        val user:User = userRepoServiceImpl.getFirstUser()
+        val user:User? = userRepoServiceImpl.getFirstUser()
 
-        FirebaseAuthClient.logout()
-        userRepoServiceImpl.delete(user = user)
+        if (FirebaseAuthClient.isUserLoggedIn()) {
+            FirebaseAuthClient.logout()
+        }
+
+        if (user != null) {
+            userRepoServiceImpl.delete(user = user)
+        }
+
         NavigationUtil.navigateToSignUpActivity(context = context)
     }
 }

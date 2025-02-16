@@ -19,7 +19,7 @@ class FirebaseAuthClient private constructor(
             Log.i(TAG, "isUserLoggedIn")
             val currentUser = auth.currentUser
             if (currentUser != null) {
-                Log.i(TAG, "currentUser: ${currentUser}")
+                Log.i(TAG, "currentUser: $currentUser")
                 return true
             } else {
                 Log.w(TAG, "No currentUser")
@@ -29,14 +29,11 @@ class FirebaseAuthClient private constructor(
 
         fun signUp(email: String, password: String, signup: Signup,
                    isSuccessful: (Boolean) -> Unit)  {
-            Log.i(TAG, "createUserWithEmail")
-
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(signup) { task ->
                     if (task.isSuccessful) {
-                        Log.i(TAG, "createUserWithEmail:success")
                         val user = auth.currentUser
-                        Log.i(TAG, "user: ${user}")
+                        Log.i(TAG, "user: $user")
                         EventAlertUtil.signupIsSuccessful(signup)
                         isSuccessful(true)
                     } else {

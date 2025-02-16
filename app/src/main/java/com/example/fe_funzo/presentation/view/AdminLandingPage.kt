@@ -1,6 +1,7 @@
 package com.example.fe_funzo.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -23,6 +24,7 @@ class AdminLandingPage : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i(TAG, "onCreate")
         val firebaseViewModel = FirebaseViewModel()
         firebaseViewModel.validateCurrentUser(this)
         val username: String = FirebaseAuthClient.getUserEmail()
@@ -42,6 +44,11 @@ class AdminLandingPage : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i(TAG, "onStart")
     }
 }
 
