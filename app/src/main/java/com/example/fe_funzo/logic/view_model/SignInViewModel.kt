@@ -3,6 +3,7 @@ package com.example.fe_funzo.logic.view_model
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClient
 import com.example.fe_funzo.infa.client.retrofit.UserClient
@@ -19,7 +20,7 @@ import kotlinx.coroutines.runBlocking
 class SignInViewModel (var showErrorMessage: MutableState<Boolean> = mutableStateOf(false),
                        var errorMessage: MutableState<String> = mutableStateOf(""),
                        var email: MutableState<String> = mutableStateOf(""),
-                       var password: MutableState<String> = mutableStateOf("")) {
+                       var password: MutableState<String> = mutableStateOf("")): ViewModel() {
 
     companion object {
         const val TAG: String = "SignInViewModel"

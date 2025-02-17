@@ -9,4 +9,7 @@
     <string name="title_activity_admin_dashboards">AdminDashboards</string>
     <string name="title_activity_teacher_landing_page">TeacherLandingPage</string>
     <string name="title_activity_teacher_dashboard">TeacherDashboardActivity</string>
+    <string name="title_activity_create_exam">CreateExamActivity</string>
+    <string name="title_activity_view_exams">ViewExamsActivity</string>
+    <string name="title_activity_subject_details">SubjectDetailsActivity</string>
 </resources>

@@ -23,9 +23,18 @@ class LandingView {
         Button(onClick = {
             navigateToDashboardScreen(context)
         }) { Text(text = "Dashboards") }
+
         Button(onClick = {
             navigateToProfileScreen(context)
         }) { Text(text = "Profile") }
+
+        Button(onClick = {
+            navigateToViewExamsActivity(context)
+        }) { Text(text = "View Exams") }
+    }
+
+    private fun navigateToViewExamsActivity(context: Context) {
+        NavigationUtil.navigateToViewExams(context = context)
     }
 
     private fun navigateToDashboardScreen(context: Context) {
