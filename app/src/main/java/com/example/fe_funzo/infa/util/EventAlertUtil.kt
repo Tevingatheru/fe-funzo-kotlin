@@ -9,7 +9,6 @@ class EventAlertUtil {
         private const val TAG = "EventAlertUtil"
 
         fun signupIsSuccessful(context: Signup) {
-
             Toast.makeText(
                 context,
                 "Authentication success.",
@@ -18,7 +17,6 @@ class EventAlertUtil {
         }
 
         fun signupIsFailed(context: Signup) {
-
             Toast.makeText(
                 context,
                 "Authentication failed.",
@@ -27,6 +25,14 @@ class EventAlertUtil {
         }
 
         fun authenticationFailure(context: SignIn) {
+            Toast.makeText(
+                context,
+                "Authentication failed.",
+                Toast.LENGTH_SHORT,
+            ).show()
+        }
+
+        fun signInHasFailed(context: SignIn) {
             Toast.makeText(
                 context,
                 "Authentication failed.",

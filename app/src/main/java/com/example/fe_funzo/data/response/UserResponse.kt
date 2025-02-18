@@ -2,7 +2,7 @@ package com.example.fe_funzo.data.response
 
 import com.funzo.funzoProxy.domain.user.UserType
 
-data class CreateUserResponse (
+data class UserResponse (
     val code: String,
     val email: String,
     val userType: String

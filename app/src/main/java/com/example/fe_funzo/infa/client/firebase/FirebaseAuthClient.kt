@@ -50,18 +50,16 @@ class FirebaseAuthClient private constructor(
             return firebaseUser!!.email!!
         }
 
-        fun signIn(email: String, password: String, context: SignIn, callback: (Boolean) -> Unit) {
+        fun signIn(email: String, password: String, context: SignIn) {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(context) { task ->
                     if (task.isSuccessful) {
                         Log.i(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
-                        Log.i(TAG, "user : ${user}")
-                        callback(true)
+                        Log.i(TAG, "User details from firebase : ${user}")
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         EventAlertUtil.authenticationFailure(context)
-                        callback(false)
                     }
                 }
         }

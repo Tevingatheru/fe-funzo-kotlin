@@ -2,7 +2,7 @@ package com.example.fe_funzo.logic.service.impl
 
 import android.content.Context
 import android.util.Log
-import com.example.fe_funzo.data.response.CreateUserResponse
+import com.example.fe_funzo.data.response.UserResponse
 import com.example.fe_funzo.infa.client.room.FunzoDatabase
 import com.example.fe_funzo.infa.client.room.User
 import com.example.fe_funzo.infa.client.room.UserDao
@@ -23,9 +23,9 @@ class UserRepoServiceImpl (
     }
 
     override fun save(email: String,
-                      response: CreateUserResponse) {
+                      response: UserResponse) {
         runBlocking {
-            val user: User = UserMapper.mapCreateUserResponse(createUserResponse = response)
+            val user: User = UserMapper.mapCreateUserResponse(userResponse = response)
             val persistUserResponse = userRepo.insertUser(user)
             Log.i(TAG, "persistUserResponse: ${persistUserResponse}")
         }

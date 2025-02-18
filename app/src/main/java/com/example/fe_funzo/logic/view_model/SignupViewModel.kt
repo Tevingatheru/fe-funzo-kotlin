@@ -5,7 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.data.request.CreateUserRequest
-import com.example.fe_funzo.data.response.CreateUserResponse
+import com.example.fe_funzo.data.response.UserResponse
 import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClient
 import com.example.fe_funzo.infa.client.retrofit.UserClient
@@ -43,7 +43,7 @@ class SignupViewModel(
         val userService: UserClientServiceImpl = UserClientServiceImpl(userClient = userClient)
 
         runBlocking {
-            val response: CreateUserResponse = cacheUserDetails(userService, selectedRole, email)
+            val response: UserResponse = cacheUserDetails(userService, selectedRole, email)
             signupViaFirebase(email = email, password = password, signup = signup,
                 selectedRole =  selectedRole, userRepoServiceImpl = UserRepoServiceImpl(context = signup),
                 response= response)
@@ -56,7 +56,7 @@ class SignupViewModel(
         signup: Signup,
         selectedRole: UserType,
         userRepoServiceImpl: UserRepoServiceImpl,
-        response: CreateUserResponse
+        response: UserResponse
     ) {
         FirebaseAuthClient.signUp(
             email = email,
