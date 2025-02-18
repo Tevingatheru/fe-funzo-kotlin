@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -13,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.ui.theme.Fe_funzoTheme
@@ -28,19 +30,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "onCreate")
         val firebaseViewModel = FirebaseViewModel()
-
-        firebaseViewModel.validateCurrentUser(this)
+        val context: Context = this
+        firebaseViewModel.validateCurrentUser(context = context)
 
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(
-                        name = "Test",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-
-                    NavigateToSignUpPage(this)
+                    Column (modifier = Modifier.padding(innerPadding)) {
+                        NavigateToSignUpPage(context = context)
+                    }
                 }
             }
         }
@@ -50,14 +49,6 @@ class MainActivity : ComponentActivity() {
         super.onStart()
         Log.i(TAG, "onStart")
     }
-}
-
-@Composable
-fun MainScreen(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
 }
 
 @Composable
@@ -74,6 +65,7 @@ fun NavigateToSignUpPage(context : Context) {
 @Composable
 fun MainPreview() {
     Fe_funzoTheme {
-        MainScreen("Android")
+        val context: Context = LocalContext.current
+        NavigateToSignUpPage(context)
     }
 }

@@ -67,7 +67,7 @@ class SignupViewModel(
                 NavigationUtil.navigateToLandingPage(userType = selectedRole, context = signup)
 
                 try {
-                    userRepoServiceImpl.save(selectedRole, email = email, response = response)
+                    userRepoServiceImpl.save(email = email, response = response)
                 } catch (e: Exception) {
                     Log.e(TAG, "Failed to save user. Error: $e")
                 }

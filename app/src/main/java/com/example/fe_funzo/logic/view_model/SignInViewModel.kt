@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.fe_funzo.data.response.CreateUserResponse
 import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClient
 import com.example.fe_funzo.infa.client.retrofit.UserClient
@@ -37,11 +38,10 @@ class SignInViewModel (var showErrorMessage: MutableState<Boolean> = mutableStat
 
                 runBlocking {
                     val createUserResponse = userService.getUserByEmail(email)
-                    val user: User = UserMapper.mapCreateUserResponse(createUserResponse)
-                    val userType = UserType.find(user.userType)
+                    val userType: UserType = createUserResponse.getUserType()
 
                     UserRepoServiceImpl(context = signInContext)
-                        .save(userType = userType, email = email, response = createUserResponse)
+                        .save( email = email, response = createUserResponse)
                     NavigationUtil.navigateToLandingPage(
                         context = signInContext,
                         userType = userType
@@ -52,5 +52,4 @@ class SignInViewModel (var showErrorMessage: MutableState<Boolean> = mutableStat
             }
         }
     }
-
 }

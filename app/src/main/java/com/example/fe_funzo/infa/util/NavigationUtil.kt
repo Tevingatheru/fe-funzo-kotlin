@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.example.fe_funzo.presentation.activity.CreateExamActivity
+import com.example.fe_funzo.presentation.activity.SubjectDetailsActivity
 import com.example.fe_funzo.presentation.activity.TeacherDashboardActivity
 import com.example.fe_funzo.presentation.activity.ViewExamsActivity
 import com.example.fe_funzo.presentation.view.AdminDashboard
@@ -88,6 +89,12 @@ class NavigationUtil (){
         fun navigateToViewExams(context: Context) {
             Log.i(TAG, "navigateToViewExams")
             intent = Intent(context, ViewExamsActivity::class.java)
+            context.startActivity(intent)
+        }
+
+        fun navigateToSubjectDetails(context: Context) {
+            Log.i(TAG, "navigateToSubjectDetails")
+            intent = Intent(context, SubjectDetailsActivity::class.java)
             context.startActivity(intent)
         }
     }

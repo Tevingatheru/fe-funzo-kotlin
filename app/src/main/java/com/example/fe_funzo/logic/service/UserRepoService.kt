@@ -5,10 +5,8 @@ import com.example.fe_funzo.infa.client.room.User
 import com.funzo.funzoProxy.domain.user.UserType
 
 interface UserRepoService {
-    fun save(userType: UserType,
-             email: String,
-             response: CreateUserResponse
-    )
+    fun save(email: String,
+             response: CreateUserResponse)
     fun delete(user: User)
     fun getFirstUser(): User
 }
