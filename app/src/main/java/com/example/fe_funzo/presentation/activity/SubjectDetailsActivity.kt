@@ -18,6 +18,7 @@ import com.example.fe_funzo.logic.view_model.SubjectViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.presentation.form.SubjectForm
 import com.example.fe_funzo.data.model.Subject
+import com.example.fe_funzo.infa.util.NavigationUtil
 import kotlinx.coroutines.runBlocking
 
 private const val TAG : String = "SubjectDetailsActivity"
@@ -47,14 +48,23 @@ fun SubjectDetailsScreen(subjectViewModel: SubjectViewModel) {
         Log.i(TAG, "Create subject. \n Subject: $subject")
         runBlocking {
             try {
-                val createSubjectResponse: CreateSubjectResponse = subjectViewModel.createSubject(subject = subject)
-                Log.i(TAG, "createSubjectResponse: $createSubjectResponse")
-                EventAlertUtil.createSubjectSuccess(subjectDetailsActivity = subjectViewModel.subjectDetailsActivity)
+                createSubject(subjectViewModel, subject)
             } catch (e: Exception) {
                 EventAlertUtil.createSubjectFailed(subjectDetailsActivity = subjectViewModel.subjectDetailsActivity)
             }
         }
     }
+}
+
+private suspend fun createSubject(
+    subjectViewModel: SubjectViewModel,
+    subject: Subject
+) {
+    val createSubjectResponse: CreateSubjectResponse =
+        subjectViewModel.createSubject(subject = subject)
+
+    EventAlertUtil.createSubjectSuccess(subjectDetailsActivity = subjectViewModel.subjectDetailsActivity)
+    NavigationUtil.navigateToViewExams(context = subjectViewModel.subjectDetailsActivity)
 }
 
 @Preview(showBackground = true)

@@ -28,9 +28,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         Log.i(TAG, "onCreate")
-        val firebaseViewModel = FirebaseViewModel()
         val context: Context = this
+        val firebaseViewModel = FirebaseViewModel()
+
         firebaseViewModel.validateCurrentUser(context = context)
 
         enableEdgeToEdge()
