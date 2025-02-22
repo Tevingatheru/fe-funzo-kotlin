@@ -18,7 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.learner.funzo.model.Subject
+import com.example.fe_funzo.data.model.Subject
 
 class SubjectForm {
     @Composable

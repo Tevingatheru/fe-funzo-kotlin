@@ -1,4 +1,4 @@
-package com.example.fe_funzo.infa.client.retrofit
+package com.example.fe_funzo.infa.client.retrofit.client
 
 import com.example.fe_funzo.data.request.CreateUserRequest
 import com.example.fe_funzo.data.response.UserResponse
@@ -9,12 +9,12 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface UserClient {
-    @POST("/users")
+    @POST(value = "/users")
     suspend fun createUser(@Body request: CreateUserRequest): UserResponse
 
-    @GET("/users/count")
+    @GET(value = "/users/count")
     suspend fun getUserCount(): UserCountResponse
 
-    @GET("/users/email")
+    @GET(value = "/users/email")
     suspend fun getUserByEmail(@Query(value = "email") email:String): UserResponse
 }

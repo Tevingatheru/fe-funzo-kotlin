@@ -7,7 +7,6 @@ import com.example.fe_funzo.infa.client.room.FunzoDatabase
 import com.example.fe_funzo.infa.client.room.User
 import com.example.fe_funzo.infa.client.room.UserDao
 import com.example.fe_funzo.infa.client.room.UserRepository
-import com.example.fe_funzo.infa.mapper.UserMapper
 import com.example.fe_funzo.logic.service.UserRepoService
 import kotlinx.coroutines.runBlocking
 
@@ -25,7 +24,8 @@ class UserRepoServiceImpl (
     override fun save(email: String,
                       response: UserResponse) {
         runBlocking {
-            val user: User = UserMapper.mapCreateUserResponse(userResponse = response)
+            val user: User = User(uid = null,email = response.email,
+                userType = response.userType , userCode = response.code)
             val persistUserResponse = userRepo.insertUser(user)
             Log.i(TAG, "persistUserResponse: ${persistUserResponse}")
         }

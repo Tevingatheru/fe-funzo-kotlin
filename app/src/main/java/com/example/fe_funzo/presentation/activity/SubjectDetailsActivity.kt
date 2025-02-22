@@ -12,21 +12,27 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.fe_funzo.data.response.CreateSubjectResponse
+import com.example.fe_funzo.infa.util.EventAlertUtil
+import com.example.fe_funzo.logic.view_model.SubjectViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.presentation.form.SubjectForm
-import com.learner.funzo.model.Subject
+import com.example.fe_funzo.data.model.Subject
+import kotlinx.coroutines.runBlocking
 
 private const val TAG : String = "SubjectDetailsActivity"
 
 class SubjectDetailsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val context = this
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column (Modifier.padding(innerPadding)) {
-                        Greeting()
+                        SubjectDetailsScreen(SubjectViewModel(subjectDetailsActivity = context))
                     }
                 }
             }
@@ -35,17 +41,27 @@ class SubjectDetailsActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting() {
+fun SubjectDetailsScreen(subjectViewModel: SubjectViewModel) {
     val subjectForm: SubjectForm = SubjectForm()
     subjectForm.SubjectDetailsForm { subject: Subject ->
-        Log.i(TAG, "Subject: $subject")
+        Log.i(TAG, "Create subject. \n Subject: $subject")
+        runBlocking {
+            try {
+                val createSubjectResponse: CreateSubjectResponse = subjectViewModel.createSubject(subject = subject)
+                Log.i(TAG, "createSubjectResponse: $createSubjectResponse")
+                EventAlertUtil.createSubjectSuccess(subjectDetailsActivity = subjectViewModel.subjectDetailsActivity)
+            } catch (e: Exception) {
+                EventAlertUtil.createSubjectFailed(subjectDetailsActivity = subjectViewModel.subjectDetailsActivity)
+            }
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview6() {
+    val context = SubjectDetailsActivity()
     Fe_funzoTheme {
-        Greeting()
+        SubjectDetailsScreen(SubjectViewModel(subjectDetailsActivity = context))
     }
 }

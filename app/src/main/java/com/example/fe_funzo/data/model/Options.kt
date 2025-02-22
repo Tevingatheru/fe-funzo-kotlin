@@ -1,4 +1,4 @@
-package com.learner.funzo.model
+package com.example.fe_funzo.data.model
 
 enum class Options(val optionName:String) {
     A("A"),

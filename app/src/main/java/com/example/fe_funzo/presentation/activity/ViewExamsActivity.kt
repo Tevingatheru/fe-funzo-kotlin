@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.view_model.ExamViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
-import com.learner.funzo.model.Exam
+import com.example.fe_funzo.data.model.Exam
 
 class ViewExamsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

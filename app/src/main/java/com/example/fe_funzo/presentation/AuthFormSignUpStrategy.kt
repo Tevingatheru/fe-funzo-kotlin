@@ -20,7 +20,7 @@ import com.example.fe_funzo.data.dto.SignupDto
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.strategy.AuthFormStrategy
 import com.example.fe_funzo.presentation.view.RoleOptionView
-import com.funzo.funzoProxy.domain.user.UserType
+import com.example.fe_funzo.data.model.UserType
 
 class AuthFormSignUpStrategy : AuthFormStrategy<SignupDto> {
     companion object {

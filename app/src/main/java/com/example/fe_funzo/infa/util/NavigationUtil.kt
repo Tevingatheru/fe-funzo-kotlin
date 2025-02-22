@@ -14,7 +14,7 @@ import com.example.fe_funzo.presentation.view.Signup
 import com.example.fe_funzo.presentation.view.TeacherLandingPage
 import com.example.fe_funzo.presentation.view.UserProfile
 import com.example.fe_funzo.presentation.view.UserProfileSettings
-import com.funzo.funzoProxy.domain.user.UserType
+import com.example.fe_funzo.data.model.UserType
 
 class NavigationUtil (){
     companion object {

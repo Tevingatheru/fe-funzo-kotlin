@@ -1,4 +1,4 @@
-package com.funzo.funzoProxy.domain.user
+package com.example.fe_funzo.data.model
 
 enum class UserType(val type: String? = null) {
     ADMINISTRATOR("administrator"),

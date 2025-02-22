@@ -1,4 +1,4 @@
-package com.learner.funzo.model
+package com.example.fe_funzo.data.model
 
 data class Subject (
     val id : Int?,

@@ -7,7 +7,7 @@ import java.lang.Exception
 import java.lang.RuntimeException
 import java.util.concurrent.TimeUnit
 
-internal object RetrofitClient {
+internal object RetrofitClientBuilder {
     private val retrofit = Retrofit.Builder()
         .baseUrl("http://10.0.2.2:8080/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -20,7 +20,7 @@ internal object RetrofitClient {
         .build()
 
     @JvmStatic
-    fun <S> createClient(serviceClass: Class<S>): S {
+    fun <S> build(serviceClass: Class<S>): S {
         return try{
             retrofit.create(serviceClass)
         } catch (e: Exception) {

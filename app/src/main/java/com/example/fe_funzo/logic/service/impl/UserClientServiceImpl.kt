@@ -1,6 +1,6 @@
 package com.example.fe_funzo.logic.service.impl
 
-import com.example.fe_funzo.infa.client.retrofit.UserClient
+import com.example.fe_funzo.infa.client.retrofit.client.UserClient
 import com.example.fe_funzo.data.request.CreateUserRequest
 import com.example.fe_funzo.data.response.UserResponse
 import com.example.fe_funzo.data.response.UserCountResponse

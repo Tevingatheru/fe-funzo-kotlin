@@ -1,6 +1,6 @@
 package com.example.fe_funzo.data.response
 
-import com.funzo.funzoProxy.domain.user.UserType
+import com.example.fe_funzo.data.model.UserType
 
 data class UserResponse (
     val code: String,
