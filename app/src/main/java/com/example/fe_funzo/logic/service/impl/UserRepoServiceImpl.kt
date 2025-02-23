@@ -11,7 +11,7 @@ import com.example.fe_funzo.logic.service.UserRepoService
 import kotlinx.coroutines.runBlocking
 
 class UserRepoServiceImpl (
-    val context: Context,
+    private val context: Context,
     private val db: FunzoDatabase =
         FunzoDatabase.getInstance(context = context, dao = UserDao::class.java),
     private val userDao: UserDao = db.userDao(),

@@ -1,12 +1,11 @@
 package com.example.fe_funzo.logic.view_model
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.fe_funzo.data.model.UserType
 import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
 import com.example.fe_funzo.infa.client.room.User
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.logic.service.UserRepoService
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 
 class FirebaseViewModel: ViewModel() {
@@ -14,9 +13,15 @@ class FirebaseViewModel: ViewModel() {
         private const val TAG = "FirebaseViewModel"
     }
 
-    fun validateCurrentUser(context: Context) {
+    fun isUserLoggedOut(context: Context, ) {
         if (!FirebaseAuthClient.isUserLoggedIn()) {
             NavigationUtil.navigateToSignUpActivity(context)
+        }
+    }
+
+    fun isUserLoggedIn(context: Context, userType: UserType) {
+        if (FirebaseAuthClient.isUserLoggedIn()) {
+            NavigationUtil.navigateToLandingPage(context = context, userType = userType)
         }
     }
 

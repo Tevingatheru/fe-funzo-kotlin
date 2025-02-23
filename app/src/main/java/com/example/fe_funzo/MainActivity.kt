@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
         val context: Context = this
         val firebaseViewModel = FirebaseViewModel()
 
-        firebaseViewModel.validateCurrentUser(context = context)
+        firebaseViewModel.isUserLoggedOut(context = context)
 
         enableEdgeToEdge()
         setContent {

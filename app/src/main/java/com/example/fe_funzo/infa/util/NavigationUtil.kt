@@ -31,8 +31,10 @@ class NavigationUtil (){
         fun navigateToLandingPage(context: Context, userType: UserType) {
             Log.i(TAG, "Navigate to landing page.")
             if (userType == UserType.ADMINISTRATOR) {
+                Log.i(TAG, "Navigate to admin landing page.")
                 intent = Intent(context, AdminLandingPage::class.java)
             } else if (userType == UserType.TEACHER) {
+                Log.i(TAG, "Navigate to teacher landing page.")
                 intent = Intent(context, TeacherLandingPage::class.java)
             } else {
                 throw IllegalArgumentException("UserType does not exist: $userType")

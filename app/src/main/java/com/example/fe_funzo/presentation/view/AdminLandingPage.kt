@@ -26,12 +26,12 @@ class AdminLandingPage : ComponentActivity() {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "onCreate")
         val firebaseViewModel = FirebaseViewModel()
-        firebaseViewModel.validateCurrentUser(this)
+        firebaseViewModel.isUserLoggedOut(this)
         val username: String = FirebaseAuthClient.getUserEmail()
 
         val context: AdminLandingPage = this
 
-        firebaseViewModel.validateCurrentUser(context = this)
+        firebaseViewModel.isUserLoggedOut(context = this)
 
         val landingView: LandingView = LandingView()
         enableEdgeToEdge()

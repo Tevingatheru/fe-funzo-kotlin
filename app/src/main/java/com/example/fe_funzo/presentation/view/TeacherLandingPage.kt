@@ -25,7 +25,7 @@ class TeacherLandingPage : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val firebaseViewModel = FirebaseViewModel()
-        firebaseViewModel.validateCurrentUser(this)
+        firebaseViewModel.isUserLoggedOut(this)
         val landingView: LandingView = LandingView()
         val context: Context = this
 
