@@ -1,4 +1,4 @@
-package com.example.fe_funzo.data.response
+package com.example.fe_funzo.data.room.response
 
 data class UserCountResponse (
     val totalCount: Int,

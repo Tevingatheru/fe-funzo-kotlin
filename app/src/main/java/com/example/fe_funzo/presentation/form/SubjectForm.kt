@@ -19,10 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.model.Subject
+import com.example.fe_funzo.infa.util.NavigationUtil
 
 class SubjectForm {
     @Composable
-    fun SubjectDetailsForm(onSubmit: (Subject) -> Unit) {
+    fun SubjectDetailsForm(onSubmit: (Subject) -> Unit,
+                           onBack:() -> Unit) {
         var name by remember { mutableStateOf("") }
         var description by remember { mutableStateOf("") }
         var category by remember { mutableStateOf("") }
@@ -63,7 +65,13 @@ class SubjectForm {
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(onClick = {
-                val subject: Subject = Subject(name = name, description = description, category = category, id = null)
+                val subject: Subject = Subject(
+                        name = name,
+                        description = description,
+                        category = category,
+                        id = null,
+                        code = null
+                    )
                 onSubmit(subject)
                 
                 name = ""
@@ -72,6 +80,12 @@ class SubjectForm {
             },
                 modifier = Modifier.fillMaxWidth()) {
                 Text("Submit")
+            }
+
+            Button(onClick = {
+                onBack()
+            }) {
+                Text("Back")
             }
         }
     }

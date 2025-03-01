@@ -1,5 +1,6 @@
 package com.example.fe_funzo.presentation.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -12,25 +13,35 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.fe_funzo.data.form.ExamForm
+import com.example.fe_funzo.data.model.Subject
+import com.example.fe_funzo.data.room.request.CreateExamRequest
+import com.example.fe_funzo.data.room.response.CreateExamResponse
+import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
+import com.example.fe_funzo.infa.client.retrofit.client.ExamClient
+import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
+import com.example.fe_funzo.logic.view_model.ExamViewModel
+import com.example.fe_funzo.logic.view_model.SubjectViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
+import com.example.fe_funzo.presentation.form.ExamFormComponent
+import kotlinx.coroutines.runBlocking
+
+private const val TAG = "CreateExamActivity"
 
 class CreateExamActivity : ComponentActivity() {
-    companion object {
-        private const val TAG = "CreateExamActivity"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "onCreate")
+        val context: Context = this
+        val subjectList: List<Subject>
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-                        CreateExamView(
-                            name = "Create Exam",
-                        )
+                        CreateExamView(context = context)
                     }
                 }
             }
@@ -39,17 +50,38 @@ class CreateExamActivity : ComponentActivity() {
 }
 
 @Composable
-fun CreateExamView(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
+fun CreateExamView(context: Context) {
+    val examViewModel : ExamViewModel = ExamViewModel(formData = ExamForm())
+    val subjectViewModel:  SubjectViewModel = SubjectViewModel()
+
+    ExamFormComponent(subjectViewModel = subjectViewModel,
+        examViewModel = examViewModel,
+        onSubmit = {
+            Log.i(TAG, "Create exam.")
+            val examClient: ExamClient = RetrofitClientBuilder.build(serviceClass = ExamClient::class.java)
+            val userRepoServiceImpl = UserRepoServiceImpl(context = context)
+            val userCode: String = userRepoServiceImpl.getFirstUser().userCode
+
+            val createExamRequest: CreateExamRequest = CreateExamRequest(
+                userCode = userCode,
+                subjectCode = subjectViewModel.getSubjectCode(),
+                examDescription = examViewModel.getExamDescription(),
+            )
+
+            runBlocking {
+                val createExamResponse: CreateExamResponse = examClient
+                    .createExam(createExamRequest = createExamRequest)
+            }
+        }
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun Preview6() {
+    val context: Context = LocalContext.current
+
     Fe_funzoTheme {
-        CreateExamView("Android")
+        CreateExamView(context = context)
     }
 }

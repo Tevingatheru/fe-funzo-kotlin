@@ -1,8 +1,8 @@
 package com.example.fe_funzo.logic.service
 
-import com.example.fe_funzo.data.request.CreateUserRequest
-import com.example.fe_funzo.data.response.UserResponse
-import com.example.fe_funzo.data.response.UserCountResponse
+import com.example.fe_funzo.data.room.request.CreateUserRequest
+import com.example.fe_funzo.data.room.response.UserResponse
+import com.example.fe_funzo.data.room.response.UserCountResponse
 
 interface UserClientService {
     suspend fun createUser(request: CreateUserRequest): UserResponse

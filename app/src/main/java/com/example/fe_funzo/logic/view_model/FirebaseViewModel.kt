@@ -7,6 +7,7 @@ import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
 import com.example.fe_funzo.infa.client.room.User
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
+import kotlinx.coroutines.runBlocking
 
 class FirebaseViewModel: ViewModel() {
     companion object {
@@ -19,9 +20,19 @@ class FirebaseViewModel: ViewModel() {
         }
     }
 
-    fun isUserLoggedIn(context: Context, userType: UserType) {
+    fun isUserLoggedIn(context: Context) {
         if (FirebaseAuthClient.isUserLoggedIn()) {
-            NavigationUtil.navigateToLandingPage(context = context, userType = userType)
+            val userRepository: UserRepoServiceImpl = UserRepoServiceImpl(context = context)
+
+            NavigationUtil.navigateToLandingPage(context = context, userType = getUserType(userRepository = userRepository))
+        }
+    }
+
+    private fun getUserType(userRepository: UserRepoServiceImpl): UserType {
+        return runBlocking {
+            val user: User = userRepository.getFirstUser()
+            val userType = UserType.find(user.userType)
+            userType
         }
     }
 

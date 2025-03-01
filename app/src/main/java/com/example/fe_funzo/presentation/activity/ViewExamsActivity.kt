@@ -26,9 +26,10 @@ import com.example.fe_funzo.data.model.Exam
 class ViewExamsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val examViewModel: ExamViewModel = ExamViewModel()
+//        val examViewModel: ExamViewModel = ExamViewModel()
+//        val exams: List<Exam> = examViewModel.getExamsByTeacher(context = context)
+
         val context: Context = this
-        val exams: List<Exam> = examViewModel.getExamsByTeacher(context = context)
 
         enableEdgeToEdge()
         setContent {

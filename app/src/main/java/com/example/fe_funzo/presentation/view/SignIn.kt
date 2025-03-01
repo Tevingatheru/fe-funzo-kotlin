@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.data.dto.SignInDto
 import com.example.fe_funzo.data.model.UserType
-import com.example.fe_funzo.data.response.UserResponse
+import com.example.fe_funzo.data.room.response.UserResponse
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.infa.client.retrofit.client.UserClient
 import com.example.fe_funzo.infa.client.room.FunzoDatabase
@@ -64,21 +64,10 @@ class SignIn : ComponentActivity() {
     override fun onStart() {
         super.onStart()
         Log.i(TAG, "onStart")
-//        FirebaseAuthClient.isUserLoggedIn()
         val firebaseViewModel: FirebaseViewModel = FirebaseViewModel()
-        firebaseViewModel.isUserLoggedIn(context = this, userType = getUserType())
+        firebaseViewModel.isUserLoggedIn(context = this)
     }
 
-    private fun getUserType(): UserType {
-        val userRepository: UserRepoServiceImpl = UserRepoServiceImpl(context = this)
-
-        runBlocking {
-            val user: User = userRepository.getFirstUser()
-            val userType = user.userType
-            return userType
-        }
-
-    }
 
 }
 

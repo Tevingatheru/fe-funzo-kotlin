@@ -13,7 +13,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.data.response.UserCountResponse
+import com.example.fe_funzo.data.room.response.UserCountResponse
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.infa.client.retrofit.client.UserClient
 import com.example.fe_funzo.logic.view_model.BIViewModel

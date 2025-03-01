@@ -1,6 +1,6 @@
-package com.example.fe_funzo.data.response
+package com.example.fe_funzo.data.room.response
 
-data class CreateSubjectResponse (
+data class SubjectResponse (
     val category: String,
     val code: String,
     val description: String,
