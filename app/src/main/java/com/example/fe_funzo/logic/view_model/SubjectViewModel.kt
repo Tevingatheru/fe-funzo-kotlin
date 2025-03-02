@@ -15,6 +15,7 @@ class SubjectViewModel(): ViewModel() {
 
     private lateinit var subjectCode: String
 
+
     companion object {
         private const val TAG: String = "SubjectViewModel"
     }

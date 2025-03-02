@@ -11,13 +11,17 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.model.Subject
+import com.example.fe_funzo.logic.view_model.SubjectViewModel
 
 private const val TAG: String = "SubjectSelector"
+var selectedSubjectName: MutableState<String> = mutableStateOf("")
+
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
@@ -35,7 +39,8 @@ fun SimpleSubjectSelector(
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(if (expanded) "Close" else "Select Subject")
+            Log.i(TAG, "selectedSubjectName.isNotBlank(): ${selectedSubjectName.value.isNotBlank()}\nSubjectName: ${selectedSubjectName.value}")
+            Text(if (expanded) {"Close"} else if (selectedSubjectName.value.isNotBlank()) {"Subject: ${selectedSubjectName.value}"} else {"Select Subject"})
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -48,6 +53,7 @@ fun SimpleSubjectSelector(
                     onClick = {
                         onSubjectSelect(subject)
                         setExpanded(false)
+                        selectedSubjectName.value = subject.name
                         Log.i(TAG, "Subject has been selected. \nSubject: $subject.\nExpanded:$expanded")
                     },
                     text = {

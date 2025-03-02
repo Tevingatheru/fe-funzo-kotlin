@@ -68,9 +68,14 @@ fun CreateExamView(context: Context) {
                 examDescription = examViewModel.getExamDescription(),
             )
 
-            runBlocking {
-                val createExamResponse: CreateExamResponse = examClient
-                    .createExam(createExamRequest = createExamRequest)
+            try {
+                runBlocking {
+                    Log.i(TAG, "CreateExamRequest: $createExamRequest")
+                    val createExamResponse: CreateExamResponse = examClient
+                        .createExam(createExamRequest = createExamRequest)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error in creating an exam. Error: $e")
             }
         }
     )
