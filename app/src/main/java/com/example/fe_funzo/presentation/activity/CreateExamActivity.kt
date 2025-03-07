@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -57,28 +56,38 @@ fun CreateExamView(context: Context) {
     ExamFormComponent(subjectViewModel = subjectViewModel,
         examViewModel = examViewModel,
         onSubmit = {
-            Log.i(TAG, "Create exam.")
-            val examClient: ExamClient = RetrofitClientBuilder.build(serviceClass = ExamClient::class.java)
-            val userRepoServiceImpl = UserRepoServiceImpl(context = context)
-            val userCode: String = userRepoServiceImpl.getFirstUser().userCode
-
-            val createExamRequest: CreateExamRequest = CreateExamRequest(
-                userCode = userCode,
-                subjectCode = subjectViewModel.getSubjectCode(),
-                examDescription = examViewModel.getExamDescription(),
-            )
-
-            try {
-                runBlocking {
-                    Log.i(TAG, "CreateExamRequest: $createExamRequest")
-                    val createExamResponse: CreateExamResponse = examClient
-                        .createExam(createExamRequest = createExamRequest)
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error in creating an exam. Error: $e")
-            }
-        }
+            createExam(context, subjectViewModel, examViewModel)
+        },
+        subjectList = subjectViewModel.getSubjectList(),
     )
+}
+
+
+private fun createExam(
+    context: Context,
+    subjectViewModel: SubjectViewModel,
+    examViewModel: ExamViewModel
+) {
+    Log.i(TAG, "Create exam.")
+    val examClient: ExamClient = RetrofitClientBuilder.build(serviceClass = ExamClient::class.java)
+    val userRepoServiceImpl = UserRepoServiceImpl(context = context)
+    val userCode: String = userRepoServiceImpl.getFirstUser().userCode
+
+    val createExamRequest: CreateExamRequest = CreateExamRequest(
+        userCode = userCode,
+        subjectCode = subjectViewModel.getSubjectCode(),
+        examDescription = examViewModel.getExamDescription(),
+    )
+
+    try {
+        runBlocking {
+            Log.i(TAG, "CreateExamRequest: $createExamRequest")
+            val createExamResponse: CreateExamResponse = examClient
+                .createExam(createExamRequest = createExamRequest)
+        }
+    } catch (e: Exception) {
+        Log.e(TAG, "Error in creating an exam. Error: $e")
+    }
 }
 
 @Preview(showBackground = true)

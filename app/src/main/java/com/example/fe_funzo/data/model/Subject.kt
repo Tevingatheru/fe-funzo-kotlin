@@ -6,4 +6,6 @@ data class Subject (
     val name: String,
     val category: String,
     val description: String,
-        )
+) {
+    init{}
+}
