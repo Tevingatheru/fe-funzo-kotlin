@@ -34,7 +34,7 @@ class CreateExamActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "onCreate")
         val context: Context = this
-        val subjectList: List<Subject>
+
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
