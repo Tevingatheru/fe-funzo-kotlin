@@ -28,6 +28,7 @@ fun ExamFormComponent(
     examViewModel: ExamViewModel,
     subjectViewModel: SubjectViewModel,
     subjectList: List<Subject>,
+    context: Context
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp)

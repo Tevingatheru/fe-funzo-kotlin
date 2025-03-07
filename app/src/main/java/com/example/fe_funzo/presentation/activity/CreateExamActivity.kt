@@ -59,6 +59,7 @@ fun CreateExamView(context: Context) {
             createExam(context, subjectViewModel, examViewModel)
         },
         subjectList = subjectViewModel.getSubjectList(),
+        context = context
     )
 }
 
