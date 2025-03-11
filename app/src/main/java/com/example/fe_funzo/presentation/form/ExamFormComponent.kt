@@ -18,7 +18,7 @@ import com.example.fe_funzo.logic.view_model.ExamViewModel
 import com.example.fe_funzo.logic.view_model.SubjectViewModel
 import com.example.fe_funzo.presentation.view.SimpleSubjectSelector
 
-const val TAG : String = "ExamFormComponent"
+private const val TAG : String = "ExamFormComponent"
 
 
 @SuppressLint("UnrememberedMutableState")

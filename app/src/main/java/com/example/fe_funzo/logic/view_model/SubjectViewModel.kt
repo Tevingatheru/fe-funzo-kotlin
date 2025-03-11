@@ -71,7 +71,7 @@ class SubjectViewModel(): ViewModel() {
     ) {
         setExpanded(false)
         setSubjectName(name = subject.name)
-        Log.i(com.example.fe_funzo.presentation.form.TAG, "Subject has been selected. \nSubject: $subject.\nExpanded:$expanded")
+        Log.i(TAG, "Subject has been selected. \nSubject: $subject.\nExpanded:$expanded")
     }
 
     fun setSubjectName(name: String) {
