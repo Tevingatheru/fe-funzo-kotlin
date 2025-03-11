@@ -4,11 +4,12 @@ import com.example.fe_funzo.infa.client.retrofit.client.UserClient
 import com.example.fe_funzo.data.room.request.CreateUserRequest
 import com.example.fe_funzo.data.room.response.UserResponse
 import com.example.fe_funzo.data.room.response.UserCountResponse
+import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.logic.service.UserClientService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class UserClientServiceImpl(private val userClient: UserClient) : UserClientService {
+class UserClientServiceImpl(private val userClient: UserClient = RetrofitClientBuilder.build(serviceClass = UserClient::class.java)) : UserClientService {
 
     override suspend fun createUser(request: CreateUserRequest): UserResponse {
         return withContext(Dispatchers.IO) {

@@ -38,9 +38,9 @@ class SignupViewModel(
 
     private fun signUp(email: String, password: String, signup: Signup, selectedRole: UserType) {
         Log.i(TAG, "signUp")
-        val userClient: UserClient =
-            RetrofitClientBuilder.build(serviceClass = UserClient::class.java)
-        val userService: UserClientServiceImpl = UserClientServiceImpl(userClient = userClient)
+
+
+        val userService: UserClientServiceImpl = UserClientServiceImpl()
 
         runBlocking {
             val response: UserResponse = cacheUserDetails(userService, selectedRole, email)

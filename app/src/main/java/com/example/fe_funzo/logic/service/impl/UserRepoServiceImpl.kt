@@ -2,6 +2,7 @@ package com.example.fe_funzo.logic.service.impl
 
 import android.content.Context
 import android.util.Log
+import com.example.fe_funzo.data.model.UserType
 import com.example.fe_funzo.data.room.response.UserResponse
 import com.example.fe_funzo.infa.client.room.FunzoDatabase
 import com.example.fe_funzo.infa.client.room.User
@@ -41,6 +42,14 @@ class UserRepoServiceImpl (
     override fun getFirstUser(): User {
         return runBlocking {
             userRepo.getFirstUser()
+        }
+    }
+
+    override fun getUserType(): UserType {
+        return runBlocking {
+            val user: User = getFirstUser()
+            val userType = UserType.find(user.userType)
+            userType
         }
     }
 }

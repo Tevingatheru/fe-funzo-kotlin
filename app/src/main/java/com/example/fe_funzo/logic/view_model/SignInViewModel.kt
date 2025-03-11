@@ -26,9 +26,8 @@ class SignInViewModel (var showErrorMessage: MutableState<Boolean> = mutableStat
     }
 
     fun signIn(email: String, password: String, signInContext: SignIn) {
-        val userClient: UserClient =
-            RetrofitClientBuilder.build(serviceClass = UserClient::class.java)
-        val userService: UserClientServiceImpl = UserClientServiceImpl(userClient = userClient)
+
+        val userService: UserClientServiceImpl = UserClientServiceImpl()
 
         try {
             Log.i(TAG, "sign in callback success")

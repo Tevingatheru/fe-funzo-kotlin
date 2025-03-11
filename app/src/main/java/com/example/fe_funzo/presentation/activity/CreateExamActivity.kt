@@ -20,6 +20,7 @@ import com.example.fe_funzo.data.room.request.CreateExamRequest
 import com.example.fe_funzo.data.room.response.CreateExamResponse
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.infa.client.retrofit.client.ExamClient
+import com.example.fe_funzo.logic.service.impl.ExamClientServiceImpl
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 import com.example.fe_funzo.logic.view_model.ExamViewModel
 import com.example.fe_funzo.logic.view_model.SubjectViewModel
@@ -70,7 +71,7 @@ private fun createExam(
     examViewModel: ExamViewModel
 ) {
     Log.i(TAG, "Create exam.")
-    val examClient: ExamClient = RetrofitClientBuilder.build(serviceClass = ExamClient::class.java)
+    val examClient: ExamClientServiceImpl = ExamClientServiceImpl()
     val userRepoServiceImpl = UserRepoServiceImpl(context = context)
     val userCode: String = userRepoServiceImpl.getFirstUser().userCode
 

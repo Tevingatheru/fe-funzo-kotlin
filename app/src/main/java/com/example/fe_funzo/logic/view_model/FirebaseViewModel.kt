@@ -22,19 +22,10 @@ class FirebaseViewModel: ViewModel() {
 
     fun isUserLoggedIn(context: Context) {
         if (FirebaseAuthClient.isUserLoggedIn()) {
-            val userRepository: UserRepoServiceImpl = UserRepoServiceImpl(context = context)
-
-            NavigationUtil.navigateToLandingPage(context = context, userType = getUserType(userRepository = userRepository))
+            NavigationUtil.navigateToLandingPage(context = context)
         }
     }
 
-    private fun getUserType(userRepository: UserRepoServiceImpl): UserType {
-        return runBlocking {
-            val user: User = userRepository.getFirstUser()
-            val userType = UserType.find(user.userType)
-            userType
-        }
-    }
 
     fun logout(context: Context) {
         val userRepoServiceImpl: UserRepoServiceImpl = UserRepoServiceImpl(context= context)

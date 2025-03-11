@@ -34,8 +34,8 @@ class SubjectViewModel(): ViewModel() {
 
     fun getSubjectList () :  List<Subject>{
         var subjectList : List<Subject>
-        val subjectClient: SubjectClient = RetrofitClientBuilder.build(SubjectClient::class.java)
-        val subjectClientServiceImpl: SubjectClientServiceImpl = SubjectClientServiceImpl(subjectClient = subjectClient)
+
+        val subjectClientServiceImpl: SubjectClientServiceImpl = SubjectClientServiceImpl()
 
         return runBlocking {
             subjectList = mapToSubjectList(getAllSubjects = subjectClientServiceImpl.getAllSubjects())
@@ -83,9 +83,8 @@ class SubjectViewModel(): ViewModel() {
     }
 
     suspend fun createSubject(subject: Subject): SubjectResponse {
-        val subjectClient: SubjectClient = RetrofitClientBuilder.build(SubjectClient::class.java)
         val subjectClientServiceImpl: SubjectClientServiceImpl =
-            SubjectClientServiceImpl(subjectClient = subjectClient)
+            SubjectClientServiceImpl()
         val createSubjectRequest = CreateSubjectRequest(subject.category, subject.description, subject.name)
 
         try {

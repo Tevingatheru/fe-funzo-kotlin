@@ -25,9 +25,8 @@ class ExamViewModel (
     }
 
     fun getExamsByTeacher(context: Context): List<Exam> {
-        val userClient: UserClient =
-            RetrofitClientBuilder.build(serviceClass = UserClient::class.java)
-        val userClientServiceImpl: UserClientServiceImpl = UserClientServiceImpl(userClient = userClient)
+
+        val userClientServiceImpl: UserClientServiceImpl = UserClientServiceImpl()
         val userRepoServiceImpl: UserRepoServiceImpl = UserRepoServiceImpl(context = context)
         // TODO : Get all exams created by user (teacher)
         return emptyList()
