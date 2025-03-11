@@ -3,6 +3,7 @@ package com.example.fe_funzo.infa.util
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.example.fe_funzo.data.model.Exam
 import com.example.fe_funzo.presentation.activity.CreateExamActivity
 import com.example.fe_funzo.presentation.activity.SubjectDetailsActivity
 import com.example.fe_funzo.presentation.activity.TeacherDashboardActivity
@@ -17,6 +18,7 @@ import com.example.fe_funzo.presentation.view.UserProfileSettings
 import com.example.fe_funzo.data.model.UserType
 import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
+import com.example.fe_funzo.presentation.activity.ModifyExamActivity
 
 class NavigationUtil (){
     companion object {
@@ -104,6 +106,11 @@ class NavigationUtil (){
         fun navigateToSubjectDetails(context: Context) {
             Log.i(TAG, "navigateToSubjectDetails")
             intent = Intent(context, SubjectDetailsActivity::class.java)
+            context.startActivity(intent)
+        }
+
+        fun navigateToModifyExamActivity(context: Context, param: Map<String, Exam>) {
+            intent =  Intent(context, ModifyExamActivity::class.java)
             context.startActivity(intent)
         }
     }

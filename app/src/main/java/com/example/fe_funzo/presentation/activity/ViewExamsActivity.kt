@@ -43,7 +43,7 @@ class ViewExamsActivity : ComponentActivity() {
                         ViewExamsViewHeader(
                             context = context,
                         )
-                        examViewScreen.ExamListView(examListResponse = examListResponse)
+                        examViewScreen.ExamListView(examListResponse = examListResponse, context = context)
                     }
                 }
             }

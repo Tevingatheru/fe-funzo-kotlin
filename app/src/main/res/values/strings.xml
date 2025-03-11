@@ -12,4 +12,5 @@
     <string name="title_activity_create_exam">CreateExamActivity</string>
     <string name="title_activity_view_exams">ViewExamsActivity</string>
     <string name="title_activity_subject_details">SubjectDetailsActivity</string>
+    <string name="title_activity_modify_exam">ModifyExamActivity</string>
 </resources>

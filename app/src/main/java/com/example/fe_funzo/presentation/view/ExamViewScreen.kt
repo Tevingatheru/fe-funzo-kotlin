@@ -21,16 +21,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.model.Exam
-
+import com.example.fe_funzo.infa.util.NavigationUtil
 
 
 class ExamViewScreen {
     private final val TAG:String ="ExamViewScreen"
 
     @Composable
-    fun ExamListView(examListResponse: List<Exam>) {
+    fun ExamListView(examListResponse: List<Exam>, context: Context) {
         ExamList(examList = examListResponse, onEditClick= { exam: Exam ->
-            Log.i(TAG, "Editing exam: $exam")
+            Log.i(TAG, "Navigate to modify exam form: $exam")
+            NavigationUtil.navigateToModifyExamActivity(context = context, param = mapOf(Pair("exam",exam)) )
         })
     }
 
