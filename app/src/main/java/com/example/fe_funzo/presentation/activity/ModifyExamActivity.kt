@@ -13,8 +13,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +34,7 @@ import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.infa.client.retrofit.client.QuestionClient
 import com.example.fe_funzo.infa.util.ExamCacheUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
+import com.example.fe_funzo.infa.util.StringUtil
 import com.example.fe_funzo.logic.service.client.impl.QuestionClientServiceImpl
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
 import kotlinx.coroutines.runBlocking
@@ -52,7 +57,12 @@ class ModifyExamActivity : ComponentActivity() {
                             exam = exam,
                             context = context,
                         )
-                        QuestionListScreen(questionList = questionList)
+                        QuestionListScreen(questionList = questionList, onEditClicked = { question ->
+                            NavigationUtil.navigateToModifyQuestion(
+                                context = context,
+                                param = mapOf(Pair(StringUtil.QUESTION_KEY, question))
+                            )
+                        })
                     }
                 }
             }
@@ -90,10 +100,18 @@ class ModifyExamActivity : ComponentActivity() {
 }
 
 @Composable
-fun QuestionListScreen(questionList: List<Question>) {
+fun QuestionListScreen(questionList: List<Question>, onEditClicked: (question: Question) -> Unit) {
     questionList.forEach {
         Row {
             Text(it.question!!)
+            IconButton(onClick = {
+                onEditClicked(it)
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Edit Question"
+                )
+            }
         }
         HorizontalDivider(thickness = 2.dp)
     }

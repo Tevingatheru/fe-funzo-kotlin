@@ -2,10 +2,12 @@ package com.example.fe_funzo.logic.service.client.impl
 
 import com.example.fe_funzo.data.retrofit.response.ExamQuestionsResponse
 import com.example.fe_funzo.data.retrofit.request.AddQuestionRequest
+import com.example.fe_funzo.data.retrofit.response.DeleteQuestionResponse
 import com.example.fe_funzo.infa.client.retrofit.client.QuestionClient
 import com.example.fe_funzo.logic.service.client.QuestionClientService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.http.Query
 
 class QuestionClientServiceImpl(private val questionClient: QuestionClient): QuestionClientService {
     override suspend fun addQuestionToExam(addQuestionRequest : AddQuestionRequest) {
@@ -17,6 +19,12 @@ class QuestionClientServiceImpl(private val questionClient: QuestionClient): Que
     override suspend fun getQuestionsByExamCode(examCode: String): ExamQuestionsResponse {
         return withContext(Dispatchers.IO) {
             questionClient.getQuestionsByExamCode(examCode = examCode)
+        }
+    }
+
+    override suspend fun deleteQuestion(code: String): DeleteQuestionResponse {
+        return withContext(Dispatchers.IO) {
+            questionClient.deleteQuestion(code = code)
         }
     }
 }
