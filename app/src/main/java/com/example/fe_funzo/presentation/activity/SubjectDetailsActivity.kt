@@ -13,14 +13,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.data.room.response.SubjectResponse
+import com.example.fe_funzo.data.retrofit.response.SubjectResponse
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.logic.view_model.SubjectViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.presentation.form.SubjectForm
 import com.example.fe_funzo.data.model.Subject
 import com.example.fe_funzo.data.model.UserType
-import com.example.fe_funzo.data.room.response.UserResponse
+import com.example.fe_funzo.data.retrofit.response.UserResponse
 import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl

@@ -1,8 +1,8 @@
 package com.example.fe_funzo.logic.service.client.impl
 
-import com.example.fe_funzo.data.room.request.CreateExamRequest
-import com.example.fe_funzo.data.room.response.CreateExamResponse
-import com.example.fe_funzo.data.room.response.ExamListResponse
+import com.example.fe_funzo.data.retrofit.request.CreateExamRequest
+import com.example.fe_funzo.data.retrofit.response.CreateExamResponse
+import com.example.fe_funzo.data.retrofit.response.ExamListResponse
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.infa.client.retrofit.client.ExamClient
 import com.example.fe_funzo.logic.service.client.ExamClientService

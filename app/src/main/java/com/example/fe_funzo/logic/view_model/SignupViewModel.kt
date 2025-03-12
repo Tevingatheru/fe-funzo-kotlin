@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.fe_funzo.data.room.request.CreateUserRequest
-import com.example.fe_funzo.data.room.response.UserResponse
+import com.example.fe_funzo.data.retrofit.request.CreateUserRequest
+import com.example.fe_funzo.data.retrofit.response.UserResponse
 import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.NavigationUtil

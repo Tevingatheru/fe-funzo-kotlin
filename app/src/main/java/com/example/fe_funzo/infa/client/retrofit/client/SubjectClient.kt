@@ -1,8 +1,8 @@
 package com.example.fe_funzo.infa.client.retrofit.client
 
-import com.example.fe_funzo.data.room.request.CreateSubjectRequest
-import com.example.fe_funzo.data.room.response.GetAllSubjectsResponse
-import com.example.fe_funzo.data.room.response.SubjectResponse
+import com.example.fe_funzo.data.retrofit.request.CreateSubjectRequest
+import com.example.fe_funzo.data.retrofit.response.GetAllSubjectsResponse
+import com.example.fe_funzo.data.retrofit.response.SubjectResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

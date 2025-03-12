@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.fe_funzo.data.room.request.CreateSubjectRequest
-import com.example.fe_funzo.data.room.response.SubjectResponse
+import com.example.fe_funzo.data.retrofit.request.CreateSubjectRequest
+import com.example.fe_funzo.data.retrofit.response.SubjectResponse
 import com.example.fe_funzo.logic.service.client.impl.SubjectClientServiceImpl
 import com.example.fe_funzo.data.model.Subject
-import com.example.fe_funzo.data.room.response.GetAllSubjectsResponse
+import com.example.fe_funzo.data.retrofit.response.GetAllSubjectsResponse
 
 import kotlinx.coroutines.runBlocking
 

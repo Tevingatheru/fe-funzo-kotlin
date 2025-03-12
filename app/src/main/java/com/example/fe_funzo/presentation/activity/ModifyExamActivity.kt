@@ -13,9 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,10 +23,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.fe_funzo.data.retrofit.response.ExamQuestionsResponse
 import com.example.fe_funzo.data.model.Exam
+import com.example.fe_funzo.data.model.Question
+import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
+import com.example.fe_funzo.infa.client.retrofit.client.QuestionClient
 import com.example.fe_funzo.infa.util.ExamCacheUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
+import com.example.fe_funzo.logic.service.client.impl.QuestionClientServiceImpl
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
+import kotlinx.coroutines.runBlocking
 
 class ModifyExamActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +40,9 @@ class ModifyExamActivity : ComponentActivity() {
 
         val exam: Exam = intent.getParcelableExtra("exam", Exam::class.java)!!
         val context: Context = this
+
+        val questionList: List<Question> = getAvailableQuestionsByExamCode(examCode = exam.examCode!!)
+
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
@@ -42,12 +50,52 @@ class ModifyExamActivity : ComponentActivity() {
                     Column(modifier = Modifier.padding(innerPadding)) {
                         ModifyExamForm(
                             exam = exam,
-                            context = context
+                            context = context,
                         )
+                        QuestionListScreen(questionList = questionList)
                     }
                 }
             }
         }
+    }
+
+    private fun getAvailableQuestionsByExamCode(examCode: String): List<Question> {
+        val questionClientServiceImpl: QuestionClientServiceImpl = QuestionClientServiceImpl(
+            questionClient = RetrofitClientBuilder.build(QuestionClient::class.java)
+        )
+
+        return runBlocking {
+            val questionsResponse: ExamQuestionsResponse = questionClientServiceImpl.getQuestionsByExamCode(
+                examCode = examCode
+            )
+            val questionMutableList: MutableList<Question> = mutableListOf()
+
+            questionsResponse.questions.forEach{
+                val questionItem = Question(
+                    question = it.question!!,
+                    code = it.code!!,
+                    image = null,
+                    optionA = null,
+                    optionB = null,
+                    optionC = null,
+                    optionD = null,
+                    correctOption = null,
+                    questionType = null,
+                )
+                questionMutableList.add(questionItem)
+            }
+            return@runBlocking questionMutableList
+        }
+    }
+}
+
+@Composable
+fun QuestionListScreen(questionList: List<Question>) {
+    questionList.forEach {
+        Row {
+            Text(it.question!!)
+        }
+        HorizontalDivider(thickness = 2.dp)
     }
 }
 
@@ -66,12 +114,13 @@ fun ModifyExamForm(exam: Exam, context: Context) {
 fun Options(context: Context, exam : Exam) {
     Row {
         val modifier = Modifier
-            .fillMaxWidth(0.5F)
+            .fillMaxWidth(0.4F)
             .padding(top = 16.dp)
         Button(
             onClick = {
                 ExamCacheUtil.setCachedExam(exam = exam, context = context)
-                NavigationUtil.navigateToAddQuestionActivity(context = context) },
+                NavigationUtil.navigateToAddQuestionActivity(context = context)
+            },
             modifier = modifier,
         ) {
             Text(
@@ -83,7 +132,9 @@ fun Options(context: Context, exam : Exam) {
             NavigationUtil.navigateToViewExams(context = context)
         },
             modifier = modifier) {
-            Text(text = "Cancel", modifier = Modifier.padding(8.dp))
+            Text(
+                text = "Cancel"
+            )
         }
     }
 }

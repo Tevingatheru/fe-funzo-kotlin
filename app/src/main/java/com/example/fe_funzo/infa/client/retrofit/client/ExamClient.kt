@@ -1,9 +1,9 @@
 package com.example.fe_funzo.infa.client.retrofit.client
 
 
-import com.example.fe_funzo.data.room.request.CreateExamRequest
-import com.example.fe_funzo.data.room.response.CreateExamResponse
-import com.example.fe_funzo.data.room.response.ExamListResponse
+import com.example.fe_funzo.data.retrofit.request.CreateExamRequest
+import com.example.fe_funzo.data.retrofit.response.CreateExamResponse
+import com.example.fe_funzo.data.retrofit.response.ExamListResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

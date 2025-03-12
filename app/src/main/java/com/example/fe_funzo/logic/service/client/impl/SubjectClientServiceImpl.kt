@@ -1,8 +1,8 @@
 package com.example.fe_funzo.logic.service.client.impl
 
-import com.example.fe_funzo.data.room.request.CreateSubjectRequest
-import com.example.fe_funzo.data.room.response.GetAllSubjectsResponse
-import com.example.fe_funzo.data.room.response.SubjectResponse
+import com.example.fe_funzo.data.retrofit.request.CreateSubjectRequest
+import com.example.fe_funzo.data.retrofit.response.GetAllSubjectsResponse
+import com.example.fe_funzo.data.retrofit.response.SubjectResponse
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.infa.client.retrofit.client.SubjectClient
 import com.example.fe_funzo.logic.service.client.SubjectClientService

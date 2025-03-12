@@ -1,9 +1,9 @@
 package com.example.fe_funzo.logic.service.client.impl
 
 import com.example.fe_funzo.infa.client.retrofit.client.UserClient
-import com.example.fe_funzo.data.room.request.CreateUserRequest
-import com.example.fe_funzo.data.room.response.UserResponse
-import com.example.fe_funzo.data.room.response.UserCountResponse
+import com.example.fe_funzo.data.retrofit.request.CreateUserRequest
+import com.example.fe_funzo.data.retrofit.response.UserResponse
+import com.example.fe_funzo.data.retrofit.response.UserCountResponse
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.logic.service.client.UserClientService
 import kotlinx.coroutines.Dispatchers

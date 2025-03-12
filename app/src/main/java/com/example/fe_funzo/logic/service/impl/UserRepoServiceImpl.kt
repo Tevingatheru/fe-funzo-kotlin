@@ -3,7 +3,7 @@ package com.example.fe_funzo.logic.service.impl
 import android.content.Context
 import android.util.Log
 import com.example.fe_funzo.data.model.UserType
-import com.example.fe_funzo.data.room.response.UserResponse
+import com.example.fe_funzo.data.retrofit.response.UserResponse
 import com.example.fe_funzo.infa.client.room.FunzoDatabase
 import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.client.room.UserDao

@@ -2,7 +2,7 @@ package com.example.fe_funzo.infa.mapper
 
 import com.example.fe_funzo.data.model.Exam
 import com.example.fe_funzo.data.room.entity.ExamEntity
-import com.example.fe_funzo.data.room.response.ExamListResponse
+import com.example.fe_funzo.data.retrofit.response.ExamListResponse
 
 object ExamMapper {
     fun mapExamListResponseToExamList(examList: ExamListResponse): List<Exam> {

@@ -1,6 +1,8 @@
 package com.example.fe_funzo.infa.util
 
+import android.content.Context
 import android.widget.Toast
+import com.example.fe_funzo.presentation.activity.AddQuestionActivity
 import com.example.fe_funzo.presentation.activity.SubjectDetailsActivity
 import com.example.fe_funzo.presentation.view.SignIn
 import com.example.fe_funzo.presentation.view.Signup
@@ -53,6 +55,14 @@ class EventAlertUtil {
             Toast.makeText(
                 subjectDetailsActivity,
                 "Create Subject Request Failed.",
+                Toast.LENGTH_SHORT,
+            ).show()
+        }
+
+        fun addedQuestionSuccessfully(context: AddQuestionActivity) {
+            Toast.makeText(
+                context,
+                "Question added successfully.",
                 Toast.LENGTH_SHORT,
             ).show()
         }
