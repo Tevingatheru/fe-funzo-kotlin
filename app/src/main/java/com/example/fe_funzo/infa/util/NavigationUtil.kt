@@ -16,11 +16,14 @@ import com.example.fe_funzo.presentation.view.TeacherLandingPage
 import com.example.fe_funzo.presentation.view.UserProfile
 import com.example.fe_funzo.presentation.view.UserProfileSettings
 import com.example.fe_funzo.data.model.UserType
-import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
+import com.example.fe_funzo.data.room.entity.ExamEntity
+import com.example.fe_funzo.infa.mapper.ExamMapper
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
+import com.example.fe_funzo.logic.service.repo.impl.ExamRepositoryServiceImpl
+import com.example.fe_funzo.presentation.activity.AddQuestionActivity
 import com.example.fe_funzo.presentation.activity.ModifyExamActivity
 
-class NavigationUtil (){
+class NavigationUtil () {
     companion object {
 
         private const val TAG = "NavigationUtil"
@@ -109,8 +112,20 @@ class NavigationUtil (){
             context.startActivity(intent)
         }
 
+        fun navigateToModifyExamActivity(context: Context) {
+            val exam: Exam = ExamCacheUtil.getCachedExam(context = context)
+            navigateToModifyExamActivity(context = context, param = mapOf(Pair("exam", exam)))
+        }
+
         fun navigateToModifyExamActivity(context: Context, param: Map<String, Exam>) {
             intent =  Intent(context, ModifyExamActivity::class.java)
+            val examPair: Exam = param["exam"]!!
+            intent.putExtra("exam", examPair)
+            context.startActivity(intent)
+        }
+
+        fun navigateToAddQuestionActivity(context: Context) {
+            intent = Intent(context, AddQuestionActivity::class.java)
             context.startActivity(intent)
         }
     }

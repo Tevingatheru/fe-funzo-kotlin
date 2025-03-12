@@ -6,9 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.data.room.request.CreateSubjectRequest
 import com.example.fe_funzo.data.room.response.SubjectResponse
-import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
-import com.example.fe_funzo.infa.client.retrofit.client.SubjectClient
-import com.example.fe_funzo.logic.service.impl.SubjectClientServiceImpl
+import com.example.fe_funzo.logic.service.client.impl.SubjectClientServiceImpl
 import com.example.fe_funzo.data.model.Subject
 import com.example.fe_funzo.data.room.response.GetAllSubjectsResponse
 

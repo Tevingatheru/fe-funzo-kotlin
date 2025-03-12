@@ -6,11 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.data.room.response.UserResponse
 import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
-import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
-import com.example.fe_funzo.infa.client.retrofit.client.UserClient
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.logic.service.impl.UserClientServiceImpl
+import com.example.fe_funzo.logic.service.client.impl.UserClientServiceImpl
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 import com.example.fe_funzo.presentation.view.SignIn
 import com.example.fe_funzo.data.model.UserType

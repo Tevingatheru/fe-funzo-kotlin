@@ -5,9 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.data.form.ExamForm
-import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
-import com.example.fe_funzo.infa.client.retrofit.client.UserClient
-import com.example.fe_funzo.logic.service.impl.UserClientServiceImpl
+import com.example.fe_funzo.logic.service.client.impl.UserClientServiceImpl
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 import com.example.fe_funzo.data.model.Exam
 

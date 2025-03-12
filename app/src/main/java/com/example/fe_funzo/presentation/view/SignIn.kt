@@ -16,20 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.data.dto.SignInDto
-import com.example.fe_funzo.data.model.UserType
-import com.example.fe_funzo.data.room.response.UserResponse
-import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
-import com.example.fe_funzo.infa.client.retrofit.client.UserClient
-import com.example.fe_funzo.infa.client.room.FunzoDatabase
-import com.example.fe_funzo.infa.client.room.User
-import com.example.fe_funzo.infa.client.room.UserRepository
-import com.example.fe_funzo.logic.service.impl.UserClientServiceImpl
-import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 import com.example.fe_funzo.logic.view_model.FirebaseViewModel
 import com.example.fe_funzo.presentation.view.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.logic.view_model.SignInViewModel
 import com.example.fe_funzo.presentation.AuthFormSignInStrategy
-import kotlinx.coroutines.runBlocking
 
 class SignIn : ComponentActivity() {
     companion object {

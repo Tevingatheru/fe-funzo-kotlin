@@ -21,7 +21,7 @@ import com.example.fe_funzo.presentation.form.SubjectForm
 import com.example.fe_funzo.data.model.Subject
 import com.example.fe_funzo.data.model.UserType
 import com.example.fe_funzo.data.room.response.UserResponse
-import com.example.fe_funzo.infa.client.room.User
+import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 import kotlinx.coroutines.runBlocking

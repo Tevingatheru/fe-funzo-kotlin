@@ -15,6 +15,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.activity.AddQuestionActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_question"
+            android:theme="@style/Theme.Fe_funzo" />
+        <activity
             android:name=".presentation.activity.ModifyExamActivity"
             android:exported="false"
             android:label="@string/title_activity_modify_exam"

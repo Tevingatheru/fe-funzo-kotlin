@@ -2,7 +2,7 @@ package com.example.fe_funzo.logic.service
 
 import com.example.fe_funzo.data.model.UserType
 import com.example.fe_funzo.data.room.response.UserResponse
-import com.example.fe_funzo.infa.client.room.User
+import com.example.fe_funzo.data.room.entity.User
 
 interface UserRepoService {
     fun save(email: String,

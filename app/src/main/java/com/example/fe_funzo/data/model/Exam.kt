@@ -4,6 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Exam(  val examCode: String? = null,
-                  val subject: String? = null,) : Parcelable
+data class Exam(val examCode: String? = null,
+                val subject: String? = null,
+                val description: String? = null,) : Parcelable
 

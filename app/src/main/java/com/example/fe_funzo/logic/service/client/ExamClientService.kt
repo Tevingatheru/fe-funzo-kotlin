@@ -1,4 +1,4 @@
-package com.example.fe_funzo.logic.service
+package com.example.fe_funzo.logic.service.client
 
 import com.example.fe_funzo.data.room.request.CreateExamRequest
 import com.example.fe_funzo.data.room.response.CreateExamResponse

@@ -2,12 +2,10 @@ package com.example.fe_funzo.logic.view_model
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.example.fe_funzo.data.model.UserType
 import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
-import com.example.fe_funzo.infa.client.room.User
+import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
-import kotlinx.coroutines.runBlocking
 
 class FirebaseViewModel: ViewModel() {
     companion object {
@@ -29,7 +27,7 @@ class FirebaseViewModel: ViewModel() {
 
     fun logout(context: Context) {
         val userRepoServiceImpl: UserRepoServiceImpl = UserRepoServiceImpl(context= context)
-        val user:User? = userRepoServiceImpl.getFirstUser()
+        val user: User? = userRepoServiceImpl.getFirstUser()
 
         if (FirebaseAuthClient.isUserLoggedIn()) {
             FirebaseAuthClient.logout()

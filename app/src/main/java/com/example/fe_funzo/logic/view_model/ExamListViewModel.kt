@@ -2,9 +2,9 @@ package com.example.fe_funzo.logic.view_model
 
 import android.content.Context
 import com.example.fe_funzo.data.model.Exam
-import com.example.fe_funzo.infa.client.room.User
+import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.mapper.ExamMapper
-import com.example.fe_funzo.logic.service.impl.ExamClientServiceImpl
+import com.example.fe_funzo.logic.service.client.impl.ExamClientServiceImpl
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 import kotlinx.coroutines.runBlocking
 

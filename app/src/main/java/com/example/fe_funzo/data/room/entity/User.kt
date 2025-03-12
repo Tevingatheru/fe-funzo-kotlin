@@ -1,4 +1,4 @@
-package com.example.fe_funzo.infa.client.room
+package com.example.fe_funzo.data.room.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
