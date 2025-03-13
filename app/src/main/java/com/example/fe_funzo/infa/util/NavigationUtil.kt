@@ -137,8 +137,11 @@ object NavigationUtil {
         context.startActivity(intent)
     }
 
-    fun navigateToAddOptionActivity(context: Context) {
+    fun navigateToAddOptionActivity(context: Context, param: Map<String, Question>) {
         intent = Intent(context, AddOptionActivity::class.java)
+        val question: Question = param[StringUtil.QUESTION_KEY]!!
+        intent.putExtra(StringUtil.QUESTION_KEY, question)
+
         context.startActivity(intent)
     }
 }

@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Question(
-    val question: String,
+    var question: String,
     val image: String?,
     val optionA: String?,
     val optionB: String?,

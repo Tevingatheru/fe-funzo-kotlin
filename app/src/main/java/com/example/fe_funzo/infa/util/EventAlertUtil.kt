@@ -75,4 +75,11 @@ object EventAlertUtil {
         ).show()
     }
 
+    fun questionModifiedSuccessfully(modifyQuestionActivity: ModifyQuestionActivity) {
+        Toast.makeText(
+            modifyQuestionActivity,
+            "Question modified successfully.",
+            Toast.LENGTH_SHORT,
+        ).show()
+    }
 }

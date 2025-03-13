@@ -2,7 +2,9 @@ package com.example.fe_funzo.logic.service.client.impl
 
 import com.example.fe_funzo.data.retrofit.response.ExamQuestionsResponse
 import com.example.fe_funzo.data.retrofit.request.AddQuestionRequest
+import com.example.fe_funzo.data.retrofit.request.ModifyQuestionRequest
 import com.example.fe_funzo.data.retrofit.response.DeleteQuestionResponse
+import com.example.fe_funzo.data.retrofit.response.ModifyQuestionResponse
 import com.example.fe_funzo.infa.client.retrofit.client.QuestionClient
 import com.example.fe_funzo.logic.service.client.QuestionClientService
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +27,12 @@ class QuestionClientServiceImpl(private val questionClient: QuestionClient): Que
     override suspend fun deleteQuestion(code: String): DeleteQuestionResponse {
         return withContext(Dispatchers.IO) {
             questionClient.deleteQuestion(code = code)
+        }
+    }
+
+    override suspend fun modifyQuestion(modifyQuestionRequest: ModifyQuestionRequest): ModifyQuestionResponse {
+        return withContext(Dispatchers.IO) {
+            questionClient.modifyQuestion(modifyQuestionRequest = modifyQuestionRequest)
         }
     }
 }

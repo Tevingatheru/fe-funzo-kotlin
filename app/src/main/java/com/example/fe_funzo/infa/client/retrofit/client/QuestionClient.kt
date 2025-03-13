@@ -2,12 +2,15 @@ package com.example.fe_funzo.infa.client.retrofit.client
 
 import com.example.fe_funzo.data.retrofit.response.ExamQuestionsResponse
 import com.example.fe_funzo.data.retrofit.request.AddQuestionRequest
+import com.example.fe_funzo.data.retrofit.request.ModifyQuestionRequest
 import com.example.fe_funzo.data.retrofit.response.AddQuestionResponse
 import com.example.fe_funzo.data.retrofit.response.DeleteQuestionResponse
+import com.example.fe_funzo.data.retrofit.response.ModifyQuestionResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface QuestionClient {
@@ -19,4 +22,7 @@ interface QuestionClient {
 
     @DELETE(value = "/questions/delete")
     suspend fun deleteQuestion(@Query(value = "code") code: String): DeleteQuestionResponse
+
+    @PUT(value = "/questions/modify")
+    suspend fun modifyQuestion(@Body modifyQuestionRequest: ModifyQuestionRequest): ModifyQuestionResponse
 }
