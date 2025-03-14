@@ -30,10 +30,13 @@ import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.OptionType
 import com.example.fe_funzo.data.model.MultipleChoice
 import com.example.fe_funzo.data.model.Question
+import com.example.fe_funzo.data.retrofit.request.AddOptionRequest
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
+import com.example.fe_funzo.logic.service.client.impl.OptionClientServiceImpl
 import com.example.fe_funzo.logic.view_model.AddOptionViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
+import kotlinx.coroutines.runBlocking
 
 private const val TAG: String = "AddOptionActivity"
 
@@ -74,7 +77,7 @@ fun AddOptionScreen(addOptionViewModel: AddOptionViewModel) {
 
     if(optionTypeIsSelected) {
         if (optionTypeSelected == OptionType.TRUE_FALSE) {
-            TrueFalseOptionForm()
+            TrueFalseOptionForm(addOptionViewModel = addOptionViewModel)
         } else if (optionTypeSelected!! == OptionType.MULTIPLE_CHOICE) {
             MultipleChoiceScreen()
         }
@@ -126,20 +129,26 @@ fun MultipleChoiceScreen() {
 }
 
 @Composable
-fun TrueFalseOptionForm() {
+fun TrueFalseOptionForm(addOptionViewModel: AddOptionViewModel) {
     Text("Select the Correct Option")
-    BooleanSelectorExample()
+    BooleanSelectorExample(addOptionViewModel = addOptionViewModel)
 }
 
+@Composable
+fun BooleanSelectorExample(addOptionViewModel: AddOptionViewModel) {
+    BooleanSelector(
+        label = "Select correct option.",
+        modifier = Modifier.padding(16.dp),
+        addOptionViewModel = addOptionViewModel,
+    )
+}
 
 @Composable
 fun BooleanSelector(
-    value: Boolean,
-    onValueChange: (Boolean) -> Unit,
     label: String = "Selection",
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    addOptionViewModel: AddOptionViewModel
 ) {
-    var (selectedOption) = remember { mutableStateOf(value) }
 
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -155,39 +164,68 @@ fun BooleanSelector(
             modifier = Modifier.padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            var (selectedOption, setSelectedOption) = remember { mutableStateOf(false) }
+
             listOf(true to "True", false to "False").forEach { (optionValue, displayText) ->
-                Row(
-                    modifier = Modifier.padding(end = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    RadioButton(
-                        selected = selectedOption == optionValue,
-                        onClick = {
-                            selectedOption = optionValue
-                            onValueChange(optionValue)
-                        }
+                SelectTrueFalseOptionScreen(
+                    selectedOption = selectedOption == optionValue,
+                    optionValue = optionValue,
+                    displayText = displayText,
+                    onSelect = {
+                        setSelectedOption(!selectedOption)
+                        Log.i(TAG, "Change choice. To: $selectedOption For option: $optionValue")
+                    }
+                )
+            }
+
+            Button(onClick = {
+                Log.i(TAG, "selectedOption: $selectedOption")
+                val optionClientServiceImpl: OptionClientServiceImpl = OptionClientServiceImpl()
+
+                runBlocking {
+                    val addOptionRequest = AddOptionRequest(
+                        optionA = null,
+                        optionB = null,
+                        optionC = null,
+                        optionD = null,
+                        correctOption = selectedOption.toString(),
+                        questionCode = addOptionViewModel.getQuestion().code
                     )
-                    Text(
-                        text = displayText,
-                        modifier = Modifier.padding(start = 8.dp),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
+                    optionClientServiceImpl.addOptionRequest(createOptionRequest = addOptionRequest)
                 }
+            }) {
+                Text(text = "Save")
             }
         }
     }
 }
 
 @Composable
-fun BooleanSelectorExample() {
-    var (isSelected )= remember { mutableStateOf(false) }
+private fun SelectTrueFalseOptionScreen(
+    selectedOption: Boolean,
+    optionValue: Boolean,
+    displayText: String,
+    onSelect: (Boolean) -> Unit,
+) {
 
-    BooleanSelector(
-        value = isSelected,
-        onValueChange = { isSelected = it },
-        label = "Select correct option.",
-        modifier = Modifier.padding(16.dp)
-    )
+    Row(
+        modifier = Modifier.padding(end = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RadioButton(
+            selected = selectedOption,
+            onClick = {
+                onSelect(true)
+
+                Log.i(TAG, "Options selected: $selectedOption \n optionValue: $optionValue")
+            }
+        )
+        Text(
+            text = displayText,
+            modifier = Modifier.padding(start = 8.dp),
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
 }
 
 @Composable
