@@ -33,6 +33,7 @@ class AuthFormSignUpStrategy : AuthFormStrategy<SignupDto> {
         val password1 = request.signupVM.password.value
         val (selectedRole, setSelectedRole) = remember { mutableStateOf<UserType?>(null) }
         val roleOptionView: RoleOptionView = RoleOptionView()
+
         Text(text = "Hello ${request.signupVM.name}!", modifier = Modifier.padding(bottom = 16.dp))
 
         if (request.signupVM.showErrorMessage.value) {
@@ -67,7 +68,7 @@ class AuthFormSignUpStrategy : AuthFormStrategy<SignupDto> {
 
         UserType.entries.forEach { role ->
             roleOptionView.RoleOption(
-                role = role,
+                userTypeName = role.name,
                 isSelected = selectedRole == role,
                 onSelected = { isSelected ->
                     if (isSelected) {

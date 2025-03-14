@@ -16,7 +16,7 @@ import com.example.fe_funzo.data.model.UserType
 class RoleOptionView {
     @Composable
     fun RoleOption(
-        role: UserType,
+        userTypeName: String,
         isSelected: Boolean,
         onSelected: (Boolean) -> Unit,
         modifier: Modifier = Modifier
@@ -36,7 +36,7 @@ class RoleOptionView {
                 )
             )
             Text(
-                text = role.name,
+                text = userTypeName,
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(start = 16.dp)
             )

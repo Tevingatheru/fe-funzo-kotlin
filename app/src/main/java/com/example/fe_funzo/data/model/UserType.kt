@@ -1,9 +1,9 @@
 package com.example.fe_funzo.data.model
 
 enum class UserType(val type: String? = null) {
-    ADMINISTRATOR("administrator"),
-    STUDENT("student"),
-    TEACHER("teacher");
+    ADMINISTRATOR(type = "administrator"),
+    STUDENT(type = "student"),
+    TEACHER(type = "teacher");
 
     companion object {
         fun find(userType: String): UserType {
