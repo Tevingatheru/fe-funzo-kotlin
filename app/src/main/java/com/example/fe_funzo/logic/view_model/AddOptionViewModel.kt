@@ -13,8 +13,15 @@ class AddOptionViewModel(): ViewModel() {
         return this.context
     }
 
+    fun setContext(context: AddOptionActivity) {
+        this.context = context
+    }
+
     fun getQuestion(): Question {
         return this.question
     }
 
+    fun setQuestion(question: Question) {
+        this.question = question
+    }
 }
