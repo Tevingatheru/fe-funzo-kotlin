@@ -1,6 +1,7 @@
 package com.example.fe_funzo.infa.util
 
 import android.widget.Toast
+import com.example.fe_funzo.presentation.activity.AddOptionActivity
 import com.example.fe_funzo.presentation.activity.AddQuestionActivity
 import com.example.fe_funzo.presentation.activity.ModifyQuestionActivity
 import com.example.fe_funzo.presentation.activity.SubjectDetailsActivity
@@ -79,6 +80,22 @@ object EventAlertUtil {
         Toast.makeText(
             modifyQuestionActivity,
             "Question modified successfully.",
+            Toast.LENGTH_SHORT,
+        ).show()
+    }
+
+    fun editOptionSuccessful(addOptionActivity: AddOptionActivity) {
+        Toast.makeText(
+            addOptionActivity,
+            "Option modified successfully.",
+            Toast.LENGTH_SHORT,
+        ).show()
+    }
+
+    fun addOptionSuccessful(addOptionActivity: AddOptionActivity) {
+        Toast.makeText(
+            addOptionActivity,
+            "Option added successfully.",
             Toast.LENGTH_SHORT,
         ).show()
     }

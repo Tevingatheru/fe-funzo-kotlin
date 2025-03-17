@@ -1,5 +1,11 @@
 package com.example.fe_funzo.data.model
 
-class MultipleChoice(optionA: String, optionB: String, optionC: String, optionD: String) {
+class MultipleChoice(
+    val optionA: String,
+    val optionB: String,
+    val optionC: String,
+    val optionD: String,
+    val correctOption: String,
+) {
 
 }

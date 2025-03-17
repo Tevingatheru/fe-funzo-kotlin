@@ -88,7 +88,7 @@ fun ModifyQuestionScreen(modifyQuestionViewModel: ModifyQuestionViewModel) {
             param = mapOf(Pair(StringUtil.QUESTION_KEY, modifyQuestionViewModel.getQuestion()))
         )
     }) {
-        Text(text = "Add Option(s)")
+        Text(text = "Add/Edit Option(s)")
     }
     Button(onClick = {
         NavigationUtil.navigateToModifyExamActivity(context = modifyQuestionViewModel.getContext())

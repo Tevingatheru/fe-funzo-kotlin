@@ -13,6 +13,10 @@ class AddOptionViewModel(): ViewModel() {
         return this.context
     }
 
+    fun getAddOptionActivity(): AddOptionActivity {
+        return this.context
+    }
+
     fun setContext(context: AddOptionActivity) {
         this.context = context
     }

@@ -23,9 +23,8 @@ import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.model.Exam
 import com.example.fe_funzo.infa.util.NavigationUtil
 
-
 class ExamViewScreen {
-    private final val TAG:String ="ExamViewScreen"
+    private final val TAG : String ="ExamViewScreen"
 
     @Composable
     fun ExamListView(examListResponse: List<Exam>, context: Context) {

@@ -85,12 +85,6 @@ class ModifyExamActivity : ComponentActivity() {
                     question = it.question!!,
                     code = it.code!!,
                     image = null,
-                    optionA = null,
-                    optionB = null,
-                    optionC = null,
-                    optionD = null,
-                    correctOption = null,
-                    questionType = null,
                 )
                 questionMutableList.add(questionItem)
             }
