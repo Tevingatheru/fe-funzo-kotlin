@@ -7,16 +7,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
@@ -44,6 +40,7 @@ import com.example.fe_funzo.logic.service.client.impl.OptionClientServiceImpl
 import com.example.fe_funzo.logic.view_model.AddOptionViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.presentation.form.EditTrueFalseForm
+import com.example.fe_funzo.presentation.form.MCQForm
 import com.example.fe_funzo.presentation.form.TrueFalseOptionForm
 import kotlinx.coroutines.runBlocking
 
@@ -62,10 +59,21 @@ class AddOptionActivity : ComponentActivity() {
         enableEdgeToEdge()
         runBlocking {
             try {
-                showTrueFalseOptionExists(
-                    questionDetails = questionDetails,
-                    addOptionActivity = addOptionActivity
-                )
+                val  option: Option = getOptionByQuestionCode(questionDetails)
+
+                if (option.optionType!!.isTrueFalse()) {
+                    showTrueFalseOptionExists(
+                        questionDetails = questionDetails,
+                        addOptionActivity = addOptionActivity,
+                        option = option
+                    )
+                } else if (option.optionType!!.isMCQ()) {
+                    showExistingMCQ(
+                        option = option,
+                        question = questionDetails,
+                        addOptionActivity = addOptionActivity,
+                    )
+                }
             } catch (e: Exception) {
                 Log.i(TAG, "No option found")
                 showIfOptionDoesNotExist(addOptionViewModel)
@@ -73,12 +81,33 @@ class AddOptionActivity : ComponentActivity() {
         }
     }
 
-    private suspend fun showTrueFalseOptionExists(
+    private fun showExistingMCQ(
+        option: Option,
+        question: Question,
+        addOptionActivity: AddOptionActivity
+    ) {
+        setContent {
+            Fe_funzoTheme {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    Column(modifier = Modifier.padding(innerPadding)) {
+                        EditMultipleChoiceScreen(
+                            option = option,
+                            addOptionActivity = addOptionActivity,
+                            question = question,
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showTrueFalseOptionExists(
         questionDetails: Question,
         addOptionActivity: AddOptionActivity,
+        option: Option
     ) {
-        val  option: Option = getOptionByQuestionCode(questionDetails)
-
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()
@@ -99,20 +128,13 @@ class AddOptionActivity : ComponentActivity() {
                                 )
                             },
                             onBack = {
-                                NavigationUtil.navigateToModifyQuestion(
-                                    context = addOptionActivity,
-                                    param = mapOf(Pair(StringUtil.QUESTION_KEY, questionDetails))
+                                navigateToModifyQuestion(
+                                    addOptionActivity = addOptionActivity,
+                                    question = questionDetails
                                 )
                             },
                             onDelete = {
-                                val optionClientServiceImpl: OptionClientServiceImpl = OptionClientServiceImpl()
-                                runBlocking {
-                                    optionClientServiceImpl.deleteByCode(code = option.code!!)
-                                    NavigationUtil.navigateToModifyQuestion(
-                                        context = addOptionActivity,
-                                        param = mapOf(Pair(StringUtil.QUESTION_KEY, questionDetails))
-                                    )
-                                }
+                                deleteOption(option, addOptionActivity, questionDetails)
                             }
                         )
                     }
@@ -121,13 +143,14 @@ class AddOptionActivity : ComponentActivity() {
         }
     }
 
-    private suspend fun AddOptionActivity.getOptionByQuestionCode(
+    private suspend fun getOptionByQuestionCode(
         questionDetails: Question
     ): Option {
         val optionResponse: OptionResponse =
             getOptionResponseByQuestionCode(questionCode = questionDetails.code)
         val option: Option = OptionMapper.mapFromOptionResponse(optionResponse = optionResponse)
-        return  option
+        Log.i(TAG, "optionResponse: $optionResponse\n option: $option")
+        return option
     }
 
     private suspend fun getOptionResponseByQuestionCode(questionCode: String): OptionResponse {
@@ -180,8 +203,108 @@ class AddOptionActivity : ComponentActivity() {
     }
 }
 
+private fun deleteOption(
+    option: Option,
+    addOptionActivity: AddOptionActivity,
+    questionDetails: Question
+) {
+    val optionClientServiceImpl: OptionClientServiceImpl = OptionClientServiceImpl()
+    runBlocking {
+        optionClientServiceImpl.deleteByCode(code = option.code!!)
+        navigateToModifyQuestion(
+            addOptionActivity = addOptionActivity,
+            question = questionDetails
+        )
+    }
+}
+
 @Composable
-fun AddOptionScreen(addOptionViewModel: AddOptionViewModel) {
+fun EditMultipleChoiceScreen(option: Option, addOptionActivity: AddOptionActivity, question: Question) {
+    Log.i(TAG, "Analyze existing option: $option")
+    val (optionA, setOptionA) = remember { mutableStateOf<String>(option.optionA ?: "") }
+    val (optionB, setOptionB) = remember { mutableStateOf<String>(option.optionB ?: "") }
+    val (optionC, setOptionC) = remember { mutableStateOf<String>(option.optionC ?: "") }
+    val (optionD, setOptionD) = remember { mutableStateOf<String>(option.optionD ?: "") }
+    var isOptionASelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(optionA == option.correctOption) }
+    var isOptionBSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(optionB == option.correctOption) }
+    var isOptionCSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(optionC == option.correctOption) }
+    var isOptionDSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(optionD == option.correctOption) }
+
+    val (correctOption, setCorrectOption) = remember { mutableStateOf<String>(option.correctOption!!) }
+
+    MCQForm(
+        optionA = optionA,
+        setOptionA = setOptionA,
+        isOptionASelected = isOptionASelected,
+        setCorrectOption = setCorrectOption,
+        isOptionBSelected = isOptionBSelected,
+        isOptionCSelected = isOptionCSelected,
+        isOptionDSelected = isOptionDSelected,
+        optionB = optionB,
+        setOptionB = setOptionB,
+        optionC = optionC,
+        setOptionC = setOptionC,
+        optionD = optionD,
+        setOptionD = setOptionD,
+        submitMCQOptionsForm = {
+            sendModifyOptionRequest(
+                optionA = optionA,
+                optionB = optionB,
+                optionC = optionC,
+                optionD = optionD,
+                correctOption = correctOption,
+                questionCode = question.code,
+                optionCode = option.code!!
+            )
+
+            EventAlertUtil.editOptionSuccessful(addOptionActivity)
+            navigateToModifyQuestion(
+                addOptionActivity = addOptionActivity,
+                question = question
+            )
+        },
+        questionText = question.question
+    )
+
+    Button(onClick = {
+        deleteOption(
+            option = option,
+            addOptionActivity = addOptionActivity,
+            questionDetails = question
+        )
+    }) {
+        Text("Delete Option")
+    }
+
+    Button(onClick = {
+        navigateToModifyQuestion(
+            addOptionActivity = addOptionActivity,
+            question = question
+        )
+    }) {
+        Text("Back")
+    }
+}
+
+private fun sendModifyOptionRequest(optionA: String, optionB: String, optionC: String, optionD: String, correctOption: String, questionCode: String, optionCode: String) {
+    val optionClientServiceImpl: OptionClientServiceImpl =  OptionClientServiceImpl()
+    val editOptionRequest: EditOptionRequest = EditOptionRequest(
+        optionA = optionA,
+        optionB = optionB,
+        optionC = optionC,
+        optionD = optionD,
+        correctOption = correctOption,
+        questionCode = questionCode,
+        code = optionCode,
+    )
+
+    runBlocking {
+        optionClientServiceImpl.edit(editOptionRequest = editOptionRequest)
+    }
+}
+
+@Composable
+private fun AddOptionScreen(addOptionViewModel: AddOptionViewModel) {
     val (optionTypeSelected, setOptionTypeSelected) = remember { mutableStateOf<OptionType?>(null) }
     val (optionTypeIsSelected, setOptionTypeISSelected) = remember { mutableStateOf<Boolean>(false) }
     val question = addOptionViewModel.getQuestion()
@@ -205,7 +328,7 @@ fun AddOptionScreen(addOptionViewModel: AddOptionViewModel) {
 }
 
 @Composable
-fun MultipleChoiceScreen(question: Question, addOptionActivity: AddOptionActivity) {
+private fun MultipleChoiceScreen(question: Question, addOptionActivity: AddOptionActivity) {
     val (optionA, setOptionA) = remember { mutableStateOf<String>("") }
     val (optionB, setOptionB) = remember { mutableStateOf<String>("") }
     val (optionC, setOptionC) = remember { mutableStateOf<String>("") }
@@ -217,90 +340,32 @@ fun MultipleChoiceScreen(question: Question, addOptionActivity: AddOptionActivit
 
     val (correctOption, setCorrectOption) = remember { mutableStateOf<String>("") }
 
-    Text("Multiple Choice")
-
-    OutlinedTextField(
-        value = optionA,
-        onValueChange = { setOptionA(it) },
-        label = { Text("Option A") },
-        modifier = Modifier.fillMaxWidth()
+    MCQForm(
+        optionA = optionA,
+        setOptionA = setOptionA,
+        isOptionASelected = isOptionASelected,
+        setCorrectOption = setCorrectOption,
+        isOptionBSelected = isOptionBSelected,
+        isOptionCSelected = isOptionCSelected,
+        isOptionDSelected = isOptionDSelected,
+        optionB = optionB,
+        setOptionB = setOptionB,
+        optionC = optionC,
+        setOptionC = setOptionC,
+        optionD = optionD,
+        setOptionD = setOptionD,
+        submitMCQOptionsForm = {
+            sendAddOptionRequest(
+                optionA = optionA,
+                optionB = optionB,
+                optionC = optionC,
+                optionD = optionD,
+                question = question,
+                correctOption = correctOption, addOptionActivity = addOptionActivity
+            )
+        },
+        questionText = question.question
     )
-
-    RadioButton(
-        selected = isOptionASelected.value,
-        onClick = {
-            setCorrectOption(optionA)
-            isOptionASelected.value = true
-            isOptionBSelected.value = false
-            isOptionCSelected.value = false
-            isOptionDSelected.value = false
-        }
-    )
-
-    OutlinedTextField(
-        value = optionB,
-        onValueChange = { setOptionB(it) },
-        label = { Text("Option B") },
-        modifier = Modifier.fillMaxWidth()
-    )
-
-    RadioButton(
-        selected = isOptionBSelected.value,
-        onClick = {
-            setCorrectOption(optionB)
-            isOptionBSelected.value = true
-            isOptionASelected.value= false
-            isOptionCSelected.value = false
-            isOptionDSelected.value = false
-        }
-    )
-
-    OutlinedTextField(
-        value = optionC,
-        onValueChange = { setOptionC(it) },
-        label = { Text("Option C") },
-        modifier = Modifier.fillMaxWidth()
-    )
-
-    RadioButton(
-        selected = isOptionCSelected.value,
-        onClick = {
-            setCorrectOption(optionC)
-            isOptionCSelected.value = true
-            isOptionASelected.value = false
-            isOptionBSelected.value = false
-            isOptionDSelected.value = false
-        }
-    )
-
-    OutlinedTextField(
-        value = optionD,
-        onValueChange = { setOptionD(it) },
-        label = { Text("Option D") },
-        modifier = Modifier.fillMaxWidth()
-    )
-
-    RadioButton(
-        selected = isOptionDSelected.value,
-        onClick = {
-            setCorrectOption(optionD)
-            isOptionDSelected.value = true
-            isOptionASelected.value = false
-            isOptionBSelected.value = false
-            isOptionCSelected.value = false
-        }
-    )
-
-    Spacer(modifier = Modifier.height(16.dp))
-
-    Button(onClick = {
-        sendAddOptionRequest(
-            optionA, optionB, optionC, optionD, question,
-            correctOption = correctOption, addOptionActivity = addOptionActivity
-        )
-    }) {
-        Text("Add Multiple Choice Options")
-    }
 }
 
 private fun sendAddOptionRequest(
@@ -320,7 +385,6 @@ private fun sendAddOptionRequest(
 
     val optionClientServiceImpl: OptionClientServiceImpl = OptionClientServiceImpl()
     runBlocking {
-
         val createAddOptionRequest: AddOptionRequest = AddOptionRequest(
             optionA = multipleChoice.optionA,
             optionB = multipleChoice.optionB,
@@ -330,12 +394,19 @@ private fun sendAddOptionRequest(
             questionCode = question.code
         )
         optionClientServiceImpl.addOptionRequest(createAddOptionRequest = createAddOptionRequest)
+        navigateToModifyQuestion(addOptionActivity, question)
         EventAlertUtil.addOptionSuccessful(addOptionActivity = addOptionActivity)
-        NavigationUtil.navigateToModifyQuestion(
-            context = addOptionActivity,
-            param = mapOf(Pair(StringUtil.QUESTION_KEY, question))
-        )
     }
+}
+
+private fun navigateToModifyQuestion(
+    addOptionActivity: AddOptionActivity,
+    question: Question
+) {
+    NavigationUtil.navigateToModifyQuestion(
+        context = addOptionActivity,
+        param = mapOf(Pair(StringUtil.QUESTION_KEY, question))
+    )
 }
 
 @Composable
@@ -356,9 +427,9 @@ private fun SelectOption(
     )
 
     Button(onClick = {
-        NavigationUtil.navigateToModifyQuestion(
-            context = addOptionViewModel.getContext(),
-            param = mapOf(Pair(StringUtil.QUESTION_KEY, addOptionViewModel.getQuestion()))
+        navigateToModifyQuestion(
+            addOptionActivity = addOptionViewModel.getAddOptionActivity(),
+            question = addOptionViewModel.getQuestion()
         )
     }) {
         Text("Back")
