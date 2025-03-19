@@ -22,7 +22,7 @@ import com.example.fe_funzo.data.model.Exam
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.view_model.ExamListViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
-import com.example.fe_funzo.presentation.view.ExamViewScreen
+import com.example.fe_funzo.presentation.view.TeacherExamViewScreen
 
 private const val TAG : String = "ViewExamsActivity"
 
@@ -31,19 +31,23 @@ class ViewExamsActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val context: Context = this
-        val examViewScreen: ExamViewScreen = ExamViewScreen()
-        val examListViewModel: ExamListViewModel = ExamListViewModel()
-        val examListResponse: List<Exam> = examListViewModel.getExamList(context = context)
+        val examListViewModel: ExamListViewModel = ExamListViewModel(context = context)
+        val examListResponse: List<Exam> = examListViewModel.getExamList()
 
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column (modifier = Modifier.padding(innerPadding)){
-                        ViewExamsViewHeader(
-                            context = context,
+                        Text(
+                            text = "List of Created Exams",
                         )
-                        examViewScreen.ExamListView(examListResponse = examListResponse, context = context)
+                        if (examListViewModel.user.findUserType().isTeacher()){
+                            TeachersExamListViewNavigationPanel(
+                                context = context,
+                            )
+                        }
+
                     }
                 }
             }
@@ -52,18 +56,8 @@ class ViewExamsActivity : ComponentActivity() {
 }
 
 @Composable
-fun ViewExamsViewHeader(context: Context) {
-    Text(
-        text = "List of Created Exams",
-    )
-
+private fun TeachersExamListViewNavigationPanel(context: Context) {
     Spacer(modifier = Modifier.height(16.dp))
-
-    NavigationPanel(context)
-}
-
-@Composable
-private fun NavigationPanel(context: Context) {
     Button(onClick = {
         NavigationUtil.navigateToSubjectDetails(context = context)
     }) {
@@ -90,6 +84,6 @@ private fun NavigationPanel(context: Context) {
 @Composable
 fun Preview7() {
     Fe_funzoTheme {
-        ViewExamsViewHeader(context = LocalContext.current)
+        TeachersExamListViewNavigationPanel(context = LocalContext.current)
     }
 }

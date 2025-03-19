@@ -18,4 +18,5 @@
     <string name="title_activity_add_option">AddOptionActivity</string>
     <string name="title_activity_student_landing_page">StudentLandingPage</string>
     <string name="title_activity_student_dashboard">StudentDashboardActivity</string>
+    <string name="title_activity_take_exam">TakeExamActivity</string>
 </resources>

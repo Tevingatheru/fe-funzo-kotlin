@@ -3,6 +3,7 @@ package com.example.fe_funzo.logic.view_model
 import android.content.Context
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.data.retrofit.request.AddQuestionRequest
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.infa.client.retrofit.client.QuestionClient
@@ -13,7 +14,7 @@ import com.example.fe_funzo.logic.service.client.impl.QuestionClientServiceImpl
 import com.example.fe_funzo.presentation.activity.AddQuestionActivity
 import kotlinx.coroutines.runBlocking
 
-class AddQuestionViewModel {
+class AddQuestionViewModel: ViewModel() {
     private var question :MutableState<String> = mutableStateOf("")
 
     fun getQuestion(): String {

@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
-import com.example.fe_funzo.logic.strategy.AdminDashboardStrategyImpl
-import com.example.fe_funzo.logic.strategy.StudentDashboardStrategyImpl
+import com.example.fe_funzo.logic.strategy.impl.AdminDashboardStrategyImpl
+import com.example.fe_funzo.logic.strategy.impl.StudentDashboardStrategyImpl
 import com.example.fe_funzo.logic.strategy.context.DashboardNavigationContext
 import com.example.fe_funzo.logic.strategy.policy.DashboardPolicy
 

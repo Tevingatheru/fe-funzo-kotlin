@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.data.form.ExamForm
 import com.example.fe_funzo.data.retrofit.request.CreateExamRequest
 import com.example.fe_funzo.data.retrofit.response.CreateExamResponse
 import com.example.fe_funzo.logic.service.client.impl.ExamClientServiceImpl
@@ -48,7 +47,7 @@ class CreateExamActivity : ComponentActivity() {
 
 @Composable
 fun CreateExamView(context: Context) {
-    val examViewModel : ExamViewModel = ExamViewModel(formData = ExamForm())
+    val examViewModel : ExamViewModel = ExamViewModel()
     val subjectViewModel:  SubjectViewModel = SubjectViewModel()
 
     ExamFormComponent(subjectViewModel = subjectViewModel,

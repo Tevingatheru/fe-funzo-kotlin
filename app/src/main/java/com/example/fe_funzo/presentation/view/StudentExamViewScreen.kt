@@ -23,15 +23,23 @@ import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.model.Exam
 import com.example.fe_funzo.infa.util.NavigationUtil
 
-class ExamViewScreen {
-    private final val TAG : String ="ExamViewScreen"
+class StudentExamViewScreen {
+    companion object {
+        private const val TAG : String ="StudentExamViewScreen"
+    }
 
     @Composable
-    fun ExamListView(examListResponse: List<Exam>, context: Context) {
-        ExamList(examList = examListResponse, onEditClick= { exam: Exam ->
-            Log.i(TAG, "Navigate to modify exam form: $exam")
-            NavigationUtil.navigateToModifyExamActivity(context = context, param = mapOf(Pair("exam",exam)) )
-        })
+    fun ExamListView(examList: List<Exam>, context: Context) {
+        ExamList(
+            examList = examList,
+            onEditClick = { exam: Exam ->
+                Log.i(TAG, "Navigate to modify exam form: $exam")
+                NavigationUtil.navigateToTakeExamActivity(
+                    context = context,
+                    param = mapOf(Pair("exam", exam))
+                )
+            }
+        )
     }
 
     @Composable
@@ -54,7 +62,6 @@ class ExamViewScreen {
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable(onClick = { onEditClick(exam) }),
-
             tonalElevation = 2.dp
         ) {
             Row(
@@ -68,13 +75,6 @@ class ExamViewScreen {
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.weight(1f)
                 )
-
-                IconButton(onClick = {onEditClick(exam)}) {
-                    Icon(
-                        imageVector = Icons.Default.Edit,
-                        contentDescription = "Edit exam"
-                    )
-                }
             }
         }
     }

@@ -154,4 +154,12 @@ object NavigationUtil {
         intent = Intent(context, StudentDashboardActivity::class.java)
         context.startActivity(intent)
     }
+
+    fun navigateToTakeExamActivity(context: Context, param: Map<String, Exam>) {
+        intent =  Intent(context, TakeExamActivity::class.java)
+
+        val examPair: Exam = param[StringUtil.EXAM_KEY]!!
+        intent.putExtra(StringUtil.EXAM_KEY, examPair)
+        context.startActivity(intent)
+    }
 }
