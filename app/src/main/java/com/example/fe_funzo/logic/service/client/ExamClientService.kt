@@ -7,4 +7,5 @@ import com.example.fe_funzo.data.retrofit.response.ExamListResponse
 interface ExamClientService {
     suspend fun createExam(createExamRequest : CreateExamRequest): CreateExamResponse
     suspend fun getExamListByTeachersUserCode(userCode: String): ExamListResponse
+    suspend fun getValidExams(): ExamListResponse
 }

@@ -30,8 +30,8 @@ class UserProfileView {
             Text("Settings")
         }
         Button(onClick = {
-            TODO("Call the navigate to landing page strategy based on the user details")
             Log.i(TAG, "Navigate to landing page")
+            NavigationUtil.navigateToLandingPage(context = context)
         }) {
             Text("Landing Page")
         }

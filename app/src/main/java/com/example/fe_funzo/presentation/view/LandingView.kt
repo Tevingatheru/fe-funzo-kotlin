@@ -15,22 +15,17 @@ class LandingView {
         Text(
             text = "Welcome ${username}!",
         )
-        NavigationOptions(context)
-    }
-
-    @Composable
-    private fun NavigationOptions(context: Context) {
-        Button(onClick = {
-            navigateToDashboardScreen(context)
-        }) { Text(text = "Dashboards") }
-
-        Button(onClick = {
-            navigateToProfileScreen(context)
-        }) { Text(text = "Profile") }
-
-        Button(onClick = {
-            navigateToViewExamsActivity(context)
-        }) { Text(text = "View Exams") }
+        NavigationOptions(
+            navigateToViewExamsActivity = {
+                navigateToViewExamsActivity(context =  context)
+            },
+            navigateToDashboardScreen = {
+                navigateToDashboardScreen(context =  context)
+            },
+            navigateToProfileScreen = {
+                navigateToProfileScreen(context =  context)
+            }
+        )
     }
 
     private fun navigateToViewExamsActivity(context: Context) {

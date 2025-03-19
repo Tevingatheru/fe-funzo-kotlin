@@ -26,20 +26,18 @@ class AdminLandingPage : ComponentActivity() {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "onCreate")
         val firebaseViewModel = FirebaseViewModel()
-        firebaseViewModel.isUserLoggedOut(this)
-        val username: String = FirebaseAuthClient.getUserEmail()
-
+        val userEmail: String = FirebaseAuthClient.getUserEmail()
         val context: AdminLandingPage = this
+        val landingView: LandingView = LandingView()
 
         firebaseViewModel.isUserLoggedOut(context = this)
-
-        val landingView: LandingView = LandingView()
+        
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column (Modifier.padding(innerPadding)) {
-                        landingView.LandingScreen(context = context, username = username)
+                        landingView.LandingScreen(context = context, username = userEmail)
                     }
                 }
             }

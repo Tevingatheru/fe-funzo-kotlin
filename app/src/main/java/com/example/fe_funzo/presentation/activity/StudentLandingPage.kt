@@ -1,6 +1,5 @@
-package com.example.fe_funzo
+package com.example.fe_funzo.presentation.activity
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -9,65 +8,53 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.ui.theme.Fe_funzoTheme
+import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 import com.example.fe_funzo.logic.view_model.FirebaseViewModel
+import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
+import com.example.fe_funzo.presentation.view.LandingView
 
-class MainActivity : ComponentActivity() {
-
+class StudentLandingPage : ComponentActivity() {
     companion object {
-        private const val TAG = "MainActivity"
+        private const val TAG: String = "StudentLandingPage"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         Log.i(TAG, "onCreate")
-        val context: Context = this
+        val context : StudentLandingPage = this
+        val landingView: LandingView = LandingView()
         val firebaseViewModel = FirebaseViewModel()
-
-        firebaseViewModel.isUserLoggedIn(context = context)
-
+        firebaseViewModel.isUserLoggedOut(this)
+        val userEmail: String = UserRepoServiceImpl(context = context).getFirstUser().email
+        
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column (modifier = Modifier.padding(innerPadding)) {
-                        NavigateToSignUpPage(context = context)
+                    Column(modifier = Modifier.padding(innerPadding)) {
+                        landingView.LandingScreen(context = context, username = userEmail)
+                        StudentLandingPageScreen()
                     }
                 }
             }
         }
     }
-
-    public override fun onStart() {
-        super.onStart()
-        Log.i(TAG, "onStart")
-    }
 }
 
 @Composable
-fun NavigateToSignUpPage(context : Context) {
-    Log.i("MainActivity", "NavigateToSignUpPage")
-    Button(onClick = {
-        NavigationUtil.navigateToSignUpActivity(context = context)
-    }) {
-        Text("Go Sign Up")
-    }
+fun StudentLandingPageScreen() {
+    Text(text = "Hello Student!")
 }
 
 @Preview(showBackground = true)
 @Composable
-fun MainPreview() {
+fun GreetingPreview7() {
     Fe_funzoTheme {
-        val context: Context = LocalContext.current
-        NavigateToSignUpPage(context)
+        StudentLandingPageScreen()
     }
 }

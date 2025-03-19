@@ -5,6 +5,18 @@ enum class UserType(val type: String? = null) {
     STUDENT(type = "student"),
     TEACHER(type = "teacher");
 
+    fun isStudent(): Boolean {
+        return this == STUDENT
+    }
+
+    fun isTeacher(): Boolean {
+        return this == TEACHER
+    }
+
+    fun isAdmin(): Boolean {
+        return this == ADMINISTRATOR
+    }
+
     companion object {
         fun find(userType: String): UserType {
             return when(userType) {

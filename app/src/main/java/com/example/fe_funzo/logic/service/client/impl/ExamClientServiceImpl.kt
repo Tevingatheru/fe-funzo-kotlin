@@ -22,4 +22,10 @@ class ExamClientServiceImpl(private val examClient: ExamClient = RetrofitClientB
             examClient.getExamListByTeachersUserCode(userCode = userCode)
         }
     }
+
+    override suspend fun getValidExams(): ExamListResponse {
+        return withContext(Dispatchers.IO) {
+            examClient.getAllExams()
+        }
+    }
 }

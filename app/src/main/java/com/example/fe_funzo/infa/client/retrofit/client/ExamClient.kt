@@ -15,4 +15,7 @@ interface ExamClient {
 
     @GET(value = "/exams/teacher")
     suspend fun getExamListByTeachersUserCode(@Query(value = "userCode") userCode: String): ExamListResponse
+
+    @GET(value = "/exams")
+    suspend fun getAllExams(): ExamListResponse
 }

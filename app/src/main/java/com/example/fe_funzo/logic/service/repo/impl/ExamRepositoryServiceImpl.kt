@@ -7,9 +7,7 @@ import com.example.fe_funzo.infa.client.room.ExamDao
 import com.example.fe_funzo.infa.client.room.FunzoDatabase
 import com.example.fe_funzo.infa.client.room.handler.ExamRepositoryHandler
 import com.example.fe_funzo.logic.service.repo.ExamRepositoryService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
 class ExamRepositoryServiceImpl (
     private val context: Context,
@@ -22,7 +20,7 @@ class ExamRepositoryServiceImpl (
 
     override fun insertExam(examEntity: ExamEntity) {
         return runBlocking {
-            deleteExistingUser()
+            deleteExistingExam()
 
             examRepo.insertExamEntity(examEntity = examEntity)
         }
@@ -40,14 +38,16 @@ class ExamRepositoryServiceImpl (
         }
     }
 
-    private suspend fun deleteExistingUser() {
-        try {
-            val existingExamEntity = examRepo.getExistingExam()
-            if (existingExamEntity.uid != null) {
-                examRepo.deleteExamEntity(examEntity = existingExamEntity)
+    override fun deleteExistingExam() {
+        runBlocking {
+            try {
+                val existingExamEntity = examRepo.getExistingExam()
+                if (existingExamEntity.uid != null) {
+                    deleteExam(examEntity = existingExamEntity)
+                }
+            } catch (e: Exception) {
+                Log.i(TAG, "Error deleting existing user. \nError: $e")
             }
-        } catch (e: Exception) {
-            Log.i(TAG, "Error deleting existing user. \nError: $e")
         }
     }
 }

@@ -17,9 +17,9 @@ class FirebaseAuthClient private constructor(
 
         fun isUserLoggedIn (): Boolean {
             Log.i(TAG, "isUserLoggedIn")
-            val currentUser = auth.currentUser
+            val currentUser: FirebaseUser? = auth.currentUser
             if (currentUser != null) {
-                Log.i(TAG, "currentUser: $currentUser")
+                Log.i(TAG, "currentUser: ${currentUser.email}")
                 return true
             } else {
                 Log.w(TAG, "No currentUser")

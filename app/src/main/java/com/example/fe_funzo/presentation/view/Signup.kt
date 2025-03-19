@@ -29,11 +29,8 @@ class Signup : ComponentActivity() {
         enableEdgeToEdge()
         val signupContext = this
         setContent {
-
             Fe_funzoTheme {
-
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
                     Column(
                         modifier = Modifier
                             .padding(innerPadding)

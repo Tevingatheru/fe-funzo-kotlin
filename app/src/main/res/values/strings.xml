@@ -16,4 +16,5 @@
     <string name="title_activity_add_question">AddQuestionActivity</string>
     <string name="title_activity_modify_question">ModifyQuestionActivity</string>
     <string name="title_activity_add_option">AddOptionActivity</string>
+    <string name="title_activity_student_landing_page">StudentLandingPage</string>
 </resources>

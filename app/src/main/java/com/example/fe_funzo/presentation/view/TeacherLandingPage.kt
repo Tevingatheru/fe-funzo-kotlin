@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
 import com.example.fe_funzo.logic.view_model.FirebaseViewModel
 import com.example.fe_funzo.presentation.view.ui.theme.Fe_funzoTheme
 
@@ -28,13 +29,14 @@ class TeacherLandingPage : ComponentActivity() {
         firebaseViewModel.isUserLoggedOut(this)
         val landingView: LandingView = LandingView()
         val context: Context = this
+        val userEmail: String = FirebaseAuthClient.getUserEmail()
 
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column (Modifier.padding(innerPadding)) {
-                        landingView.LandingScreen(context = context, username = "Teacher")
+                        landingView.LandingScreen(context = context, username = userEmail)
                     }
                 }
             }

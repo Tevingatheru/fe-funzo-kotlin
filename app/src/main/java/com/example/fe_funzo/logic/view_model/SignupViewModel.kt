@@ -37,14 +37,14 @@ class SignupViewModel(
     private fun signUp(email: String, password: String, signup: Signup, selectedRole: UserType) {
         Log.i(TAG, "signUp")
 
-
         val userService: UserClientServiceImpl = UserClientServiceImpl()
 
         runBlocking {
-            val response: UserResponse = cacheUserDetails(userService, selectedRole, email)
             signupViaFirebase(email = email, password = password, signup = signup,
-                selectedRole =  selectedRole, userRepoServiceImpl = UserRepoServiceImpl(context = signup),
-                response= response)
+                selectedRole =  selectedRole)
+            val userResponse: UserResponse = sendCreateUserRequestToBackend(userService, selectedRole, email)
+
+            cacheUserDetails(userRepoServiceImpl =UserRepoServiceImpl(context = signup) , email, userResponse)
         }
     }
 
@@ -53,8 +53,6 @@ class SignupViewModel(
         password: String,
         signup: Signup,
         selectedRole: UserType,
-        userRepoServiceImpl: UserRepoServiceImpl,
-        response: UserResponse
     ) {
         FirebaseAuthClient.signUp(
             email = email,
@@ -63,19 +61,25 @@ class SignupViewModel(
         ) { isSuccessful ->
             if (isSuccessful) {
                 NavigationUtil.navigateToLandingPage(userType = selectedRole, context = signup)
-
-                try {
-                    userRepoServiceImpl.save(email = email, response = response)
-                } catch (e: Exception) {
-                    Log.e(TAG, "Failed to save user. Error: $e")
-                }
             } else {
                 Log.e(TAG, "Sign up failed")
             }
         }
     }
 
-    private suspend fun cacheUserDetails(
+    private fun cacheUserDetails(
+        userRepoServiceImpl: UserRepoServiceImpl,
+        email: String,
+        response: UserResponse
+    ) {
+        try {
+            userRepoServiceImpl.save(email = email, response = response)
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to cache user details. Error: $e")
+        }
+    }
+
+    private suspend fun sendCreateUserRequestToBackend(
         userService: UserClientServiceImpl,
         selectedRole: UserType,
         email: String
@@ -87,7 +91,6 @@ class SignupViewModel(
         Log.i(TAG, "selectedRole: $selectedRole")
 
         if (selectedRole == null) {
-            Log.i(TAG, "selectedRole is null")
             EventAlertUtil.signupIsFailed(context = signupContext)
             message.value = "Select a role"
             showErrorMessage.value = true

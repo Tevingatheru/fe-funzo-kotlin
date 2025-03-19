@@ -8,4 +8,6 @@ interface ExamRepositoryService {
     fun deleteExam(examEntity: ExamEntity)
 
     fun getExistingExam(): ExamEntity
+
+    fun deleteExistingExam()
 }

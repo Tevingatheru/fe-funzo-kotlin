@@ -57,8 +57,6 @@ class SignIn : ComponentActivity() {
         val firebaseViewModel: FirebaseViewModel = FirebaseViewModel()
         firebaseViewModel.isUserLoggedIn(context = this)
     }
-
-
 }
 
 @Composable

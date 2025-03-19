@@ -2,6 +2,7 @@ package com.example.fe_funzo.logic.view_model
 
 import android.content.Context
 import com.example.fe_funzo.data.model.Exam
+import com.example.fe_funzo.data.model.UserType
 import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.mapper.ExamMapper
 import com.example.fe_funzo.logic.service.client.impl.ExamClientServiceImpl
@@ -17,8 +18,16 @@ class ExamListViewModel {
         val user: User = userRepoServiceImpl.getFirstUser()
         val examClient: ExamClientServiceImpl = ExamClientServiceImpl()
 
-        return runBlocking {
-            ExamMapper.mapExamListResponseToExamList(examClient.getExamListByTeachersUserCode(userCode = user.userCode))
+        if (UserType.find(user.userType).isTeacher()) {
+            return runBlocking {
+                ExamMapper.mapExamListResponseToExamList(examClient.getExamListByTeachersUserCode(userCode = user.userCode))
+            }
+        } else if(UserType.find(user.userType).isStudent()) {
+            return runBlocking {
+                ExamMapper.mapExamListResponseToExamList(examList = examClient.getValidExams())
+            }
+        } else {
+            throw IllegalArgumentException("User type can not view exam list: ${user.userType}")
         }
     }
 }

@@ -22,6 +22,7 @@ import com.example.fe_funzo.presentation.activity.AddOptionActivity
 import com.example.fe_funzo.presentation.activity.AddQuestionActivity
 import com.example.fe_funzo.presentation.activity.ModifyExamActivity
 import com.example.fe_funzo.presentation.activity.ModifyQuestionActivity
+import com.example.fe_funzo.presentation.activity.StudentLandingPage
 
 object NavigationUtil {
 
@@ -41,12 +42,15 @@ object NavigationUtil {
 
     fun navigateToLandingPage(context: Context, userType: UserType) {
         Log.i(TAG, "Navigate to landing page.")
-        if (userType == UserType.ADMINISTRATOR) {
+        if (userType.isAdmin()) {
             Log.i(TAG, "Navigate to admin landing page.")
             intent = Intent(context, AdminLandingPage::class.java)
-        } else if (userType == UserType.TEACHER) {
+        } else if (userType.isTeacher()) {
             Log.i(TAG, "Navigate to teacher landing page.")
             intent = Intent(context, TeacherLandingPage::class.java)
+        } else if (userType.isStudent()) {
+            Log.i(TAG, "Navigate to teacher landing page.")
+            intent = Intent(context, StudentLandingPage::class.java)
         } else {
             throw IllegalArgumentException("UserType does not exist: $userType")
         }
