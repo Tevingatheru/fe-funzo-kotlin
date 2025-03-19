@@ -22,6 +22,7 @@ import com.example.fe_funzo.presentation.activity.AddOptionActivity
 import com.example.fe_funzo.presentation.activity.AddQuestionActivity
 import com.example.fe_funzo.presentation.activity.ModifyExamActivity
 import com.example.fe_funzo.presentation.activity.ModifyQuestionActivity
+import com.example.fe_funzo.presentation.activity.StudentDashboardActivity
 import com.example.fe_funzo.presentation.activity.StudentLandingPage
 
 object NavigationUtil {
@@ -146,6 +147,11 @@ object NavigationUtil {
         val question: Question = param[StringUtil.QUESTION_KEY]!!
         intent.putExtra(StringUtil.QUESTION_KEY, question)
 
+        context.startActivity(intent)
+    }
+
+    fun navigateToStudentDashboard(context: Context) {
+        intent = Intent(context, StudentDashboardActivity::class.java)
         context.startActivity(intent)
     }
 }

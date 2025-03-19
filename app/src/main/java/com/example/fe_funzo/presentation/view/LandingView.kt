@@ -1,13 +1,15 @@
 package com.example.fe_funzo.presentation.view
 
 import android.content.Context
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.util.NavigationUtil
+import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
 import com.example.fe_funzo.logic.strategy.AdminDashboardStrategyImpl
+import com.example.fe_funzo.logic.strategy.StudentDashboardStrategyImpl
 import com.example.fe_funzo.logic.strategy.context.DashboardNavigationContext
-import com.example.fe_funzo.logic.strategy.policy.AdminDashboardPolicy
+import com.example.fe_funzo.logic.strategy.policy.DashboardPolicy
 
 class LandingView {
     @Composable
@@ -33,9 +35,17 @@ class LandingView {
     }
 
     private fun navigateToDashboardScreen(context: Context) {
-        val dashboardNavigationContext: DashboardNavigationContext<AdminDashboardPolicy> = DashboardNavigationContext<AdminDashboardPolicy>()
-        dashboardNavigationContext.setStrategy(authFormStrategy = AdminDashboardStrategyImpl())
-        dashboardNavigationContext.navigate(AdminDashboardPolicy(
+        val currentUser: User = UserRepoServiceImpl(context).getFirstUser()
+        val dashboardNavigationContext: DashboardNavigationContext<DashboardPolicy> = DashboardNavigationContext<DashboardPolicy>()
+        if (currentUser.findUserType().isAdmin()) {
+            dashboardNavigationContext.setStrategy(dashboardStrategy = AdminDashboardStrategyImpl())
+        } else if (currentUser.findUserType().isStudent()) {
+            dashboardNavigationContext.setStrategy(dashboardStrategy = StudentDashboardStrategyImpl())
+        } else {
+            throw IllegalArgumentException("This user can not navigate to the dashboard page.")
+        }
+
+        dashboardNavigationContext.navigate(DashboardPolicy(
             context = context
         ))
     }

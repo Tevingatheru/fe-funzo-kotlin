@@ -1,4 +1,4 @@
-package com.example.fe_funzo.presentation.view
+package com.example.fe_funzo.presentation.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -16,19 +16,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.presentation.view.ui.theme.Fe_funzoTheme
-import com.example.fe_funzo.logic.view_model.FirebaseViewModel
+import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
 
-class UserProfileSettings : ComponentActivity() {
+class StudentDashboardActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val context : StudentDashboardActivity = this
         enableEdgeToEdge()
-        val context = this
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column (modifier = Modifier.padding(innerPadding)){
-                        UserProfileSettingsScreen(context)
+                    Column(modifier = Modifier.padding(innerPadding)) {
+                        StudentDashboardScreen(context = context)
                     }
                 }
             }
@@ -37,33 +36,22 @@ class UserProfileSettings : ComponentActivity() {
 }
 
 @Composable
-fun UserProfileSettingsScreen(context: Context) {
+fun StudentDashboardScreen(context: Context) {
     Text(
-        text = "Settings",
+        text = "Hello Student Dashboard!",
     )
 
     Button(onClick = {
-        logout(context)
-    }) {
-        Text("Logout")
-    }
-
-    Button(onClick = {
-        NavigationUtil.navigateToUserProfile(context = context)
+        NavigationUtil.navigateToLandingPage(context = context)
     }) {
         Text("Back")
     }
 }
 
-private fun logout(context: Context) {
-    val firebaseViewModel: FirebaseViewModel = FirebaseViewModel()
-    firebaseViewModel.logout(context = context)
-}
-
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview4() {
+fun GreetingPreview8() {
     Fe_funzoTheme {
-        UserProfileSettingsScreen(context = LocalContext.current)
+        StudentDashboardScreen(context = LocalContext.current)
     }
 }

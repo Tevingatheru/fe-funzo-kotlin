@@ -15,6 +15,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.activity.StudentDashboardActivity"
+            android:exported="false"
+            android:label="@string/title_activity_student_dashboard"
+            android:theme="@style/Theme.Fe_funzo" />
+        <activity
             android:name=".presentation.activity.StudentLandingPage"
             android:exported="false"
             android:label="@string/title_activity_student_landing_page"

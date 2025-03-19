@@ -18,16 +18,16 @@ class ExamListViewModel {
         val user: User = userRepoServiceImpl.getFirstUser()
         val examClient: ExamClientServiceImpl = ExamClientServiceImpl()
 
-        if (UserType.find(user.userType).isTeacher()) {
+        if (user.findUserType().isTeacher()) {
             return runBlocking {
                 ExamMapper.mapExamListResponseToExamList(examClient.getExamListByTeachersUserCode(userCode = user.userCode))
             }
-        } else if(UserType.find(user.userType).isStudent()) {
+        } else if (user.findUserType().isStudent()) {
             return runBlocking {
                 ExamMapper.mapExamListResponseToExamList(examList = examClient.getValidExams())
             }
         } else {
-            throw IllegalArgumentException("User type can not view exam list: ${user.userType}")
+            throw IllegalArgumentException("User type can not view exam list: ${user.findUserType()}")
         }
     }
 }

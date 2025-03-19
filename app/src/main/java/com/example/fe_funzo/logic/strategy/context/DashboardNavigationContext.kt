@@ -5,8 +5,8 @@ import com.example.fe_funzo.logic.strategy.DashboardNavigationStrategy
 class DashboardNavigationContext<T> {
     private lateinit var dashboardNavigationStrategy: DashboardNavigationStrategy<T>
 
-    fun setStrategy(authFormStrategy: DashboardNavigationStrategy<T>) {
-        this.dashboardNavigationStrategy = authFormStrategy
+    fun setStrategy(dashboardStrategy: DashboardNavigationStrategy<T>) {
+        this.dashboardNavigationStrategy = dashboardStrategy
     }
 
     fun navigate(policy: T) {
