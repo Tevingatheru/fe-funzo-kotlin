@@ -5,11 +5,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Option (
-    val optionA: String?,
-    val optionB: String?,
-    val optionC: String?,
-    val optionD: String?,
-    val correctOption: String?,
-    val optionType: OptionType?,
-    val code: String?,
+    val optionA: String? = null,
+    val optionB: String? = null,
+    val optionC: String? = null,
+    val optionD: String? = null,
+    val correctOption: String? = null,
+    val optionType: OptionType? = null,
+    val code: String? = null,
 ) : Parcelable

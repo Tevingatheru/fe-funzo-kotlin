@@ -58,8 +58,6 @@ fun MCQForm(
         }
     )
 
-
-
     OutlinedTextField(
         value = optionB,
         onValueChange = { setOptionB(it) },

@@ -1,8 +1,8 @@
 package com.example.fe_funzo.infa.client.retrofit.client
 
-
 import com.example.fe_funzo.data.retrofit.request.CreateExamRequest
 import com.example.fe_funzo.data.retrofit.response.CreateExamResponse
+import com.example.fe_funzo.data.retrofit.response.ExamContentResponse
 import com.example.fe_funzo.data.retrofit.response.ExamListResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,4 +18,7 @@ interface ExamClient {
 
     @GET(value = "/exams")
     suspend fun getAllExams(): ExamListResponse
+
+    @GET(value = "/exams/content")
+    suspend fun getExamContent(@Query(value = "code") code: String): ExamContentResponse
 }

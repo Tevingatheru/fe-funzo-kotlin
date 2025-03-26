@@ -17,13 +17,14 @@ import com.example.fe_funzo.presentation.view.TeacherLandingPage
 import com.example.fe_funzo.presentation.view.UserProfile
 import com.example.fe_funzo.presentation.view.UserProfileSettings
 import com.example.fe_funzo.data.model.UserType
-import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
+import com.example.fe_funzo.logic.service.repo.impl.UserRepoServiceImpl
 import com.example.fe_funzo.presentation.activity.AddOptionActivity
 import com.example.fe_funzo.presentation.activity.AddQuestionActivity
 import com.example.fe_funzo.presentation.activity.ModifyExamActivity
 import com.example.fe_funzo.presentation.activity.ModifyQuestionActivity
 import com.example.fe_funzo.presentation.activity.StudentDashboardActivity
 import com.example.fe_funzo.presentation.activity.StudentLandingPage
+import com.example.fe_funzo.presentation.activity.TakeExamActivity
 
 object NavigationUtil {
 
@@ -125,7 +126,8 @@ object NavigationUtil {
         intent =  Intent(context, ModifyExamActivity::class.java)
 
         val examPair: Exam = param[StringUtil.EXAM_KEY]!!
-        intent.putExtra(StringUtil.EXAM_KEY, examPair)
+        ExamCacheUtil.setCachedExam(exam = examPair, context = context)
+
         context.startActivity(intent)
     }
 
@@ -159,7 +161,7 @@ object NavigationUtil {
         intent =  Intent(context, TakeExamActivity::class.java)
 
         val examPair: Exam = param[StringUtil.EXAM_KEY]!!
-        intent.putExtra(StringUtil.EXAM_KEY, examPair)
+        ExamCacheUtil.setCachedExam(exam = examPair, context = context)
         context.startActivity(intent)
     }
 }

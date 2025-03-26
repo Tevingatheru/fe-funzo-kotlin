@@ -6,8 +6,8 @@ import com.example.fe_funzo.logic.strategy.ExamListViewStrategy
 class ExamListViewContext<T> {
     private lateinit var examListViewStrategy: ExamListViewStrategy<T>
 
-    fun setStrategy(dashboardStrategy: ExamListViewStrategy<T>) {
-        this.examListViewStrategy = dashboardStrategy
+    fun setStrategy(examListViewStrategy: ExamListViewStrategy<T>) {
+        this.examListViewStrategy = examListViewStrategy
     }
 
     @Composable

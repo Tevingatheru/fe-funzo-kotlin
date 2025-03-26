@@ -42,9 +42,7 @@ class ExamRepositoryServiceImpl (
         runBlocking {
             try {
                 val existingExamEntity = examRepo.getExistingExam()
-                if (existingExamEntity.uid != null) {
-                    deleteExam(examEntity = existingExamEntity)
-                }
+                deleteExam(examEntity = existingExamEntity)
             } catch (e: Exception) {
                 Log.i(TAG, "Error deleting existing user. \nError: $e")
             }

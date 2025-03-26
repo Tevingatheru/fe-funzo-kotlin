@@ -1,4 +1,4 @@
-package com.example.fe_funzo.logic.service.impl
+package com.example.fe_funzo.logic.service.repo.impl
 
 import android.content.Context
 import android.util.Log
@@ -8,7 +8,7 @@ import com.example.fe_funzo.infa.client.room.FunzoDatabase
 import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.client.room.UserDao
 import com.example.fe_funzo.infa.client.room.handler.UserRepositoryHandler
-import com.example.fe_funzo.logic.service.UserRepoService
+import com.example.fe_funzo.logic.service.repo.UserRepoService
 import kotlinx.coroutines.runBlocking
 
 class UserRepoServiceImpl (
@@ -16,7 +16,8 @@ class UserRepoServiceImpl (
     private val db: FunzoDatabase =
         FunzoDatabase.getInstance(context = context, dao = UserDao::class.java),
     private val userDao: UserDao = db.userDao(),
-    private val userRepo: UserRepositoryHandler = UserRepositoryHandler(userDao),): UserRepoService {
+    private val userRepo: UserRepositoryHandler = UserRepositoryHandler(userDao),):
+    UserRepoService {
 
     companion object {
         private const val TAG: String = "UserRepoServiceImpl"

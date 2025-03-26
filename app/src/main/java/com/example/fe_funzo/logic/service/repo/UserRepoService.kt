@@ -1,4 +1,4 @@
-package com.example.fe_funzo.logic.service
+package com.example.fe_funzo.logic.service.repo
 
 import com.example.fe_funzo.data.model.UserType
 import com.example.fe_funzo.data.retrofit.response.UserResponse

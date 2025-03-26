@@ -20,9 +20,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.model.Exam
 import com.example.fe_funzo.infa.util.NavigationUtil
+import com.example.fe_funzo.logic.strategy.context.ExamListViewContext
+import com.example.fe_funzo.logic.strategy.impl.StudentExamListViewStrategyImpl
+import com.example.fe_funzo.logic.strategy.policy.ExamListViewStrategyPolicy
 import com.example.fe_funzo.logic.view_model.ExamListViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
-import com.example.fe_funzo.presentation.view.TeacherExamViewScreen
 
 private const val TAG : String = "ViewExamsActivity"
 
@@ -46,8 +48,11 @@ class ViewExamsActivity : ComponentActivity() {
                             TeachersExamListViewNavigationPanel(
                                 context = context,
                             )
+                        } else if (examListViewModel.user.findUserType().isStudent()) {
+                            val examListViewContext : ExamListViewContext<ExamListViewStrategyPolicy> = ExamListViewContext<ExamListViewStrategyPolicy>()
+                            examListViewContext.setStrategy(examListViewStrategy = StudentExamListViewStrategyImpl())
+                            examListViewContext.Display(policy = ExamListViewStrategyPolicy(examList = examListResponse, context = context))
                         }
-
                     }
                 }
             }

@@ -32,6 +32,7 @@ import com.example.fe_funzo.data.model.Exam
 import com.example.fe_funzo.data.model.Question
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.infa.client.retrofit.client.QuestionClient
+import com.example.fe_funzo.infa.mapper.QuestionMapper
 import com.example.fe_funzo.infa.util.ExamCacheUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
@@ -43,8 +44,8 @@ class ModifyExamActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val exam: Exam = intent.getParcelableExtra("exam", Exam::class.java)!!
         val context: Context = this
+        val exam: Exam = ExamCacheUtil.getCachedExam(context = context)
 
         val questionList: List<Question> = getAvailableQuestionsByExamCode(examCode = exam.examCode!!)
 
@@ -78,16 +79,7 @@ class ModifyExamActivity : ComponentActivity() {
             val questionsResponse: ExamQuestionsResponse = questionClientServiceImpl.getQuestionsByExamCode(
                 examCode = examCode
             )
-            val questionMutableList: MutableList<Question> = mutableListOf()
-
-            questionsResponse.questions.forEach{
-                val questionItem = Question(
-                    question = it.question!!,
-                    code = it.code!!,
-                    image = null,
-                )
-                questionMutableList.add(questionItem)
-            }
+            val questionMutableList: MutableList<Question> = QuestionMapper.mapResponseToList(questionsResponse)
             return@runBlocking questionMutableList
         }
     }

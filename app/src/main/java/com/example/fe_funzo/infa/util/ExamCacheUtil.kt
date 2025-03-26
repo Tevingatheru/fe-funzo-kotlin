@@ -30,5 +30,4 @@ object ExamCacheUtil {
 
         examRepositoryServiceImpl.insertExam(examEntity = examEntity)
     }
-
 }

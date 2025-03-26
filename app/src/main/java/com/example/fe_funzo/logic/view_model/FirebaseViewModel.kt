@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
 import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
+import com.example.fe_funzo.logic.service.repo.impl.UserRepoServiceImpl
 import com.example.fe_funzo.logic.service.repo.impl.ExamRepositoryServiceImpl
 
 class FirebaseViewModel: ViewModel() {

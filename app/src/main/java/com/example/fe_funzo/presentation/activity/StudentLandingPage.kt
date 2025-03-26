@@ -13,7 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
+import com.example.fe_funzo.logic.service.repo.impl.UserRepoServiceImpl
 import com.example.fe_funzo.logic.view_model.FirebaseViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.presentation.view.LandingView
@@ -37,8 +37,8 @@ class StudentLandingPage : ComponentActivity() {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-                        landingView.LandingScreen(context = context, username = userEmail)
                         StudentLandingPageScreen()
+                        landingView.LandingScreen(context = context, username = userEmail)
                     }
                 }
             }

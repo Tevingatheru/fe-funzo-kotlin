@@ -9,7 +9,7 @@ import com.example.fe_funzo.infa.client.firebase.FirebaseAuthClient
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.service.client.impl.UserClientServiceImpl
-import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
+import com.example.fe_funzo.logic.service.repo.impl.UserRepoServiceImpl
 import com.example.fe_funzo.presentation.view.SignIn
 import com.example.fe_funzo.data.model.UserType
 import kotlinx.coroutines.runBlocking

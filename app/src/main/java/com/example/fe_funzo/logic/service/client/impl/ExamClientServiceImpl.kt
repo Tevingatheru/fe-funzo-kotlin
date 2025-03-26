@@ -2,6 +2,7 @@ package com.example.fe_funzo.logic.service.client.impl
 
 import com.example.fe_funzo.data.retrofit.request.CreateExamRequest
 import com.example.fe_funzo.data.retrofit.response.CreateExamResponse
+import com.example.fe_funzo.data.retrofit.response.ExamContentResponse
 import com.example.fe_funzo.data.retrofit.response.ExamListResponse
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.infa.client.retrofit.client.ExamClient
@@ -26,6 +27,12 @@ class ExamClientServiceImpl(private val examClient: ExamClient = RetrofitClientB
     override suspend fun getValidExams(): ExamListResponse {
         return withContext(Dispatchers.IO) {
             examClient.getAllExams()
+        }
+    }
+
+    override suspend fun getExamContentByExamCode(examCode: String): ExamContentResponse {
+        return withContext(Dispatchers.IO) {
+            examClient.getExamContent(code = examCode)
         }
     }
 }

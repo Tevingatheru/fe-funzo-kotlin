@@ -3,11 +3,10 @@ package com.example.fe_funzo.logic.view_model
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.data.model.Exam
-import com.example.fe_funzo.data.model.UserType
 import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.mapper.ExamMapper
 import com.example.fe_funzo.logic.service.client.impl.ExamClientServiceImpl
-import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
+import com.example.fe_funzo.logic.service.repo.impl.UserRepoServiceImpl
 import kotlinx.coroutines.runBlocking
 
 class ExamListViewModel(private val context: Context,

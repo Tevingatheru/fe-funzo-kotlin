@@ -11,7 +11,7 @@ import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.infa.util.StringUtil
 import com.example.fe_funzo.logic.service.client.impl.UserClientServiceImpl
-import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
+import com.example.fe_funzo.logic.service.repo.impl.UserRepoServiceImpl
 import com.example.fe_funzo.presentation.view.Signup
 import com.example.fe_funzo.data.model.UserType
 import kotlinx.coroutines.runBlocking
@@ -44,7 +44,7 @@ class SignupViewModel(
                 selectedRole =  selectedRole)
             val userResponse: UserResponse = sendCreateUserRequestToBackend(userService, selectedRole, email)
 
-            cacheUserDetails(userRepoServiceImpl =UserRepoServiceImpl(context = signup) , email, userResponse)
+            cacheUserDetails(userRepoServiceImpl = UserRepoServiceImpl(context = signup) , email, userResponse)
         }
     }
 

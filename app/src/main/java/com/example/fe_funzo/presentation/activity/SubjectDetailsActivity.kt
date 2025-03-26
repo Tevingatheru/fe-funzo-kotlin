@@ -23,7 +23,7 @@ import com.example.fe_funzo.data.model.UserType
 import com.example.fe_funzo.data.retrofit.response.UserResponse
 import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.logic.service.impl.UserRepoServiceImpl
+import com.example.fe_funzo.logic.service.repo.impl.UserRepoServiceImpl
 import kotlinx.coroutines.runBlocking
 
 private const val TAG : String = "SubjectDetailsActivity"
