@@ -18,6 +18,7 @@ class FirebaseViewModel: ViewModel() {
         Log.i(TAG, "isUserLoggedOut. Context: ${context.packageName}")
         if (!FirebaseAuthClient.isUserLoggedIn()) {
             NavigationUtil.navigateToSignUpActivity(context)
+            return
         }
     }
 

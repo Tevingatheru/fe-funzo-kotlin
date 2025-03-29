@@ -28,24 +28,39 @@ class SignInViewModel (var showErrorMessage: MutableState<Boolean> = mutableStat
         val userService: UserClientServiceImpl = UserClientServiceImpl()
 
         try {
-            Log.i(TAG, "sign in callback success")
-
             runBlocking {
-                val userResponse: UserResponse = userService.getUserByEmail(email)
-                val userType: UserType = userResponse.getUserType()
-
-                UserRepoServiceImpl(context = signInContext)
-                    .save( email = email, response = userResponse)
-                NavigationUtil.navigateToLandingPage(
-                    context = signInContext,
-                    userType = userType
+                FirebaseAuthClient.signIn(
+                    email, password, context = signInContext,
+                    success = {
+                        signInSuccess(userService, email, signInContext)
+                    }
                 )
-                FirebaseAuthClient.signIn(email, password, context = signInContext)
             }
         } catch (e: Exception) {
             Log.e(TAG, "sign in callback failure. \nError: $e")
             EventAlertUtil.signInHasFailed(context = signInContext)
             throw e
         }
+    }
+
+    private fun signInSuccess(
+        userService: UserClientServiceImpl,
+        email: String,
+        signInContext: SignIn
+    ) {
+        Log.i(TAG, "sign in callback success")
+        val userResponse: UserResponse
+        runBlocking {
+            userResponse = userService.getUserByEmail(email)
+        }
+
+        UserRepoServiceImpl(context = signInContext)
+            .save(email = email, response = userResponse)
+
+        val userType: UserType = userResponse.getUserType()
+        NavigationUtil.navigateToLandingPage(
+            context = signInContext,
+            userType = userType
+        )
     }
 }

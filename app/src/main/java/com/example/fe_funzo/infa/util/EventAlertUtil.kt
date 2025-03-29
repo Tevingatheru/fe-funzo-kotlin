@@ -36,6 +36,14 @@ object EventAlertUtil {
         ).show()
     }
 
+    fun authenticationSuccess(context: SignIn) {
+        Toast.makeText(
+            context,
+            "Authentication success.",
+            Toast.LENGTH_SHORT,
+        ).show()
+    }
+
     fun signInHasFailed(context: SignIn) {
         Toast.makeText(
             context,
