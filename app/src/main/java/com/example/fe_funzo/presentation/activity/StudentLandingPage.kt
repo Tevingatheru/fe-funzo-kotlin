@@ -48,7 +48,7 @@ class StudentLandingPage : ComponentActivity() {
 
 @Composable
 fun StudentLandingPageScreen() {
-    Text(text = "Hello Student!")
+    Text(text = "Student Portal")
 }
 
 @Preview(showBackground = true)

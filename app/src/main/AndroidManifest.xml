@@ -26,9 +26,16 @@
             android:theme="@style/Theme.Fe_funzo" />
         <activity
             android:name=".presentation.activity.StudentLandingPage"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_student_landing_page"
-            android:theme="@style/Theme.Fe_funzo" />
+            android:theme="@style/Theme.Fe_funzo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".presentation.activity.AddOptionActivity"
             android:exported="false"

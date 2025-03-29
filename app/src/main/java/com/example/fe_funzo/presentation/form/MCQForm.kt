@@ -20,7 +20,7 @@ fun MCQForm(
     optionA: String,
     setOptionA: (String) -> Unit,
     isOptionASelected: MutableState<Boolean>,
-    setCorrectOption: (String) -> Unit,
+    selectedOptionItem: (String) -> Unit,
     isOptionBSelected: MutableState<Boolean>,
     isOptionCSelected: MutableState<Boolean>,
     isOptionDSelected: MutableState<Boolean>,
@@ -48,7 +48,7 @@ fun MCQForm(
         selected = isOptionASelected.value,
         onClick = {
                 selectA(
-                    setCorrectOption = setCorrectOption,
+                    setCorrectOption = selectedOptionItem,
                     optionA = optionA,
                     isOptionASelected = isOptionASelected,
                     isOptionBSelected = isOptionBSelected,
@@ -69,7 +69,7 @@ fun MCQForm(
         selected = isOptionBSelected.value,
         onClick = {
             selectB(
-                setCorrectOption = setCorrectOption,
+                setCorrectOption = selectedOptionItem,
                 optionB = optionB,
                 isOptionBSelected = isOptionBSelected,
                 isOptionASelected = isOptionASelected,
@@ -90,7 +90,7 @@ fun MCQForm(
         selected = isOptionCSelected.value,
         onClick = {
             selectC(
-                setCorrectOption = setCorrectOption,
+                setCorrectOption = selectedOptionItem,
                 optionC = optionC,
                 isOptionCSelected = isOptionCSelected,
                 isOptionASelected = isOptionASelected,
@@ -111,7 +111,7 @@ fun MCQForm(
         selected = isOptionDSelected.value,
         onClick = {
             selectD(
-                setCorrectOption = setCorrectOption,
+                setCorrectOption = selectedOptionItem,
                 optionD = optionD,
                 isOptionDSelected = isOptionDSelected,
                 isOptionASelected = isOptionASelected,

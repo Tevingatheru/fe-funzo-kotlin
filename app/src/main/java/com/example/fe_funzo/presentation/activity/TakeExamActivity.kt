@@ -13,25 +13,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.data.model.Exam
-import com.example.fe_funzo.data.model.Option
-import com.example.fe_funzo.data.model.OptionType
 import com.example.fe_funzo.data.retrofit.response.ExamContentResponse
-import com.example.fe_funzo.data.retrofit.response.QuestionContentResponse
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.infa.client.retrofit.client.ExamClient
-import com.example.fe_funzo.infa.mapper.OptionMapper
 import com.example.fe_funzo.infa.util.ExamCacheUtil
 import com.example.fe_funzo.logic.service.client.impl.ExamClientServiceImpl
 import com.example.fe_funzo.logic.view_model.TakeExamViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
-import com.example.fe_funzo.presentation.view.TrueFalseQuizScreen
 import kotlinx.coroutines.runBlocking
 
 class TakeExamActivity : ComponentActivity() {
     companion object {
         internal const val TAG: String = "TakeExamActivity"
     }
-    val takeExamViewModel: TakeExamViewModel = TakeExamViewModel()
+    private val takeExamViewModel: TakeExamViewModel = TakeExamViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +41,7 @@ class TakeExamActivity : ComponentActivity() {
             val examContentResponse : ExamContentResponse = examClientServiceImpl.getExamContentByExamCode(examCode = exam.examCode!!)
             takeExamViewModel.setExamContentResponse(examContentResponse = examContentResponse)
             takeExamViewModel.setQuestions(questions = examContentResponse.questions)
+            takeExamViewModel.setTotalNumberOfQuestions(totalNumberOfQuestions = examContentResponse.totalNumberOfQuestions!!)
         }
 
         enableEdgeToEdge()
