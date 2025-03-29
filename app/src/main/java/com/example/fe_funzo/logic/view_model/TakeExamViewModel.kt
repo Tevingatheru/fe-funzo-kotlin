@@ -143,6 +143,7 @@ class TakeExamViewModel: ViewModel() {
 
     @Composable
     private fun SubmitAnswer(option: Option?) {
+
         assessAnswer(option)
         nextPosition()
         if (this.currentPosition < this.totalNumberOfQuestions){
@@ -181,7 +182,7 @@ class TakeExamViewModel: ViewModel() {
     private fun correctAnswer(option: Option?) =
         option?.correctOption == selectedOption
 
-    private fun emptyOption(option: Option?) = option == null
+    private fun emptyOption(option: Option?) = option!!.correctOption == null
 
     @Composable
     private fun DisplayResults() {
@@ -202,10 +203,10 @@ class TakeExamViewModel: ViewModel() {
         val (optionB, setOptionB) = remember { mutableStateOf<String>(option.optionB ?: "") }
         val (optionC, setOptionC) = remember { mutableStateOf<String>(option.optionC ?: "") }
         val (optionD, setOptionD) = remember { mutableStateOf<String>(option.optionD ?: "") }
-        var isOptionASelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(optionA == option.correctOption) }
-        var isOptionBSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(optionB == option.correctOption) }
-        var isOptionCSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(optionC == option.correctOption) }
-        var isOptionDSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(optionD == option.correctOption) }
+        var isOptionASelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(false) }
+        var isOptionBSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(false) }
+        var isOptionCSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(false) }
+        var isOptionDSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(false) }
         var (isSubmitted, setSubmitted) = remember { mutableStateOf(false) }
         val (selectedOption, setSelectedOption) = remember { mutableStateOf<String?>(null) }
 
@@ -226,14 +227,20 @@ class TakeExamViewModel: ViewModel() {
             submitMCQOptionsForm = {
                 Log.i(TAG,"MCQ submitted")
                 setSubmitted(true)
+                this.setSelectedOptionItem(selectedOption)
             },
             questionText = questionText
         )
 
         if (isSubmitted) {
             SubmitAnswer(option)
+
             setSubmitted(false)
         }
+    }
+
+    private fun setSelectedOptionItem(selectedOption: String?) {
+        this.selectedOption = selectedOption
     }
 
     private fun getCurrentPosition(): Int {
