@@ -22,6 +22,7 @@ import com.example.fe_funzo.data.model.Exam
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.strategy.context.ExamListViewContext
 import com.example.fe_funzo.logic.strategy.impl.StudentExamListViewStrategyImpl
+import com.example.fe_funzo.logic.strategy.impl.TeacherExamListViewStrategyImpl
 import com.example.fe_funzo.logic.strategy.policy.ExamListViewStrategyPolicy
 import com.example.fe_funzo.logic.view_model.ExamListViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
@@ -35,7 +36,7 @@ class ViewExamsActivity : ComponentActivity() {
         val context: Context = this
         val examListViewModel: ExamListViewModel = ExamListViewModel(context = context)
         val examListResponse: List<Exam> = examListViewModel.getExamList()
-
+        val examListViewContext : ExamListViewContext<ExamListViewStrategyPolicy> = ExamListViewContext<ExamListViewStrategyPolicy>()
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
@@ -48,8 +49,11 @@ class ViewExamsActivity : ComponentActivity() {
                             TeachersExamListViewNavigationPanel(
                                 context = context,
                             )
+
+                            examListViewContext.setStrategy(examListViewStrategy = TeacherExamListViewStrategyImpl())
+                            examListViewContext.Display(policy = ExamListViewStrategyPolicy(examList = examListResponse, context = context))
+
                         } else if (examListViewModel.user.findUserType().isStudent()) {
-                            val examListViewContext : ExamListViewContext<ExamListViewStrategyPolicy> = ExamListViewContext<ExamListViewStrategyPolicy>()
                             examListViewContext.setStrategy(examListViewStrategy = StudentExamListViewStrategyImpl())
                             examListViewContext.Display(policy = ExamListViewStrategyPolicy(examList = examListResponse, context = context))
                         }

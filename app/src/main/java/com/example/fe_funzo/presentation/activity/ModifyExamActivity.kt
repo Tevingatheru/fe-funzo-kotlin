@@ -137,7 +137,7 @@ fun Options(context: Context, exam : Exam) {
         },
             modifier = modifier) {
             Text(
-                text = "Cancel"
+                text = "Back"
             )
         }
     }

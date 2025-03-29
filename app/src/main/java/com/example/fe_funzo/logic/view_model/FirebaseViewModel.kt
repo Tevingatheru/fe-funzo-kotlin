@@ -43,7 +43,7 @@ class FirebaseViewModel: ViewModel() {
         }
 
         if (user != null) {
-            userRepoServiceImpl.delete(user = user)
+            userRepoServiceImpl.deleteAll()
             examRepoServiceImpl.deleteExistingExam()
         }
 

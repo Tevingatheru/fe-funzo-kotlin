@@ -11,4 +11,5 @@ interface UserRepoService {
     fun delete(user: User)
     fun getFirstUser(): User
     fun getUserType(): UserType
+    fun deleteAll()
 }

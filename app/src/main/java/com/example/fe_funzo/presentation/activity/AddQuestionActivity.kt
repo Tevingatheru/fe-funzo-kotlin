@@ -58,7 +58,7 @@ fun AddQuestionsScreen(addQuestionViewModel: AddQuestionViewModel, context: AddQ
     }) { Text("Add") }
     Button(onClick = {
         NavigationUtil.navigateToModifyExamActivity(context = context)
-    }) { Text("Cancel") }
+    }) { Text("Back") }
 }
 
 

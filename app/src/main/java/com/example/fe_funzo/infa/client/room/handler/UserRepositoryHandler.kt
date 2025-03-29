@@ -28,7 +28,7 @@ class UserRepositoryHandler (private val userDao: UserDao) {
         }
     }
 
-    suspend fun getAllUsers() {
+    suspend fun getAllUsers(): List<User> {
         return withContext(Dispatchers.IO) {
             userDao.getAllUsers()
         }

@@ -64,7 +64,7 @@ class AddOptionActivity : ComponentActivity() {
                 if (option.optionType!!.isTrueFalse()) {
                     showTrueFalseOptionExists(
                         questionDetails = questionDetails,
-                        addOptionActivity = addOptionActivity,
+                        addOptionViewModel = addOptionViewModel,
                         option = option
                     )
                 } else if (option.optionType!!.isMCQ()) {
@@ -105,7 +105,7 @@ class AddOptionActivity : ComponentActivity() {
 
     private fun showTrueFalseOptionExists(
         questionDetails: Question,
-        addOptionActivity: AddOptionActivity,
+        addOptionViewModel: AddOptionViewModel,
         option: Option
     ) {
         setContent {
@@ -114,6 +114,7 @@ class AddOptionActivity : ComponentActivity() {
                 ) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
                         var correctOption: MutableState<Boolean> = remember { mutableStateOf(option.correctOption.toBoolean()) }
+                        val addOptionActivity = addOptionViewModel.getAddOptionActivity()
 
                         EditTrueFalseForm(
                             selectedOption = correctOption.value,
@@ -126,8 +127,13 @@ class AddOptionActivity : ComponentActivity() {
                                     optionCode = option.code!!,
                                     addOptionActivity = addOptionActivity
                                 )
+                                NavigationUtil.navigateToModifyQuestion(
+                                    context = addOptionActivity,
+                                    param = mapOf(Pair(StringUtil.QUESTION_KEY, addOptionViewModel.getQuestion()))
+                                )
                             },
                             onBack = {
+
                                 navigateToModifyQuestion(
                                     addOptionActivity = addOptionActivity,
                                     question = questionDetails

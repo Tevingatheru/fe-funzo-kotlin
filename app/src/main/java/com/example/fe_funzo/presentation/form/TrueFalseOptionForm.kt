@@ -9,6 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.retrofit.request.AddOptionRequest
+import com.example.fe_funzo.infa.util.NavigationUtil
+import com.example.fe_funzo.infa.util.StringUtil
 import com.example.fe_funzo.logic.service.client.impl.OptionClientServiceImpl
 import com.example.fe_funzo.logic.view_model.AddOptionViewModel
 import kotlinx.coroutines.runBlocking
@@ -28,6 +30,10 @@ fun TrueFalseOptionForm(addOptionViewModel: AddOptionViewModel,) {
         },
         onSubmit = {
             addOption(selectedOption, addOptionViewModel)
+            NavigationUtil.navigateToModifyQuestion(
+                context = addOptionViewModel.getContext(),
+                param = mapOf(Pair(StringUtil.QUESTION_KEY, addOptionViewModel.getQuestion()))
+            )
         }
     )
 }
@@ -50,5 +56,6 @@ private fun addOption(
         )
         optionClientServiceImpl.addOptionRequest(createAddOptionRequest = addOptionRequest)
     }
+
 }
 

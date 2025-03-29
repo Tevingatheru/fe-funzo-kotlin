@@ -53,4 +53,13 @@ class UserRepoServiceImpl (
             userType
         }
     }
+
+    override fun deleteAll() {
+        return runBlocking {
+            val allUser = userRepo.getAllUsers()
+            allUser.forEach {
+                delete(it)
+            }
+        }
+    }
 }
