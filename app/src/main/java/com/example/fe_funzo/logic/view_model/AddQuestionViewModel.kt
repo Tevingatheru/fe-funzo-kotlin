@@ -5,8 +5,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.data.retrofit.request.AddQuestionRequest
-import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
-import com.example.fe_funzo.infa.client.retrofit.client.QuestionClient
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.ExamCacheUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
@@ -32,8 +30,7 @@ class AddQuestionViewModel: ViewModel() {
     }
 
     private fun sendQuestionToBackend(question: String, context: Context) {
-        val questionClient = RetrofitClientBuilder.build(QuestionClient::class.java)
-        val questionClientServiceImpl: QuestionClientServiceImpl = QuestionClientServiceImpl(questionClient = questionClient)
+        val questionClientServiceImpl: QuestionClientServiceImpl = QuestionClientServiceImpl()
 
         val addQuestionRequest: AddQuestionRequest = AddQuestionRequest(
             examCode = ExamCacheUtil.getCachedExam(context = context).examCode!!,

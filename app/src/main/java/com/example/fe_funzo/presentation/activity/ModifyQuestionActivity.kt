@@ -24,8 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.data.model.Question
 import com.example.fe_funzo.data.retrofit.request.ModifyQuestionRequest
 import com.example.fe_funzo.data.retrofit.response.ModifyQuestionResponse
-import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
-import com.example.fe_funzo.infa.client.retrofit.client.QuestionClient
 import com.example.fe_funzo.infa.util.EventAlertUtil
 import com.example.fe_funzo.infa.util.ExamCacheUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
@@ -105,9 +103,9 @@ fun ModifyQuestionScreen(modifyQuestionViewModel: ModifyQuestionViewModel) {
 fun editQuestion(modifyQuestionViewModel: ModifyQuestionViewModel) {
     val question : String = modifyQuestionViewModel.getQuestionText()
     val context: Context = modifyQuestionViewModel.getContext()
-    val questionClient = RetrofitClientBuilder.build(serviceClass = QuestionClient::class.java)
+
     val questionClientServiceImpl: QuestionClientServiceImpl =
-        QuestionClientServiceImpl(questionClient = questionClient)
+        QuestionClientServiceImpl()
     val exam = ExamCacheUtil.getCachedExam(context=context)
     val modifyQuestionRequest = ModifyQuestionRequest(
         examCode = exam.examCode!!,
@@ -128,10 +126,7 @@ private fun validEdit(question: String): Boolean {
 }
 
 private fun deleteQuestionRequest(question: Question, modifyQuestionActivity : ModifyQuestionActivity ) {
-    val questionClient = RetrofitClientBuilder.build(serviceClass = QuestionClient::class.java)
-    val questionClientServiceImpl: QuestionClientServiceImpl = QuestionClientServiceImpl(
-        questionClient = questionClient
-    )
+    val questionClientServiceImpl: QuestionClientServiceImpl = QuestionClientServiceImpl()
 
     runBlocking {
         questionClientServiceImpl.deleteQuestion(code = question.code)

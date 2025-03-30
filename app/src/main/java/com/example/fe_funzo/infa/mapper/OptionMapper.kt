@@ -12,7 +12,7 @@ object OptionMapper {
             optionC = optionResponse.optionC,
             optionD = optionResponse.optionD,
             correctOption = optionResponse.correctOption,
-            optionType = OptionType.find(optionType = optionResponse.type!!),
+            optionType = OptionType.find(optionTypeName = optionResponse.type!!),
             code = optionResponse.code,
         )
     }

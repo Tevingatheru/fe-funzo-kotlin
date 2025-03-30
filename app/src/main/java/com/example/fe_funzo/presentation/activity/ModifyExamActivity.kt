@@ -30,8 +30,6 @@ import androidx.compose.ui.unit.dp
 import com.example.fe_funzo.data.retrofit.response.ExamQuestionsResponse
 import com.example.fe_funzo.data.model.Exam
 import com.example.fe_funzo.data.model.Question
-import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
-import com.example.fe_funzo.infa.client.retrofit.client.QuestionClient
 import com.example.fe_funzo.infa.mapper.QuestionMapper
 import com.example.fe_funzo.infa.util.ExamCacheUtil
 import com.example.fe_funzo.infa.util.NavigationUtil
@@ -71,9 +69,8 @@ class ModifyExamActivity : ComponentActivity() {
     }
 
     private fun getAvailableQuestionsByExamCode(examCode: String): List<Question> {
-        val questionClientServiceImpl: QuestionClientServiceImpl = QuestionClientServiceImpl(
-            questionClient = RetrofitClientBuilder.build(QuestionClient::class.java)
-        )
+        val questionClientServiceImpl: QuestionClientServiceImpl = QuestionClientServiceImpl()
+
 
         return runBlocking {
             val questionsResponse: ExamQuestionsResponse = questionClientServiceImpl.getQuestionsByExamCode(

@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.data.model.Exam
 import com.example.fe_funzo.data.retrofit.response.ExamContentResponse
-import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
 import com.example.fe_funzo.infa.client.retrofit.client.ExamClient
 import com.example.fe_funzo.infa.util.ExamCacheUtil
 import com.example.fe_funzo.logic.service.client.impl.ExamClientServiceImpl
@@ -33,8 +32,7 @@ class TakeExamActivity : ComponentActivity() {
         Log.i(TAG, "onCreate")
         val context: TakeExamActivity = this
         val exam: Exam = ExamCacheUtil.getCachedExam(context = context)
-        val questionClient = RetrofitClientBuilder.build(ExamClient::class.java)
-        val examClientServiceImpl = ExamClientServiceImpl(examClient = questionClient)
+        val examClientServiceImpl = ExamClientServiceImpl()
 
         takeExamViewModel.setTakeExamActivityContext(context = context)
         runBlocking {

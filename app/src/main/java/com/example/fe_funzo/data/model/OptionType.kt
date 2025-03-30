@@ -13,13 +13,13 @@ enum class OptionType(val optionTypeName: String) {
     }
 
     companion object {
-        fun find(optionType: String): OptionType {
-            return when(optionType) {
+        fun find(optionTypeName: String): OptionType {
+            return when(optionTypeName) {
                 TRUE_FALSE.optionTypeName -> TRUE_FALSE
                 MULTIPLE_CHOICE.optionTypeName -> MULTIPLE_CHOICE
 
                 else -> {
-                    throw IllegalArgumentException("OptionType type: \"$optionType\" does not exit")
+                    throw IllegalArgumentException("OptionType type: \"$optionTypeName\" does not exit")
                 }
             }
         }

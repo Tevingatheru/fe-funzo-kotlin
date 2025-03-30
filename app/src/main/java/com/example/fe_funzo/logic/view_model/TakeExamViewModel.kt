@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.data.model.Option
 import com.example.fe_funzo.data.model.OptionType
 import com.example.fe_funzo.data.retrofit.response.ExamContentResponse
+import com.example.fe_funzo.data.retrofit.response.OptionResponse
 import com.example.fe_funzo.data.retrofit.response.QuestionContentResponse
 import com.example.fe_funzo.infa.mapper.OptionMapper
 import com.example.fe_funzo.infa.util.NavigationUtil
@@ -47,16 +48,10 @@ class TakeExamViewModel: ViewModel() {
         val nextQuestion: QuestionContentResponse = getCurrentQuestionByPosition()
         val questionText = nextQuestion.text!!
         val optionResponse = nextQuestion.option
-        var option: Option = Option()
-        val optionType = nextQuestion.questionType
+        val optioptionTypeNameType = nextQuestion.questionType
+        val option: Option = getOption(optionResponse)
 
-        Log.i(TAG, "nextQuestion: $nextQuestion")
-
-        if (optionResponse != null) {
-            option = OptionMapper.mapFromOptionResponse(optionResponse)
-        }
-
-        if (optionType == null) {
+        if (optioptionTypeNameType == null) {
             Log.i(TAG, "should display IncompleteQuestionScreen")
             context.setContent {
                 Fe_funzoTheme {
@@ -70,56 +65,71 @@ class TakeExamViewModel: ViewModel() {
                 }
             }
         } else {
-            when(OptionType.find(optionType)) {
-                OptionType.MULTIPLE_CHOICE -> {
-                    context.setContent {
-                        Fe_funzoTheme {
-                            Scaffold(
-                                modifier = Modifier.fillMaxSize()
-                            ) { innerPadding ->
-                                Column(modifier = Modifier.padding(innerPadding)) {
-                                    SetMCQ(
-                                        option = option,
-                                        questionText = questionText
-                                    )
+            context.setContent {
+                Fe_funzoTheme {
+                    Scaffold(
+                        modifier = Modifier.fillMaxSize()
+                    ) { innerPadding ->
+                        Column(modifier = Modifier.padding(innerPadding)) {
+                            when(OptionType.find(optionTypeName = optioptionTypeNameType)) {
+                                OptionType.MULTIPLE_CHOICE -> {
+                                    SetMCQ(option = option, questionText = questionText)
+                                }
+
+                                OptionType.TRUE_FALSE -> {
+                                    SetTrueFalse(questionText = questionText, option = option)
+                                }
+                                else -> {
+                                    throw IllegalArgumentException("OptionType type: \"$optioptionTypeNameType\" does not exit")
                                 }
                             }
                         }
                     }
-                }
-                OptionType.TRUE_FALSE -> {
-                    context.setContent {
-                        var (isSubmitted, setSubmitted) = remember { mutableStateOf(false) }
-                        var (selectedOption, setSelectedOption) = remember { mutableStateOf<Boolean?>(null) }
-
-                        Fe_funzoTheme {
-                            Scaffold(
-                                modifier = Modifier.fillMaxSize()
-                            ) { innerPadding ->
-                                Column(modifier = Modifier.padding(innerPadding)) {
-                                    TrueFalseQuizScreen(
-                                        question = questionText,
-                                        onSubmit = {
-                                            setSubmitted(true)
-                                            setSelectedOption(it)
-                                        }
-                                    )
-                                }
-                            }
-                        }
-
-                        if (isSubmitted) {
-                            SubmitAnswer(option = option, selectedOption = selectedOption.toString())
-                            setSubmitted(false)
-                        }
-                    }
-                }
-
-                else -> {
-                    throw IllegalArgumentException("OptionType type: \"$optionType\" does not exit")
                 }
             }
         }
+    }
+
+    @Composable
+    private fun TakeExamViewModel.SetTrueFalse(
+        questionText: String,
+        option: Option
+    ) {
+        var (isSubmitted, setSubmitted) = remember {
+            mutableStateOf(
+                false
+            )
+        }
+        var (selectedOption, setSelectedOption) = remember {
+            mutableStateOf<Boolean?>(
+                null
+            )
+        }
+        TrueFalseQuizScreen(
+            question = questionText,
+            onSubmit = {
+                setSubmitted(true)
+                setSelectedOption(it)
+            }
+        )
+
+        if (isSubmitted) {
+            SubmitAnswer(
+                option = option,
+                selectedOption = selectedOption.toString()
+            )
+            setSubmitted(false)
+        } else {
+
+        }
+    }
+
+    private fun getOption(optionResponse: OptionResponse?): Option {
+        var option: Option = Option()
+        if (optionResponse != null) {
+            option = OptionMapper.mapFromOptionResponse(optionResponse)
+        }
+        return option
     }
 
     @Composable
@@ -148,7 +158,7 @@ class TakeExamViewModel: ViewModel() {
         assessAnswer(option)
         nextPosition()
 
-        if (this.getCurrentPosition() < this.totalNumberOfQuestions){
+        if (this.getCurrentPosition() < this.getTotalNumberOfQuestions()){
             DisplayQuestion()
         } else {
             context.setContent {
@@ -188,8 +198,9 @@ class TakeExamViewModel: ViewModel() {
 
     @Composable
     private fun DisplayResults() {
-        val score: Double = correctAnswers.toDouble() / totalNumberOfQuestions.toDouble()
+        val score: Double = correctAnswers.toDouble() / getTotalNumberOfQuestions().toDouble()
         val result: String = "Result: $score"
+
 
         Text(result)
         Button(onClick = {
@@ -281,7 +292,7 @@ class TakeExamViewModel: ViewModel() {
         this.totalNumberOfQuestions = totalNumberOfQuestions
     }
 
-    fun getTotalNumberOfQuestions() : Int {
+    private fun getTotalNumberOfQuestions() : Int {
         return this.totalNumberOfQuestions
     }
 }
