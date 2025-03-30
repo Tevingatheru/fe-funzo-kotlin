@@ -90,6 +90,7 @@ class TakeExamViewModel: ViewModel() {
                 OptionType.TRUE_FALSE -> {
                     context.setContent {
                         var (isSubmitted, setSubmitted) = remember { mutableStateOf(false) }
+                        var (selectedOption, setSelectedOption) = remember { mutableStateOf<Boolean?>(null) }
 
                         Fe_funzoTheme {
                             Scaffold(
@@ -100,6 +101,7 @@ class TakeExamViewModel: ViewModel() {
                                         question = questionText,
                                         onSubmit = {
                                             setSubmitted(true)
+                                            setSelectedOption(it)
                                         }
                                     )
                                 }
@@ -107,7 +109,7 @@ class TakeExamViewModel: ViewModel() {
                         }
 
                         if (isSubmitted) {
-                            SubmitAnswer(option = option)
+                            SubmitAnswer(option = option, selectedOption = selectedOption.toString())
                             setSubmitted(false)
                         }
                     }
@@ -134,18 +136,19 @@ class TakeExamViewModel: ViewModel() {
         }
 
         if (isSubmitted) {
-            SubmitAnswer(option = option)
+            SubmitAnswer(option = option, null)
             setSubmitted(false)
         }
     }
 
 
     @Composable
-    private fun SubmitAnswer(option: Option?) {
-
+    private fun SubmitAnswer(option: Option?, selectedOption: String?) {
+        setSelectedOptionItem(selectedOption)
         assessAnswer(option)
         nextPosition()
-        if (this.currentPosition < this.totalNumberOfQuestions){
+
+        if (this.getCurrentPosition() < this.totalNumberOfQuestions){
             DisplayQuestion()
         } else {
             context.setContent {
@@ -226,13 +229,13 @@ class TakeExamViewModel: ViewModel() {
             submitMCQOptionsForm = {
                 Log.i(TAG,"MCQ submitted")
                 setSubmitted(true)
-                this.setSelectedOptionItem(selectedOption)
+
             },
             questionText = questionText
         )
 
         if (isSubmitted) {
-            SubmitAnswer(option)
+            SubmitAnswer(option, selectedOption = selectedOption)
 
             setSubmitted(false)
         }
@@ -246,13 +249,13 @@ class TakeExamViewModel: ViewModel() {
         return currentPosition
     }
 
-    fun nextPosition() {
+    private fun nextPosition() {
         ++currentPosition
     }
 
-    fun getCurrentQuestionByPosition(): QuestionContentResponse {
+    private fun getCurrentQuestionByPosition(): QuestionContentResponse {
         try {
-            return this.getQuestions()[this.currentPosition]
+            return this.getQuestions()[this.getCurrentPosition()]
         } catch (e: IndexOutOfBoundsException) {
             throw RuntimeException("End of exam reached.")
         }

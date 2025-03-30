@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -27,7 +28,7 @@ private val TAG: String = "TrueFalseQuizScreen"
 @Composable
 fun TrueFalseQuizScreen(
     question: String = "Can you see this question?",
-    onSubmit: () -> Unit = {}
+    onSubmit: (selectAnswer: Boolean?) -> Unit = {},
 ) {
     var (selectedAnswer, setSelectedAnswer) = remember { mutableStateOf<Boolean?>(null) }
 
@@ -94,7 +95,9 @@ fun TrueFalseQuizScreen(
         Spacer(modifier = Modifier.height(30.dp))
 
         Button(
-            onClick = onSubmit,
+            onClick = {
+                onSubmit(selectedAnswer)
+            },
             modifier = Modifier.align(Alignment.End)
         ) {
             Text("Submit")

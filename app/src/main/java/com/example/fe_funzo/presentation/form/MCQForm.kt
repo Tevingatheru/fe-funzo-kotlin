@@ -12,7 +12,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-
 private const val TAG: String = "MCQForm"
 
 @Composable
@@ -33,7 +32,6 @@ fun MCQForm(
     submitMCQOptionsForm: () -> Unit,
     questionText: String
 ) {
-
     Text("Multiple Choice")
     Text("Question: $questionText")
 
@@ -146,9 +144,9 @@ private fun selectA(
 ) {
     setCorrectOption(optionA)
     isOptionASelected.value = true
-    isOptionBSelected.value = false
-    isOptionCSelected.value = false
-    isOptionDSelected.value = false
+    setBtoFalse(isOptionBSelected)
+    setCtoFalse(isOptionCSelected)
+    setDtoFalse(isOptionDSelected)
 }
 
 private fun selectB(
@@ -161,9 +159,9 @@ private fun selectB(
 ) {
     setCorrectOption(optionB)
     isOptionBSelected.value = true
-    isOptionASelected.value = false
-    isOptionCSelected.value = false
-    isOptionDSelected.value = false
+    setAtoFalse(isOptionASelected)
+    setCtoFalse(isOptionCSelected)
+    setDtoFalse(isOptionDSelected)
 }
 
 private fun selectC(
@@ -185,9 +183,9 @@ private fun selectCorrectOptionField(
     isOptionDSelected: MutableState<Boolean>
 ) {
     isOptionCSelected.value = true
-    isOptionASelected.value = false
-    isOptionBSelected.value = false
-    isOptionDSelected.value = false
+    setAtoFalse(isOptionASelected)
+    setBtoFalse(isOptionBSelected)
+    setDtoFalse(isOptionDSelected)
 }
 
 private fun selectD(
@@ -200,9 +198,9 @@ private fun selectD(
 ) {
     setCorrectOption(optionD)
     isOptionDSelected.value = true
-    isOptionASelected.value = false
-    isOptionBSelected.value = false
-    isOptionCSelected.value = false
+    setAtoFalse(isOptionASelected)
+    setBtoFalse(isOptionBSelected)
+    setCtoFalse(isOptionCSelected)
 }
 
 private fun clearFields(
@@ -211,8 +209,24 @@ private fun clearFields(
     isOptionBSelected: MutableState<Boolean>,
     isOptionCSelected: MutableState<Boolean>
 ) {
+    setAtoFalse(isOptionASelected)
+    setBtoFalse(isOptionBSelected)
+    setCtoFalse(isOptionCSelected)
+    setDtoFalse(isOptionDSelected)
+}
+
+private fun setDtoFalse(isOptionDSelected: MutableState<Boolean>) {
     isOptionDSelected.value = false
+}
+
+private fun setAtoFalse(isOptionASelected: MutableState<Boolean>) {
     isOptionASelected.value = false
+}
+
+private fun setBtoFalse(isOptionBSelected: MutableState<Boolean>) {
     isOptionBSelected.value = false
+}
+
+private fun setCtoFalse(isOptionCSelected: MutableState<Boolean>) {
     isOptionCSelected.value = false
 }
