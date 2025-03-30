@@ -124,6 +124,12 @@ fun MCQForm(
     Spacer(modifier = Modifier.height(16.dp))
 
     Button(onClick = {
+        clearFields(
+            isOptionASelected = isOptionASelected,
+            isOptionBSelected = isOptionBSelected,
+            isOptionCSelected = isOptionCSelected,
+            isOptionDSelected = isOptionDSelected
+        )
         submitMCQOptionsForm()
     }) {
         Text("Add/Edit Multiple Choice Options")
@@ -199,4 +205,14 @@ private fun selectD(
     isOptionCSelected.value = false
 }
 
-
+private fun clearFields(
+    isOptionDSelected: MutableState<Boolean>,
+    isOptionASelected: MutableState<Boolean>,
+    isOptionBSelected: MutableState<Boolean>,
+    isOptionCSelected: MutableState<Boolean>
+) {
+    isOptionDSelected.value = false
+    isOptionASelected.value = false
+    isOptionBSelected.value = false
+    isOptionCSelected.value = false
+}

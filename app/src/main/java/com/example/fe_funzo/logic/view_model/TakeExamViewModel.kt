@@ -102,7 +102,6 @@ class TakeExamViewModel: ViewModel() {
                                             setSubmitted(true)
                                         }
                                     )
-
                                 }
                             }
                         }
@@ -207,7 +206,7 @@ class TakeExamViewModel: ViewModel() {
         var isOptionBSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(false) }
         var isOptionCSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(false) }
         var isOptionDSelected: MutableState<Boolean> = remember { mutableStateOf<Boolean>(false) }
-        var (isSubmitted, setSubmitted) = remember { mutableStateOf(false) }
+        var (isSubmitted, setSubmitted) = remember { mutableStateOf<Boolean>(false) }
         val (selectedOption, setSelectedOption) = remember { mutableStateOf<String?>(null) }
 
         MCQForm(
