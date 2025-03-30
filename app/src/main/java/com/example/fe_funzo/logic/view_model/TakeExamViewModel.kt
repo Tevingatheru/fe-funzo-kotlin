@@ -17,15 +17,23 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.data.model.Option
 import com.example.fe_funzo.data.model.OptionType
+import com.example.fe_funzo.data.retrofit.request.AddResultRequest
+import com.example.fe_funzo.data.retrofit.response.AddResultResponse
 import com.example.fe_funzo.data.retrofit.response.ExamContentResponse
 import com.example.fe_funzo.data.retrofit.response.OptionResponse
 import com.example.fe_funzo.data.retrofit.response.QuestionContentResponse
+import com.example.fe_funzo.infa.client.room.handler.UserRepositoryHandler
 import com.example.fe_funzo.infa.mapper.OptionMapper
 import com.example.fe_funzo.infa.util.NavigationUtil
+import com.example.fe_funzo.logic.service.client.ResultClientService
+import com.example.fe_funzo.logic.service.client.impl.ResultClientServiceImpl
+import com.example.fe_funzo.logic.service.repo.impl.ExamRepositoryServiceImpl
+import com.example.fe_funzo.logic.service.repo.impl.UserRepoServiceImpl
 import com.example.fe_funzo.presentation.activity.TakeExamActivity
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.presentation.form.MCQForm
 import com.example.fe_funzo.presentation.view.TrueFalseQuizScreen
+import kotlinx.coroutines.runBlocking
 
 
 class TakeExamViewModel: ViewModel() {
@@ -48,10 +56,10 @@ class TakeExamViewModel: ViewModel() {
         val nextQuestion: QuestionContentResponse = getCurrentQuestionByPosition()
         val questionText = nextQuestion.text!!
         val optionResponse = nextQuestion.option
-        val optioptionTypeNameType = nextQuestion.questionType
+        val optionTypeName = nextQuestion.questionType
         val option: Option = getOption(optionResponse)
 
-        if (optioptionTypeNameType == null) {
+        if (optionTypeName == null) {
             Log.i(TAG, "should display IncompleteQuestionScreen")
             context.setContent {
                 Fe_funzoTheme {
@@ -71,7 +79,7 @@ class TakeExamViewModel: ViewModel() {
                         modifier = Modifier.fillMaxSize()
                     ) { innerPadding ->
                         Column(modifier = Modifier.padding(innerPadding)) {
-                            when(OptionType.find(optionTypeName = optioptionTypeNameType)) {
+                            when(OptionType.find(optionTypeName = optionTypeName)) {
                                 OptionType.MULTIPLE_CHOICE -> {
                                     SetMCQ(option = option, questionText = questionText)
                                 }
@@ -80,7 +88,7 @@ class TakeExamViewModel: ViewModel() {
                                     SetTrueFalse(questionText = questionText, option = option)
                                 }
                                 else -> {
-                                    throw IllegalArgumentException("OptionType type: \"$optioptionTypeNameType\" does not exit")
+                                    throw IllegalArgumentException("OptionType type: \"$optionTypeName\" does not exit")
                                 }
                             }
                         }
@@ -201,12 +209,27 @@ class TakeExamViewModel: ViewModel() {
         val score: Double = correctAnswers.toDouble() / getTotalNumberOfQuestions().toDouble()
         val result: String = "Result: $score"
 
+        sendScoreToBackEnd(score)
 
         Text(result)
         Button(onClick = {
             NavigationUtil.navigateToLandingPage(context = context)
         }) {
             Text("Done")
+        }
+    }
+
+    private fun sendScoreToBackEnd(score: Double) {
+        runBlocking {
+            val resultClientService: ResultClientService = ResultClientServiceImpl()
+            val userCode = UserRepoServiceImpl(context = context).getFirstUser().userCode
+            val examCode = ExamRepositoryServiceImpl(context = context).getExistingExam().examCode!!
+            val addResultRequest: AddResultRequest = AddResultRequest(
+                examCode = examCode,
+                userCode = userCode,
+                score = score
+            )
+            resultClientService.addResult(addResultRequest = addResultRequest)
         }
     }
 
