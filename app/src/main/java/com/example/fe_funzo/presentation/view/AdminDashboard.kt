@@ -11,7 +11,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.infa.util.NavigationUtil
@@ -22,16 +21,14 @@ import com.example.fe_funzo.ui.theme.DashboardView
 class AdminDashboard : ComponentActivity() {
 
     companion object {
-        internal const val TAG = "AdminDashboards"
+        private const val TAG = "AdminDashboards"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val bIViewModel: BIViewModel = BIViewModel()
-
-        val userCount: MutableState<Int> = bIViewModel.getUserCount()
-
+        bIViewModel.getUserStats()
         val dashboardView: DashboardView = DashboardView()
 
         val context : AdminDashboard = this
@@ -45,14 +42,34 @@ class AdminDashboard : ComponentActivity() {
                         }) {
                             Text("Back")
                         }
-                        dashboardView.DashboardCard(
-                            label = "Users",
-                            value = userCount.value.toString(),
-                        )
+                        showUserStats(dashboardView, bIViewModel)
                     }
                 }
             }
         }
+    }
+
+    @Composable
+    private fun showUserStats(
+        dashboardView: DashboardView,
+        bIViewModel: BIViewModel
+    ) {
+        dashboardView.DashboardCard(
+            label = "Users",
+            value = bIViewModel.getTotalUserCount().toString()
+        )
+        dashboardView.DashboardCard(
+            label = "Admins",
+            value = bIViewModel.getTotalAdminCount().toString(),
+        )
+        dashboardView.DashboardCard(
+            label = "Teachers",
+            value = bIViewModel.getTotalTeacherCount().toString(),
+        )
+        dashboardView.DashboardCard(
+            label = "Students",
+            value = bIViewModel.getTotalStudentCount().toString(),
+        )
     }
 }
 
