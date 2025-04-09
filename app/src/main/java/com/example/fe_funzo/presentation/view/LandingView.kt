@@ -37,6 +37,7 @@ class LandingView {
     private fun navigateToDashboardScreen(context: Context) {
         val currentUser: User = UserRepoServiceImpl(context).getFirstUser()
         val dashboardNavigationContext: DashboardNavigationContext<DashboardPolicy> = DashboardNavigationContext<DashboardPolicy>()
+
         if (currentUser.findUserType().isAdmin()) {
             dashboardNavigationContext.setStrategy(dashboardStrategy = AdminDashboardStrategyImpl())
         } else if (currentUser.findUserType().isStudent()) {
