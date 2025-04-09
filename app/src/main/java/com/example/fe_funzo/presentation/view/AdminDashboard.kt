@@ -30,8 +30,9 @@ class AdminDashboard : ComponentActivity() {
         val bIViewModel: BIViewModel = BIViewModel()
         bIViewModel.getUserStats()
         val dashboardView: DashboardView = DashboardView()
-
         val context : AdminDashboard = this
+        bIViewModel.getExamStats(context = context)
+
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
@@ -42,7 +43,8 @@ class AdminDashboard : ComponentActivity() {
                         }) {
                             Text("Back")
                         }
-                        showUserStats(dashboardView, bIViewModel)
+                        ShowExamStats(dashboardView, bIViewModel)
+                        ShowUserStats(dashboardView, bIViewModel)
                     }
                 }
             }
@@ -50,7 +52,20 @@ class AdminDashboard : ComponentActivity() {
     }
 
     @Composable
-    private fun showUserStats(
+    private fun ShowExamStats(dashboardView: DashboardView,
+                              bIViewModel: BIViewModel) {
+        val examAverages = bIViewModel.getExamAverageResponse()
+
+        examAverages.forEach{
+            dashboardView.DashboardCard(
+                label = it.examName,
+                value = it.averageScoreOfTotalAttempts.toString()
+            )
+        }
+    }
+
+    @Composable
+    private fun ShowUserStats(
         dashboardView: DashboardView,
         bIViewModel: BIViewModel
     ) {
@@ -72,7 +87,6 @@ class AdminDashboard : ComponentActivity() {
         )
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

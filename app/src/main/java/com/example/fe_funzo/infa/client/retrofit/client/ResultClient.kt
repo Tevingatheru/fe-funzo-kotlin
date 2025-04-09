@@ -2,6 +2,7 @@ package com.example.fe_funzo.infa.client.retrofit.client
 
 import com.example.fe_funzo.data.retrofit.request.AddResultRequest
 import com.example.fe_funzo.data.retrofit.response.AddResultResponse
+import com.example.fe_funzo.data.retrofit.response.AllExamAnalyticsResponse
 import com.example.fe_funzo.data.retrofit.response.StudentAnalyticsResponse
 import com.example.fe_funzo.data.retrofit.response.TeacherAnalyticsResponse
 import retrofit2.http.Body
@@ -18,4 +19,7 @@ interface ResultClient {
 
     @GET(value = "/results/teacher/stats/")
     suspend fun getTeacherAnalytics(@Query(value = "teacherCode") teacherCode: String): TeacherAnalyticsResponse
+
+    @GET(value = "/results/admin/stats/")
+    suspend fun getAllAnalytics(@Query(value = "adminCode") adminCode: String): AllExamAnalyticsResponse
 }

@@ -3,6 +3,7 @@ package com.example.fe_funzo.logic.service.client.impl
 import android.util.Log
 import com.example.fe_funzo.data.retrofit.request.AddResultRequest
 import com.example.fe_funzo.data.retrofit.response.AddResultResponse
+import com.example.fe_funzo.data.retrofit.response.AllExamAnalyticsResponse
 import com.example.fe_funzo.data.retrofit.response.StudentAnalyticsResponse
 import com.example.fe_funzo.data.retrofit.response.TeacherAnalyticsResponse
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
@@ -37,6 +38,12 @@ class ResultClientServiceImpl (private val resultClient: ResultClient = Retrofit
     override suspend fun getTeacherAnalytics(teacherCode: String): TeacherAnalyticsResponse {
         return withContext(Dispatchers.IO) {
             resultClient.getTeacherAnalytics(teacherCode = teacherCode)
+        }
+    }
+
+    override suspend fun getAllAnalytics(adminCode: String): AllExamAnalyticsResponse {
+        return withContext(Dispatchers.IO) {
+            resultClient.getAllAnalytics(adminCode = adminCode)
         }
     }
 }
