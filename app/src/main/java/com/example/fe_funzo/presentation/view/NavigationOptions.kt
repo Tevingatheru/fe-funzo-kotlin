@@ -19,6 +19,7 @@ fun NavigationOptions(
     Button(onClick = {
         navigateToProfileScreen()
     }) { Text(text = "Profile") }
+
     if (userType != UserType.ADMINISTRATOR) {
         Button(onClick = {
             navigateToViewExamsActivity()

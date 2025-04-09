@@ -18,11 +18,9 @@ import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.data.model.Option
 import com.example.fe_funzo.data.model.OptionType
 import com.example.fe_funzo.data.retrofit.request.AddResultRequest
-import com.example.fe_funzo.data.retrofit.response.AddResultResponse
 import com.example.fe_funzo.data.retrofit.response.ExamContentResponse
 import com.example.fe_funzo.data.retrofit.response.OptionResponse
 import com.example.fe_funzo.data.retrofit.response.QuestionContentResponse
-import com.example.fe_funzo.infa.client.room.handler.UserRepositoryHandler
 import com.example.fe_funzo.infa.mapper.OptionMapper
 import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.service.client.ResultClientService
