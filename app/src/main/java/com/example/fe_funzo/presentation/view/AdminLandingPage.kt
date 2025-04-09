@@ -26,7 +26,7 @@ class AdminLandingPage : ComponentActivity() {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "onCreate")
         val firebaseViewModel = FirebaseViewModel()
-        val userEmail: String = FirebaseAuthClient.getUserEmail()
+
         val context: AdminLandingPage = this
         val landingView: LandingView = LandingView()
 
@@ -37,7 +37,7 @@ class AdminLandingPage : ComponentActivity() {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column (Modifier.padding(innerPadding)) {
-                        landingView.LandingScreen(context = context, username = userEmail)
+                        landingView.LandingScreen(context = context)
                     }
                 }
             }
@@ -56,6 +56,6 @@ class AdminLandingPage : ComponentActivity() {
 fun Preview1() {
     val landingView: LandingView = LandingView()
     Fe_funzoTheme {
-        landingView.LandingScreen(context = LocalContext.current, username = "Android")
+        landingView.LandingScreen(context = LocalContext.current)
     }
 }

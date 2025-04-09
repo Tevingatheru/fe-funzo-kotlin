@@ -30,7 +30,7 @@ class TeacherLandingPage : ComponentActivity() {
         firebaseViewModel.isUserLoggedOut(this)
         val landingView: LandingView = LandingView()
         val context: Context = this
-        val userEmail: String = FirebaseAuthClient.getUserEmail()
+
 
         enableEdgeToEdge()
         setContent {
@@ -38,7 +38,7 @@ class TeacherLandingPage : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column (Modifier.padding(innerPadding)) {
                         Text("Teacher Portal")
-                        landingView.LandingScreen(context = context, username = userEmail)
+                        landingView.LandingScreen(context = context)
                     }
                 }
             }
@@ -56,6 +56,6 @@ class TeacherLandingPage : ComponentActivity() {
 fun GreetingPreview() {
     val landingView: LandingView = LandingView()
     Fe_funzoTheme {
-        landingView.LandingScreen(context = LocalContext.current, username = "Teacher")
+        landingView.LandingScreen(context = LocalContext.current)
     }
 }

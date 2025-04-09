@@ -30,7 +30,7 @@ class StudentLandingPage : ComponentActivity() {
         val landingView: LandingView = LandingView()
         val firebaseViewModel = FirebaseViewModel()
         firebaseViewModel.isUserLoggedOut(this)
-        val userEmail: String = UserRepoServiceImpl(context = context).getFirstUser().email
+
         
         enableEdgeToEdge()
         setContent {
@@ -38,7 +38,7 @@ class StudentLandingPage : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
                         StudentLandingPageScreen()
-                        landingView.LandingScreen(context = context, username = userEmail)
+                        landingView.LandingScreen(context = context)
                     }
                 }
             }
