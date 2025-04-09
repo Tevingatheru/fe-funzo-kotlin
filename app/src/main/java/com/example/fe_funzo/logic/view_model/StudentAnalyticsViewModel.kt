@@ -9,7 +9,7 @@ import com.example.fe_funzo.logic.service.repo.impl.UserRepoServiceImpl
 import com.example.fe_funzo.presentation.activity.StudentDashboardActivity
 import kotlinx.coroutines.runBlocking
 
-class StudentAnalyticsModelView: ViewModel() {
+class StudentAnalyticsViewModel: ViewModel() {
     private lateinit var context: StudentDashboardActivity
 
     fun getStudentAnalytics(): StudentAnalyticsDto {

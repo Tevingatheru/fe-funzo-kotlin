@@ -14,23 +14,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fe_funzo.infa.util.NavigationUtil
-import com.example.fe_funzo.logic.view_model.StudentAnalyticsModelView
+import com.example.fe_funzo.logic.view_model.StudentAnalyticsViewModel
 import com.example.fe_funzo.presentation.activity.ui.theme.Fe_funzoTheme
 import com.example.fe_funzo.ui.theme.DashboardView
 
 class StudentDashboardActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val studentAnalyticsModelView: StudentAnalyticsModelView = StudentAnalyticsModelView()
+        val studentAnalyticsViewModel: StudentAnalyticsViewModel = StudentAnalyticsViewModel()
         val context : StudentDashboardActivity = this
 
-        studentAnalyticsModelView.setContext(context = context)
+        studentAnalyticsViewModel.setContext(context = context)
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-                        StudentDashboardScreen( studentAnalyticsModelView = studentAnalyticsModelView)
+                        StudentDashboardScreen( studentAnalyticsViewModel = studentAnalyticsViewModel)
                     }
                 }
             }
@@ -39,16 +39,17 @@ class StudentDashboardActivity : ComponentActivity() {
 }
 
 @Composable
-fun StudentDashboardScreen( studentAnalyticsModelView: StudentAnalyticsModelView) {
+fun StudentDashboardScreen(studentAnalyticsViewModel: StudentAnalyticsViewModel) {
     val dashboardView: DashboardView = DashboardView()
-    val studentAnalytics = studentAnalyticsModelView.getStudentAnalytics()
+    val studentAnalytics = studentAnalyticsViewModel.getStudentAnalytics()
+
 
     Text(
         text = "Hello Student Dashboard!",
     )
 
     Button(onClick = {
-        NavigationUtil.navigateToLandingPage(context = studentAnalyticsModelView.getContext())
+        NavigationUtil.navigateToLandingPage(context = studentAnalyticsViewModel.getContext())
     }) {
         Text("Back")
     }
@@ -68,6 +69,6 @@ fun StudentDashboardScreen( studentAnalyticsModelView: StudentAnalyticsModelView
 @Composable
 fun GreetingPreview8() {
     Fe_funzoTheme {
-        StudentDashboardScreen(StudentAnalyticsModelView())
+        StudentDashboardScreen(StudentAnalyticsViewModel())
     }
 }

@@ -31,7 +31,6 @@ class TeacherLandingPage : ComponentActivity() {
         val landingView: LandingView = LandingView()
         val context: Context = this
 
-
         enableEdgeToEdge()
         setContent {
             Fe_funzoTheme {

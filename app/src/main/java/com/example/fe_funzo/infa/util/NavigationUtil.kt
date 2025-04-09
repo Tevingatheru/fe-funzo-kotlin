@@ -45,18 +45,14 @@ object NavigationUtil {
     fun navigateToLandingPage(context: Context, userType: UserType) {
         Log.i(TAG, "Navigate to landing page.")
         if (userType.isAdmin()) {
-            Log.i(TAG, "Navigate to admin landing page.")
-            intent = Intent(context, AdminLandingPage::class.java)
+            navigateToAdminLandingPage(context = context)
         } else if (userType.isTeacher()) {
-            Log.i(TAG, "Navigate to teacher landing page.")
-            intent = Intent(context, TeacherLandingPage::class.java)
+            navigateToTeacherLandingPage(context = context)
         } else if (userType.isStudent()) {
-            Log.i(TAG, "Navigate to teacher landing page.")
-            intent = Intent(context, StudentLandingPage::class.java)
+            navigateToStudentLandingPage(context = context)
         } else {
             throw IllegalArgumentException("UserType does not exist: $userType")
         }
-        context.startActivity(intent)
     }
 
     fun navigateToAdminLandingPage(context: Context) {
@@ -66,6 +62,11 @@ object NavigationUtil {
 
     fun navigateToTeacherLandingPage(context: Context) {
         intent = Intent(context, TeacherLandingPage::class.java)
+        context.startActivity(intent)
+    }
+
+    fun navigateToStudentLandingPage(context: Context) {
+        intent = Intent(context, StudentLandingPage::class.java)
         context.startActivity(intent)
     }
 

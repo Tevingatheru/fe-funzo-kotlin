@@ -11,6 +11,7 @@ import com.example.fe_funzo.logic.service.repo.impl.UserRepoServiceImpl
 import com.example.fe_funzo.logic.strategy.impl.AdminDashboardStrategyImpl
 import com.example.fe_funzo.logic.strategy.impl.StudentDashboardStrategyImpl
 import com.example.fe_funzo.logic.strategy.context.DashboardNavigationContext
+import com.example.fe_funzo.logic.strategy.impl.TeacherDashboardStrategyImpl
 import com.example.fe_funzo.logic.strategy.policy.DashboardPolicy
 
 class LandingView {
@@ -24,10 +25,9 @@ class LandingView {
             text = "Welcome ${userEmail}!",
         )
         NavigationOptions(
-
-                navigateToViewExamsActivity = {
-                    navigateToViewExamsActivity(context =  context)
-                }
+            navigateToViewExamsActivity = {
+                navigateToViewExamsActivity(context =  context)
+            }
             ,
             navigateToDashboardScreen = {
                 navigateToDashboardScreen(context =  context)
@@ -51,6 +51,8 @@ class LandingView {
             dashboardNavigationContext.setStrategy(dashboardStrategy = AdminDashboardStrategyImpl())
         } else if (currentUser.findUserType().isStudent()) {
             dashboardNavigationContext.setStrategy(dashboardStrategy = StudentDashboardStrategyImpl())
+        } else if (currentUser.findUserType().isTeacher()) {
+            dashboardNavigationContext.setStrategy(dashboardStrategy = TeacherDashboardStrategyImpl())
         } else {
             throw IllegalArgumentException("This user can not navigate to the dashboard page.")
         }
