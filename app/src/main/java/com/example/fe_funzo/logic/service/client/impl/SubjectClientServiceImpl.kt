@@ -1,6 +1,7 @@
 package com.example.fe_funzo.logic.service.client.impl
 
 import com.example.fe_funzo.data.retrofit.request.CreateSubjectRequest
+import com.example.fe_funzo.data.retrofit.response.GetAllSubjectStatsResponse
 import com.example.fe_funzo.data.retrofit.response.GetAllSubjectsResponse
 import com.example.fe_funzo.data.retrofit.response.SubjectResponse
 import com.example.fe_funzo.infa.client.retrofit.RetrofitClientBuilder
@@ -21,6 +22,12 @@ class SubjectClientServiceImpl (private val subjectClient: SubjectClient = Retro
     override suspend fun getAllSubjects(): GetAllSubjectsResponse {
         return withContext(Dispatchers.IO) {
             subjectClient.getAllSubjects()
+        }
+    }
+
+    override suspend fun getAllSubjectsStats(adminCode: String): GetAllSubjectStatsResponse {
+        return withContext(Dispatchers.IO) {
+            subjectClient.getAllSubjectsStats(adminCode = adminCode)
         }
     }
 }

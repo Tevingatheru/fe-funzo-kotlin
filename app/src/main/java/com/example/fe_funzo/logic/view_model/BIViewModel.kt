@@ -4,31 +4,36 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.fe_funzo.data.retrofit.response.AllExamAnalyticsResponse
 import com.example.fe_funzo.data.retrofit.response.ExamAverageResponse
+import com.example.fe_funzo.data.retrofit.response.GetAllSubjectStatsResponse
 import com.example.fe_funzo.data.retrofit.response.UserCountResponse
 import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.logic.service.client.impl.ResultClientServiceImpl
+import com.example.fe_funzo.logic.service.client.impl.SubjectClientServiceImpl
 import com.example.fe_funzo.logic.service.client.impl.UserClientServiceImpl
 import com.example.fe_funzo.logic.service.repo.impl.UserRepoServiceImpl
 import kotlinx.coroutines.runBlocking
 
 class BIViewModel (): ViewModel() {
-    private var totalCount : Int = 0
-    private var  adminCount : Int = 0
-    private var  teacherCount : Int= 0
-    private var  studentCount : Int= 0
+    private var totalUserCount: Int = 0
+    private var adminCount: Int = 0
+    private var teacherCount: Int = 0
+    private var studentCount: Int = 0
+    private var subjectCount: Int = 0
+    private var examCountPerSubjectResponse: MutableList<Pair<String, Int>> = mutableListOf()
     private lateinit var examAverages: MutableList <ExamAverageResponse>
+    private lateinit var context: Context
 
     fun getUserStats() {
         runBlocking {
             val response: UserCountResponse = UserClientServiceImpl().getUserCount()
-            totalCount = response.totalCount
+            totalUserCount = response.totalCount
             adminCount = response.adminCount
             teacherCount = response.teacherCount
             studentCount = response.studentCount
         }
     }
 
-    fun getExamStats(context: Context) {
+    fun getExamStats() {
         val user: User = UserRepoServiceImpl(context = context).getFirstUser()
         runBlocking {
             val response: AllExamAnalyticsResponse = ResultClientServiceImpl().getAllAnalytics(user.userCode)
@@ -36,8 +41,32 @@ class BIViewModel (): ViewModel() {
         }
     }
 
+    fun getSubjectStats() {
+        val subjectClientServiceImpl: SubjectClientServiceImpl = SubjectClientServiceImpl()
+        val user = UserRepoServiceImpl(context = context).getFirstUser()
+        runBlocking {
+            val response : GetAllSubjectStatsResponse = subjectClientServiceImpl.getAllSubjectsStats(adminCode = user.userCode)
+            subjectCount = response.subjectCount.toInt()
+            examCountPerSubjectResponse = mapResponseToExamCount(response)
+        }
+    }
+
+    private fun mapResponseToExamCount(response: GetAllSubjectStatsResponse) : MutableList<Pair<String, Int>> {
+        val mapping : MutableList<Pair<String, Int>> = mutableListOf()
+        if (response.examCountPerSubject.isEmpty()) {
+            return mapping
+        }
+        response.examCountPerSubject.forEach {
+            mapping.add(Pair(it.subjectName, it.examCount.toInt()))
+        }
+        return mapping
+    }
+
+    fun setContext(context: Context) {
+        this.context = context
+    }
     fun getTotalUserCount() : Int {
-        return totalCount
+        return totalUserCount
     }
 
     fun getTotalTeacherCount() : Int {
@@ -54,5 +83,13 @@ class BIViewModel (): ViewModel() {
 
     fun getExamAverageResponse() : MutableList <ExamAverageResponse> {
         return examAverages
+    }
+
+    fun getSubjectCount(): Int {
+        return this.subjectCount
+    }
+
+    fun getExamCountPerSubjectResponse(): MutableList<Pair<String, Int>> {
+        return this.examCountPerSubjectResponse
     }
 }
