@@ -29,7 +29,7 @@ class StudentLandingPage : ComponentActivity() {
         val context : StudentLandingPage = this
         val landingView: LandingView = LandingView()
         val firebaseViewModel = FirebaseViewModel()
-        firebaseViewModel.isUserLoggedOut(this)
+        if(firebaseViewModel.isUserLoggedOut(this)) return
 
         
         enableEdgeToEdge()

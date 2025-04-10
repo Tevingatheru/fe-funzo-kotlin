@@ -12,6 +12,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -53,6 +54,7 @@ class AuthFormSignInStrategy : AuthFormStrategy<SignInDto> {
         TextField(
             value = password1,
             onValueChange = { request.signInVM.password.value = it },
+            visualTransformation = PasswordVisualTransformation(),
             label = { Text("Password") },
         )
         Spacer(modifier = Modifier.height(16.dp))

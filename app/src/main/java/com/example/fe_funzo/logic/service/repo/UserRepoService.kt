@@ -12,4 +12,5 @@ interface UserRepoService {
     fun getFirstUser(): User
     fun getUserType(): UserType
     fun deleteAll()
+    fun isLoggedIn(): Boolean
 }

@@ -8,6 +8,7 @@ import com.example.fe_funzo.infa.client.room.FunzoDatabase
 import com.example.fe_funzo.data.room.entity.User
 import com.example.fe_funzo.infa.client.room.UserDao
 import com.example.fe_funzo.infa.client.room.handler.UserRepositoryHandler
+import com.example.fe_funzo.infa.util.NavigationUtil
 import com.example.fe_funzo.logic.service.repo.UserRepoService
 import kotlinx.coroutines.runBlocking
 
@@ -42,7 +43,9 @@ class UserRepoServiceImpl (
 
     override fun getFirstUser(): User {
         return runBlocking {
-            userRepo.getFirstUser()
+            val user = userRepo.getFirstUser()
+
+            user
         }
     }
 
@@ -61,5 +64,10 @@ class UserRepoServiceImpl (
                 delete(it)
             }
         }
+    }
+
+    override fun isLoggedIn(): Boolean {
+        val user  = this.getFirstUser()
+        return user != null
     }
 }
