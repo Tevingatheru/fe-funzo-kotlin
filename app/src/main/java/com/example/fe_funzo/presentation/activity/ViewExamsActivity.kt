@@ -45,6 +45,13 @@ class ViewExamsActivity : ComponentActivity() {
                         Text(
                             text = "List of Created Exams",
                         )
+
+                        Button(onClick = {
+                            NavigationUtil.navigateToLandingPage(context = context)
+                        }) {
+                            Text("Back")
+                        }
+
                         if (examListViewModel.user.findUserType().isTeacher()){
                             TeachersExamListViewNavigationPanel(
                                 context = context,
@@ -57,6 +64,8 @@ class ViewExamsActivity : ComponentActivity() {
                             examListViewContext.setStrategy(examListViewStrategy = StudentExamListViewStrategyImpl())
                             examListViewContext.Display(policy = ExamListViewStrategyPolicy(examList = examListResponse, context = context))
                         }
+
+
                     }
                 }
             }
