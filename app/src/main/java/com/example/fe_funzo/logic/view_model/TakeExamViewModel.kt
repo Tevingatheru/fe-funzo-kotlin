@@ -50,49 +50,53 @@ class TakeExamViewModel: ViewModel() {
     @Composable
     fun DisplayQuestion() {
         Log.i(TAG, "DisplayQuestion")
+        var nextQuestion: QuestionContentResponse = QuestionContentResponse()
+        try {
+            nextQuestion = getCurrentQuestionByPosition()
+            val questionText = nextQuestion.text!!
+            val optionResponse = nextQuestion.option
+            val optionTypeName = nextQuestion.questionType
+            val option: Option = getOption(optionResponse)
 
-        val nextQuestion: QuestionContentResponse = getCurrentQuestionByPosition()
-        val questionText = nextQuestion.text!!
-        val optionResponse = nextQuestion.option
-        val optionTypeName = nextQuestion.questionType
-        val option: Option = getOption(optionResponse)
-
-        if (optionTypeName == null) {
-            Log.i(TAG, "should display IncompleteQuestionScreen")
-            context.setContent {
-                Fe_funzoTheme {
-                    Scaffold(
-                        modifier = Modifier.fillMaxSize()
-                    ) { innerPadding ->
-                        Column(modifier = Modifier.padding(innerPadding)) {
-                            IncompleteQuestionScreen(questionText = questionText, option = option)
+            if (optionTypeName == null) {
+                Log.i(TAG, "should display IncompleteQuestionScreen")
+                context.setContent {
+                    Fe_funzoTheme {
+                        Scaffold(
+                            modifier = Modifier.fillMaxSize()
+                        ) { innerPadding ->
+                            Column(modifier = Modifier.padding(innerPadding)) {
+                                IncompleteQuestionScreen(questionText = questionText, option = option)
+                            }
                         }
                     }
                 }
-            }
-        } else {
-            context.setContent {
-                Fe_funzoTheme {
-                    Scaffold(
-                        modifier = Modifier.fillMaxSize()
-                    ) { innerPadding ->
-                        Column(modifier = Modifier.padding(innerPadding)) {
-                            when(OptionType.find(optionTypeName = optionTypeName)) {
-                                OptionType.MULTIPLE_CHOICE -> {
-                                    SetMCQ(option = option, questionText = questionText)
-                                }
+            } else {
+                context.setContent {
+                    Fe_funzoTheme {
+                        Scaffold(
+                            modifier = Modifier.fillMaxSize()
+                        ) { innerPadding ->
+                            Column(modifier = Modifier.padding(innerPadding)) {
+                                when(OptionType.find(optionTypeName = optionTypeName)) {
+                                    OptionType.MULTIPLE_CHOICE -> {
+                                        SetMCQ(option = option, questionText = questionText)
+                                    }
 
-                                OptionType.TRUE_FALSE -> {
-                                    SetTrueFalse(questionText = questionText, option = option)
-                                }
-                                else -> {
-                                    throw IllegalArgumentException("OptionType type: \"$optionTypeName\" does not exit")
+                                    OptionType.TRUE_FALSE -> {
+                                        SetTrueFalse(questionText = questionText, option = option)
+                                    }
+                                    else -> {
+                                        throw IllegalArgumentException("OptionType type: \"$optionTypeName\" does not exit")
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        } catch (e: Exception) {
+            DisplayResults()
         }
     }
 
@@ -204,10 +208,15 @@ class TakeExamViewModel: ViewModel() {
 
     @Composable
     private fun DisplayResults() {
-        val score: Double = correctAnswers.toDouble() / getTotalNumberOfQuestions().toDouble()
-        val result: String = "Result: $score"
+        var score: Double = correctAnswers.toDouble() / getTotalNumberOfQuestions().toDouble()
+        val result: String
+        if(score.isNaN()) {
+            result = "No results"
+        } else {
+            result= "Result: ${score}"
+            sendScoreToBackEnd(score)
+        }
 
-        sendScoreToBackEnd(score)
 
         Text(result)
         Button(onClick = {
@@ -314,6 +323,6 @@ class TakeExamViewModel: ViewModel() {
     }
 
     private fun getTotalNumberOfQuestions() : Int {
-        return this.totalNumberOfQuestions
+        return this.totalNumberOfQuestions ?: 0
     }
 }
